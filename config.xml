@@ -68,6 +68,10 @@
         <splash height="960" platform="ios" src="res/screens/ios/Default@2x~iphone.png" width="640" />
         <splash height="480" platform="ios" src="res/screens/ios/Default~iphone.png" width="320" />
     </platform>
+    <config-file target="AndroidManifest.xml" parent="/*">
+        <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.CAMERA" />
+    </config-file>
     <platform name="browser">
         <preference name="SplashScreen" value="res/icons/ios/icon.png" />
         <preference name="AutoHideSplashScreen" value="true" />
