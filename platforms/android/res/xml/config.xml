@@ -57,6 +57,10 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <config-file parent="/*" target="AndroidManifest.xml">
+        <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.CAMERA" />
+    </config-file>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="phonegap-version" value="cli-6.5.0" />
 </widget>
