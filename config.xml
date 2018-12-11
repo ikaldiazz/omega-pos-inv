@@ -2,7 +2,7 @@
 <widget id="com.mbutgae.omega.inv" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Omega Invento</name>
     <description>
-        Omega POS and Inventory
+        Omega Point Of Sale and Inventory Management System
     </description>
     <author email="mbutgaecorp@gmail.com" href="https://gardenexoteak.com">
         Mbutgae Developer Team
