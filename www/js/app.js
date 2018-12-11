@@ -33,6 +33,7 @@ function onDone(err, status){
   if (err) {
    // here we can handle errors and clean up any loose ends.
    console.error(err);
+   console.log(status);
   }
   if (status.authorized) {
     // W00t, you have camera access and the scanner is initialized.
@@ -284,7 +285,7 @@ $$('#my-login-screen .login-button').on('click', function () {
 	        // console.log(formData);
 	        // console.log(response);
 	        output = JSON.parse(response);
-          // console.log(output);
+          console.log(output);
 	        // console.log(output.data);
 	        // console.log(output.user.uid);
 
