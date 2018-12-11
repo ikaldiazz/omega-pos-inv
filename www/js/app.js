@@ -18,7 +18,7 @@ document.addEventListener('deviceready', () => {
     console.log('Connection type: ' + states[networkState]);
 }
 
-// checkConnection();
+checkConnection();
 // document.addEventListener("offline", onOffline, false);
 
 // function onOffline() {
