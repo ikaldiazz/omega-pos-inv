@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.gae.mbut.inv" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="3403248" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Omega</name>
     <description>
         Omega POS and Inventory
@@ -23,8 +23,8 @@
         <icon qualifier="hdpi" src="res/icons/android/drawable-hdpi-icon.png" />
         <icon qualifier="xhdpi" src="res/icons/android/drawable-xhdpi-icon.png" />
         <icon qualifier="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
-        <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />        
-    </platform> 
+        <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
+    </platform>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="phonegap-version" value="cli-6.5.0" />
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
