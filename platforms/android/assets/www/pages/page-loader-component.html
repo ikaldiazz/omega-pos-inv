@@ -49,6 +49,7 @@
         <ul style="padding-left:25px">
           <li><b>$root.user.firstName</b>: {{$root.user.firstName}}</li>
           <li><b>$root.user.lastName</b>: {{$root.user.lastName}}</li>
+          <li><b>$root.user.lastName</b>: {{user.firstname}}</li>
           <li><a @click="$root.helloWorld()">$root.helloWorld()</a></li>
         </ul>
 
@@ -95,6 +96,7 @@
         name: 'Jimmy',
         age: 25,
         like: ['Tennis', 'Chess', 'Football'],
+        user:JSON.parse(localStorage.user),
       }
     },
     // Component Methods

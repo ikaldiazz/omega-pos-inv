@@ -14,6 +14,7 @@ routes = [
   {
     path: '/item/',
     async(to, from, resolve, reject) {
+      
       // data= {};
       app.request( {
         url: 'http://khojati.id/titip/api/v2/api.php/records/items/',
@@ -362,6 +363,11 @@ routes = [
   {
     path: '/config/',
     async: function (routeTo, routeFrom, resolve, reject) {
+      console.log("UID: "+localStorage.uid);
+      console.log("KEY: "+localStorage.key);
+      console.log("USER: "+localStorage.user);
+      // console.log("USER: "+JSON.stringify(localStorage.user));
+
       // Router instance
       var router = this;
 
@@ -399,7 +405,7 @@ routes = [
             app.preloader.hide();
             console.log('TEMP');
 
-            console.log(response)
+            console.log("routes User: "+localStorage.user)
 
             // Resolve route to load page
             resolve(
@@ -408,7 +414,7 @@ routes = [
               },
               {
                 context: {
-                  sales: response.records,
+                  user: localStorage.user,
                 }
               }
             );

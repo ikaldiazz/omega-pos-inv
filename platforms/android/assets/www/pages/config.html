@@ -19,16 +19,18 @@
   </div>
   <div class="page-content">
     <div class="block-title">Bio </div>
-    <form id="setting-form" action="send-here.html" method="GET" class="form-ajax-submit" enctype="multipart/form-data">
+    <!-- <form id="setting-form" action="send-here.html" method="POST" class="form-ajax-submit" enctype="multipart/form-data"> -->
+    <form id="setting-form">
     <div class="list no-hairlines-md">
       <ul>
-          <input type="hidden" name="uid" placeholder="Your name" value="{{uid}}"/>
+          <input type="hidden" name="uid" placeholder="Your name" value="{{user.uid}}"/>
         <li>
+          <!-- {"uid":"1","firstname":"Test","lastname":"Tost","email":"tes@tos.com","password":"1","phone":"085333669940","created":"2018-11-24 12:36:39","modified":"2018-11-24 12:36:39","status":"1"} -->
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">Name </div>
+              <div class="item-title item-label">Name</div>
               <div class="item-input-wrap">
-                <input type="text" name="fname" placeholder="Your name" value="{{fname}}" />
+                <input type="text" name="fname" placeholder="Your name" value="{{user.firstname}}" />
               </div>
             </div>
           </div>
@@ -38,7 +40,7 @@
             <div class="item-inner">
               <div class="item-title item-label">E-mail</div>
               <div class="item-input-wrap">
-                <input type="email" name="mail" placeholder="E-mail" value="{{mail}}"/>
+                <input type="email" name="mail" placeholder="E-mail" value="{{user.email}}"/>
               </div>
             </div>
           </div>
@@ -58,7 +60,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Password</div>
               <div class="item-input-wrap">
-                <input type="password" name="password" placeholder="Password"/>
+                <input type="password" name="password" placeholder="Password" value="{{user.password}}"/>
               </div>
             </div>
           </div>
@@ -68,7 +70,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Phone</div>
               <div class="item-input-wrap">
-                <input type="tel" name="phone" placeholder="Phone"/>
+                <input type="tel" name="phone" placeholder="Phone" value="{{user.phone}}"/>
               </div>
             </div>
           </div>
@@ -149,11 +151,7 @@
   return {
     data: function () {
       return {
-        user: this.$root.user,
-        mail: localStorage.mail,
-        uid: localStorage.uid,
-        fname: localStorage.fname,
-
+        user: JSON.parse(localStorage.user),
       };
     },
     // Component Methods

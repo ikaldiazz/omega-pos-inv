@@ -36,8 +36,11 @@
       * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
           * Enable inline JS: add 'unsafe-inline' to default-src
   <meta http-equiv="Content-Security-Policy" content="default-src * blob: 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-  -->
 	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
+	<meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://ssl.gstatic.com;img-src * 'self' data: content:;style-src 'self' 'unsafe-inline' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com * ws:;style-src 'self' 'unsafe-inline' data: blob:;media-src *;img-src * 'self' data: content:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -207,10 +210,10 @@
       </div>
     </div>
 
-    <!-- Views/Tabs container -->
-    <div class="views tabs ios-edges">
+    <!-- Views/Tabs container 
+    <div class="views tabs ios-edges">-->
       <!-- Tabbar for switching views-tabs -->
-      <div class="toolbar tabbar-labels toolbar-bottom-md">
+      <!--<div class="toolbar tabbar-labels toolbar-bottom-md">
         <div class="toolbar-inner">
           <a href="#view-home" class="tab-link tab-link-active">
             <i class="icon f7-icons ios-only">home</i>
@@ -224,7 +227,7 @@
             <i class="icon material-icons md-only">local_grocery_store</i>
             <span class="tabbar-label">Products</span>
           </a>
-          <!--<a href="#view-item" class="tab-link">
+          <a href="#view-item" class="tab-link">
             <i class="icon f7-icons ios-only">share</i>
             <i class="icon f7-icons ios-only icon-ios-fill">share_fill</i>
             <i class="icon material-icons md-only">dns</i>
@@ -235,9 +238,9 @@
             <i class="icon f7-icons ios-only icon-ios-fill">settings_fill</i>
             <i class="icon material-icons md-only">settings</i>
             <span class="tabbar-label">Settings</span>
-          </a> -->
+          </a> 
         </div>
-      </div>
+      </div>-->
       <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
       <div id="view-home" class="view view-main tab tab-active">
         <!-- Page, data-name contains page name which can be used in page callbacks -->
@@ -268,7 +271,7 @@
               <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
             </div>
 
-            <div class="block-title">Navigation</div>
+            <!-- <div class="block-title">Navigation</div>
             <div class="list">
               <ul>
                 <li>
@@ -327,15 +330,17 @@
                   <a href="/config/">Config</a>
                 </li>
               </ul>
-            </div>
+            </div> -->
+
+            
           </div>
         </div>
       </div>
 
       <!-- Catalog View -->
-      <div id="view-catalog" class="view tab">
+      <!-- <div id="view-catalog" class="view tab"> -->
         <!-- Catalog page will be loaded here dynamically from /catalog/ route -->
-      </div>
+      <!-- </div> -->
 
        <!-- Item View -->
       <!-- <div id="view-item" class="view tab"> -->

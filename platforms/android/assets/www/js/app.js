@@ -72,9 +72,6 @@ var app  = new Framework7({
   // App root data
   data: function () {
     return {
-      dvcx:{
-        // dvc
-      } ,
       user: {
         uid : 'mbutgae',
         key :'',
@@ -179,19 +176,6 @@ var app  = new Framework7({
     pageInit(page) {
       $$('.progressbar-infinite').hide();
       $$('#notif-progress').show();
-      // var self = this;
-      // var app = self.$app;
-      // self.searchbar = app.searchbar.create({
-      //   el: page.$el.find('.searchbar'),
-      //   on: {
-      //     enable(evt) {
-      //       Dom7('.page').css({'display':'none'})
-      //       setTimeout(function() {
-      //         Dom7('.page').css({'display':'block'})
-      //       }, 0)
-      //     }
-      //   }
-      // });
 
       //device ready here
       console.log(page.name);
@@ -200,7 +184,8 @@ var app  = new Framework7({
       	isLoggedIn()) {
       	app.loginScreen.close('#my-login-screen'); 
       } else {
-      	app.loginScreen.open('#my-login-screen');}
+      	app.loginScreen.open('#my-login-screen');
+      }
     },
   },
 });
@@ -228,38 +213,17 @@ $$('#view-home').on('tab:show', function () {
 	});
 });
 
-var catalogView = app.views.create('#view-catalog', {
-  url: '/catalog/'
-});
-$$('#view-catalog').on('tab:show', function () {
-  catalogView.router.refreshPage();
+// var catalogView = app.views.create('#view-catalog', {
+  // url: '/catalog/'
+// });
+// $$('#view-catalog').on('tab:show', function () {
+  // catalogView.router.refreshPage();
    // catalogView.router.back({
    //  url: '/', // - in case you use Ajax pages
    //  // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
    //  force: true
    //  });
-});
-
-// var settingsView = app.views.create('#view-settings', {
-//   url: '/settings/'
 // });
-// $$('#view-settings').on('tab:show', function () {
-//   settingsView.router.refreshPage();
-//   $$('.convert-form-to-data').on('click', function(){
-//   var formData = app.form.convertToData('#setting-form');
-//   app.dialog.alert(JSON.stringify(formData));
-//   console.log('xxxxxxx');
-//   });
-// });
-
-// var itemView = app.views.create('#view-item', {
-//   url: '/item/'
-// });
-// $$('#view-item').on('tab:show', function () {
-//   itemView.router.refreshPage();
-// });
-
-
 
 // Login Screen Demo
 $$('#my-login-screen .login-button').on('click', function () {
@@ -285,20 +249,21 @@ $$('#my-login-screen .login-button').on('click', function () {
 	        // console.log(formData);
 	        // console.log(response);
 	        output = JSON.parse(response);
-          console.log(output);
+          // console.log(output);
 	        // console.log(output.data);
 	        // console.log(output.user.uid);
 
 	        if(output.status=='success'){
+
+
+              // Alert username and name
+              // app.dialog.alert('UID: ' + response.uid + '<br>Name: ' + response.firstname);
+              localStorage.uid = output.data.uid;
+              localStorage.key = output.data.key;
+              localStorage.user = JSON.stringify(output.user);
 	            // Close login screen
 	            app.loginScreen.close('#my-login-screen');
               app.dialog.alert('Selamat Datang '+output.user.firstname, 'Welcome');
-
-
-	            // Alert username and name
-	            // app.dialog.alert('UID: ' + response.uid + '<br>Name: ' + response.firstname);
-	            localStorage.uid = username;
-	            localStorage.key = password;
 	            homeView.router.back({
       				  url: '/', // - in case you use Ajax pages
       				  // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
@@ -342,62 +307,6 @@ $$('.fill-form-from-data').on('click', function(){
   }
   app.form.fillFromData('#my-form', formData);
 });
-
-//searchbar on right panel
-// var searchbar = app.searchbar.create({
-//   el: '.search-right-panel',
-//   searchContainer: '.notfications-list',
-//   searchIn: '.item-title',
-//   on: {
-//     search(sb, query, previousQuery) {
-//       console.log(query, previousQuery);
-//     }
-//   }
-// });
-// var searchbar = app.searchbar.create({
-//   el: '.searchbar',
-//   on: {
-//     enable(evt) {
-//       Dom7('.page').css({'display':'none'})
-//       setTimeout(function() {
-//         Dom7('.page').css({'display':'block'})
-//       }, 0)
-//     }
-//   }
-// });
-
-// var searchbar = app.searchbar.create({
-//   el: '.searchbar',
-//   searchContainer: '.list',
-//   searchIn: '.item-title',
-//   on: {
-//     search(sb, query, previousQuery) {
-//       console.log(query, previousQuery);
-//       console.log(sb);
-//       console.log('c');
-
-//     }
-//   }
-// });
-
-
-// cordova.plugins.barcodeScanner.scan(
-//   function (result) {
-//     if(!result.cancelled)
-//     {
-//       alert("Barcode type is: " + result.format);
-//       alert("Decoded text is: " + result.text);
-//     }
-//     else
-//     {
-//       alert("You have cancelled scan");
-//     }
-//   },
-//   function (error) {
-//       alert("Scanning failed: " + error);
-//   }
-// );
-
 
 
 $$('.qrscanner').on('click', function(){
@@ -445,43 +354,3 @@ $$('.qrscanner').on('click', function(){
       //   }
       // }
 });
-
-
-
-
-// // Create dynamic Popup
-//     var dynamicPopup = app.popup.create({
-//       content: '<div class="popup">'+
-//                   '<div class="block">'+
-//                     '<p>'+JSON.stringify(status)+'.</p>'+
-//                     '<p><a href="#" class="link popup-close">Close me</a></p>'+
-//                   '</div>'+
-//                 '</div>',
-//       // Events
-//       on: {
-//         open: function (popup) {
-//           console.log('Popup open');
-//         },
-//         opened: function (popup) {
-//           console.log('Popup opened');
-//         },
-//       }
-//     });
-//     // Events also can be assigned on instance later
-//     dynamicPopup.on('close', function (popup) {
-//       console.log('Popup close');
-//     });
-//     dynamicPopup.on('closed', function (popup) {
-//       console.log('Popup closed');
-//     });
-
-//     // Open dynamic popup
-//     $$('.dynamic-popup').on('click', function () {
-//       dynamicPopup.open();
-//     });
-
-
-
-
-
-
