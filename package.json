@@ -1,0 +1,51 @@
+{
+  "name": "inventory-omega",
+  "version": "1.0.0",
+  "description": "Omega Inventory and POS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikaldiazz/omega-pos-inv.git"
+  },
+  "scripts": {
+    "serve": "http-server ./www/ -o -c 1 -a localhost",
+    "copy-f7": "cpy node_modules/framework7/js/*.* www/lib/framework7/js && cpy node_modules/framework7/css/*.* www/lib/framework7/css && cpy node_modules/framework7-icons/fonts/*.* www/lib/fonts && cpy node_modules/material-design-icons/iconfont/*.{eot,ttf,woff,woff2} www/lib/fonts",
+    "postinstall": "npm run copy-f7"
+  },
+  "author": "Haikal Diaz",
+  "license": "MIT",
+  "dependencies": {
+    "cordova-android": "^4.1.1",
+    "cordova-plugin-camera": "4.0.3",
+    "cordova-plugin-console": "1.1.0",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-file": "6.0.1",
+    "cordova-plugin-network-information": "2.0.1",
+    "cordova-plugin-qrscanner": "2.4.0",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-whitelist": "1.3.0"
+  },
+  "homepage": "https://github.com/ikaldiazz/omega-pos-inv#readme",
+  "devDependencies": {
+    "cpy-cli": "^1.0.1",
+    "framework7": "^3.6.0",
+    "framework7-icons": "^0.9.1",
+    "http-server": "^0.10.0",
+    "material-design-icons": "^3.0.1"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-camera": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-console": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-qrscanner": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-file": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
+}
