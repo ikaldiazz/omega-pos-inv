@@ -44,6 +44,8 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-file": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

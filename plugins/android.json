@@ -19,9 +19,6 @@
         "cordova-plugin-qrscanner": {
             "PACKAGE_NAME": "com.gae.mbut.inv"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.gae.mbut.inv"
-        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.gae.mbut.inv"
         },

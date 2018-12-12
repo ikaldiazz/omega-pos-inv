@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.gae.mbut.inv" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mbutgae.omega.inv" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
@@ -9,10 +9,6 @@
     </feature>
     <feature name="QRScanner">
         <param name="android-package" value="com.bitpay.cordova.qrscanner.QRScanner" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-        <param name="onload" value="true" />
     </feature>
     <feature name="StatusBar">
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
@@ -30,24 +26,12 @@
     <icon qualifier="xhdpi" src="res/icons/android/drawable-xhdpi-icon.png" />
     <icon qualifier="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
     <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
-    <splash qualifier="land-ldpi" src="res/screens/android/drawable-land-ldpi-screen.png" />
-    <splash qualifier="land-mdpi" src="res/screens/android/drawable-land-mdpi-screen.png" />
-    <splash qualifier="land-hdpi" src="res/screens/android/drawable-land-hdpi-screen.png" />
-    <splash qualifier="land-xhdpi" src="res/screens/android/drawable-land-xhdpi-screen.png" />
-    <splash qualifier="land-xxhdpi" src="res/screens/android/drawable-land-xxhdpi-screen.png" />
-    <splash qualifier="land-xxxhdpi" src="res/screens/android/drawable-land-xxxhdpi-screen.png" />
-    <splash qualifier="port-ldpi" src="res/screens/android/drawable-port-ldpi-screen.png" />
-    <splash qualifier="port-mdpi" src="res/screens/android/drawable-port-mdpi-screen.png" />
-    <splash qualifier="port-hdpi" src="res/screens/android/drawable-port-hdpi-screen.png" />
-    <splash qualifier="port-xhdpi" src="res/screens/android/drawable-port-xhdpi-screen.png" />
-    <splash qualifier="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi-screen.png" />
-    <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
-    <name>Omega</name>
+    <name>Omega Invento</name>
     <description>
-        Omega POS and Inventory
+        Omega Point Of Sale and Inventory Management System
     </description>
     <author email="mbutgaecorp@gmail.com" href="https://gardenexoteak.com">
-        Mbutgae Developer Team
+        Mbutgae Developer
     </author>
     <content src="index.html" />
     <access origin="*" />

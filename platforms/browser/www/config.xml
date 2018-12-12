@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.gae.mbut.inv" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mbutgae.omega.inv" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Camera">
         <param name="browser-package" value="Camera" />
     </feature>
@@ -9,12 +9,12 @@
     <feature name="QRScanner">
         <param name="browser-package" value="QRScanner" />
     </feature>
-    <name>Omega</name>
+    <name>Omega Invento</name>
     <description>
-        Omega POS and Inventory
+        Omega Point Of Sale and Inventory Management System
     </description>
     <author email="mbutgaecorp@gmail.com" href="https://gardenexoteak.com">
-        Mbutgae Developer Team
+        Mbutgae Developer
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -26,11 +26,4 @@
     <allow-intent href="geo:*" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="phonegap-version" value="cli-6.5.0" />
-    <preference name="SplashScreen" value="res/icons/ios/icon.png" />
-    <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="SplashScreenDelay" value="1000" />
-    <preference name="SplashScreenBackgroundColor" value="green" />
-    <preference name="ShowSplashScreen" value="false" />
-    <preference name="SplashScreenWidth" value="600" />
-    <preference name="SplashScreenHeight" value="300" />
 </widget>
