@@ -37,6 +37,7 @@ ehthumbs.db
 Thumbs.db
 
 node_modules/*
+platforms/*
 plugins/*
 
 package-lock.json
