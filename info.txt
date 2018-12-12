@@ -1,3 +1,9 @@
+Node version: v8.11.1
+
+Cordova version: 5.4.1
+
+Config.xml file: 
+
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.mbutgae.omega.inv" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Omega Invento</name>
@@ -5,7 +11,7 @@
         Omega Point Of Sale and Inventory Management System
     </description>
     <author email="mbutgaecorp@gmail.com" href="https://gardenexoteak.com">
-        Mbutgae Developer
+        Mbutgae Developer Team
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -25,7 +31,6 @@
         <icon qualifier="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
         <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
     </platform>
-    <engine name="android" spec="^4.1.1" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="phonegap-version" value="cli-6.5.0" />
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
@@ -36,3 +41,15 @@
     <plugin name="cordova-plugin-qrscanner" spec="2.4.0" />
     <plugin name="cordova-plugin-network-information" spec="2.0.1" />
 </widget>
+
+
+Plugins: 
+
+cordova-plugin-camera,cordova-plugin-console,cordova-plugin-device,cordova-plugin-network-information,cordova-plugin-qrscanner,cordova-plugin-splashscreen,cordova-plugin-statusbar,cordova-plugin-whitelist
+
+Error retrieving Android platform information: Error: cmd: Command failed with exit code 1 Error output:
+'android' is not recognized as an internal or external command,
+operable program or batch file.
+
+
+
