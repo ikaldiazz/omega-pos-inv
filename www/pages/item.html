@@ -1,0 +1,87 @@
+<template>
+  <div class="page" data-name="item">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="title">Stok</div>
+          <div class="subnavbar">
+            <!-- Searchbar with auto init -->
+            <form class="searchbar">
+              <div class="searchbar-inner">
+                <div class="searchbar-input-wrap">
+                  <input type="search" placeholder="Search">
+                  <i class="searchbar-icon"></i>
+                  <span class="input-clear-button"></span>
+                </div>
+                <span class="searchbar-disable-button">Batal</span>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="progressbar-infinite"></div>
+      <!-- Searchbar backdrop -->
+      <div class="searchbar-backdrop"></div>
+      <!-- hide-on-search element -->
+      <div class="block searchbar-hide-on-search">
+        <p>Cari dengan kata kunci nama barang atau kode.<a href="#" class="button button-fill qrscanner">SCAN QR</a></p>
+      </div>
+
+      <!-- <div class="list links-list"> -->
+        <!-- {{products}} -->
+        <!-- {{title}} -->
+        <!-- <ul> -->
+          <!-- {{#each products}} -->
+            <!-- <li><a href="/product/{{iid}}/">{{iname}}</a></li> -->
+          <!-- {{/each}} -->
+        <!-- </ul> -->
+      <!-- </div> -->
+      <!-- search target list -->
+      <div class="list searchbar-found media-list">
+        <ul>
+          {{#each products}}
+          <li>
+            <a href="/product/{{iid}}/" class="item-link item-content">
+              <div class="item-media"><img src="https://picsum.photos/100/?image={{iid-3000000}}" width="80"/></div>
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">{{iname}}</div>
+                  <div class="item-after">{{bprice}}</div>
+                </div>
+                <div class="item-subtitle">{{icode}}</div>
+                <div class="item-text">{{modified}} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div>
+            </a>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+
+
+      <!-- Nothing found message -->
+      <div class="block searchbar-not-found">
+        <div class="block-inner">Tidak Ada Data yang ditemukan</div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Component Data
+    data: function () {
+      // Must return an object
+      return {
+        name: localStorage.uname,
+        details:localStorage
+      }
+    },
+    // Component Methods
+    methods: {
+      openAlert: function () {
+      },
+    },
+  }
+
+
+
+</script>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.mbutgae.omega.inv" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="QRScanner">
+        <param name="android-package" value="com.bitpay.cordova.qrscanner.QRScanner" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <preference name="android-minSdkVersion" value="14" />
+    <allow-intent href="market:*" />
+    <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
+    <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
+    <icon qualifier="hdpi" src="res/icons/android/drawable-hdpi-icon.png" />
+    <icon qualifier="xhdpi" src="res/icons/android/drawable-xhdpi-icon.png" />
+    <icon qualifier="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
+    <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
+    <name>Omega Invento</name>
+    <description>
+        Omega Point Of Sale and Inventory Management System
+    </description>
+    <author email="mbutgaecorp@gmail.com" href="https://gardenexoteak.com">
+        Mbutgae Developer
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="phonegap-version" value="cli-6.5.0" />
+</widget>
