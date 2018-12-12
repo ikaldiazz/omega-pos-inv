@@ -69,6 +69,7 @@ var app  = new Framework7({
   id: 'com.mbutgae.omega', // App bundle ID
   name: 'Omega POS Inventory', // App name
   theme: 'auto', // Automatic theme detection
+  pushState: true, //backButton
   // App root data
   data: function () {
     return {
@@ -354,3 +355,31 @@ $$('.qrscanner').on('click', function(){
       //   }
       // }
 });
+
+function onDeviceReady() {
+    document.addEventListener('backbutton', onBackKeyDown, false);
+}
+
+function onBackKeyDown() {
+    var cpage = mainView.activePage;
+    var cpagename = cpage.name;
+    console.log(cpagename);
+    if (($$('#leftpanel').hasClass('active')) || ($$('#rightpanel').hasClass('active'))) { // #leftpanel and #rightpanel are id of both panels.
+        myApp.closePanel();
+        return false;
+    } else if ($$('.modal-in').length > 0) {
+        myApp.closeModal();
+        return false;
+    } else if (cpagename == 'index') {
+        myApp.confirm('Are you sure you want to exit?', function() {
+            // var deviceType = device.platform;
+            // if(deviceType == “Android” || deviceType == “android”){
+            navigator.app.exitApp();
+            // }
+        },
+        function() {
+        });
+    } else {
+        mainView.router.back();
+    }
+}
