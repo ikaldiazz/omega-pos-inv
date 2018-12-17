@@ -4,7 +4,7 @@
     <div class="navbar-inner sliding">
       <div class="title">Settings</div>
       <div class="right">
-        <a @click="updateData" href="#" class="link icon-only">
+        <a @click="$root.onBackKeyDown()" href="#" class="link icon-only">
           <i class="icon f7-icons ios-only">menu</i>
           <i class="icon material-icons md-only">notifications</i>
         </a>
@@ -124,6 +124,7 @@
         <!-- <a @click="updateData" href="#" class="col button button-fill">Fill</a> -->
         <a @click="logout" href="#" class="button logout-button col button-big button-fill button-raised color-red" id="logout-btn">Logout</a>
         <a @click="$root.formToData('#setting-form')">Test Method</a>
+        <a @click="$root.onBackKeyDown()">Test BACK</a>
       </p>
     </div>
     </form>

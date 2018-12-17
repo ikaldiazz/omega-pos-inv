@@ -11,7 +11,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.11',
+  version: '1.0.12',
   name: 'Omega POS Inventory', // App name
   theme: 'auto', // Automatic theme detection
   pushState: true, //backButton
@@ -66,7 +66,53 @@ var app  = new Framework7({
     helloWorld: function () {
       app.dialog.alert('Hello World!');
     },
+    // scanQR: function () {
+      // QRScanner.scan(function(err, contents){
+      //   if(err){
+      //     if(err.name === 'SCAN_CANCELED') {
+      //       console.error('The scan was canceled before a QR code was found.');
+      //     } else {
+      //       console.error(err._message);
+      //     }
+      //   }
+      //   console.log('Scan returned: ' + contents);
+      // });
+    // },
+    onBackKeyDown: function() {
+      var cpage = app.views.main.router.url;
+      console.log(cpage);
+      var cpagename = cpage.name;
+      var cpage = app.views.main.router.url;
+      console.log(cpage);
+      var leftp = app.panel.left && app.panel.left.opened;
+      var rightp = app.panel.right && app.panel.right.opened;
+      console.log(leftp);
+      console.log(rightp);
+      // console.log(cpagename);
+      if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
+        app.panel.right.close(true);
+        app.panel.left.close(true);
 
+        return false;
+      } else if (cpage == '/') {
+        app.dialog.confirm('Are you sure you want to exit?', function() {
+          // var deviceType = device.platform;
+          // if(deviceType == 'Android' || deviceType == 'android'){
+            navigator.app.exitApp();
+          // }
+        },
+        function() {
+        });
+      } else {
+        homeView.router.back();
+        homeView.router.refreshPage();
+        homeView.router.back({
+        url: '/', // - in case you use Ajax pages
+        // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
+        force: true
+        });
+        }
+    },
     getData: function (tablename) {
       // app.dialog.alert('Hello World!');
       app.request({
@@ -139,89 +185,23 @@ var app  = new Framework7({
       });
 
       this.data.cdv = tempcdv;
-      // console.log('Status CORDOVA');
-      // console.log(this.data.cdv);
-      // console.log(cordova.device);
-
-
-      
-
-      // console.log(navigator.camera);
-      // console.log(device.platform);
-      // var done = function(err){
-      //   if(err){
-      //     console.error(err._message);
-      //     // Create toast with large message
-      //     var errQR = app.toast.create({
-      //       text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.',
-      //       position: 'bottom',
-      //       closeTimeout: 5000,
-      //     });
-
-      //     errQR.open();
-
-      //   } else {
-      //     console.log('QRScanner is initialized. Status:');
-          
-      //     QRScanner.getStatus(function(status){
-      //       console.log(status);
-      //       statusQR = status;
-      //       // console.log(JSON.stringify(status));
-      //       // app.dialog.alert(JSON.stringify(status) , 'Status');
-
-      //       // Create toast with large message
-      //       var statQR = app.toast.create({
-      //         text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.',
-      //         position: 'top',
-      //         closeTimeout: 5000,
-      //       });
-      //       console.log(JSON.stringify(status));
-
-      //       statQR.open();
-
-
-      //     });
-      //   }
-      // };
-      // QRScanner.prepare(done);
 
       var tempqrstat;
-
       QRScanner.getStatus(function(status){
-        // console.log(status);
         tempqrstat = status;
-        // console.log(JSON.stringify(status));
-        // app.dialog.alert(JSON.stringify(status) , 'Status');
 
-        // Create toast with large message
         var toastLargeMessage = app.toast.create({
           text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+JSON.stringify(status,null,2)+'.',
           position: 'bottom',
           closeTimeout: 10000,
         });
-        // console.log(JSON.stringify(status));
 
         toastLargeMessage.open();
-      	this.data.qrstatus = tempqrstat;
 
 
       });
+      	this.data.qrstatus = tempqrstat;
 
-      // console.log('THIS '+this);
-      // console.log(this);
-      // console.log('Status QR');
-      // console.log(this.data.qrstatus);
-
-
-      // var data = {
-      //   // A labels array that can contain any sort of values
-      //   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-      //   // Our series array that contains series objects or in this case series data arrays
-      //   series: [
-      //     [5, 2, 4, 2, 0]
-      //   ]
-      // };
-      // new Chartist.Line('.ct-chart', data);
       var rSF = function(){ return Math.round(Math.random()*15)};
       new Chartist.Line('.ct-chart', {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -240,61 +220,55 @@ var app  = new Framework7({
         }
       });
 
+      function onBackKeyDown() {
+          var cpage = app.views.main.router.url;
+          console.log(cpage);
+          console.log(app.page.name);
 
+          // var cpage = homeView.activePage;
+          var cpagename = cpage.name;
+          var cpage = app.views.main.router.url;
+          console.log(cpage);
+          // app.dialog.alert('Back pressed. \n'+cpage+' . ');
+          // Create toast with large message
+          // var obK = app.toast.create({
+          //  text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+cpage+' . ',
+          //  position: 'bottom',
+          //  closeTimeout: 10000,
+          // });
 
-      // function onDeviceReady() {
-      // 	document.addEventListener('backbutton', onBackKeyDown, false);
-      // }
+          // obK.open();
 
+          var leftp = app.panel.left && app.panel.left.opened;
+          var rightp = app.panel.right && app.panel.right.opened;
+          console.log(leftp);
+          console.log(rightp);
+        // console.log(cpagename);
+            if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
+              app.panel.right.close(true);
+              app.panel.left.close(true);
 
+              return false;
+            } else if (cpage == '/') {
+              app.dialog.confirm('Are you sure you want to exit?', function() {
+                    // var deviceType = device.platform;
+                    // if(deviceType == 'Android' || deviceType == 'android'){
+                      navigator.app.exitApp();
+                    // }
+                },
+                function() {
+                });
+            } else {
+              homeView.router.back();
+              homeView.router.refreshPage();
+              homeView.router.back({
+              url: '/', // - in case you use Ajax pages
+              // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
+              force: true
+            });
+            }
 
-      // Create a new line chart object where as first parameter we pass in a selector
-      // that is resolving to our chart container element. The Second parameter
-      // is the actual data object.
-
-
-
-      // console.log(tempqrstat);
-      // navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
-
-      // function onSuccess(imageURI) {
-      //     var image = document.getElementById('myImage');
-      //     image.src = imageURI;
-      // }
-
-      // function onFail(message) {
-      //     alert('Failed because: ' + message);
-      // }
-      
-      // QRScanner.prepare(onDone); // show the prompt
- 
-      // function onDone(err, status){
-      //   if (err) {
-      //    // here we can handle errors and clean up any loose ends.
-      //    // console.error(err);
-      //    console.error(err.name);
-      //    console.log(status);
-      //   }
-      //   if (status.authorized) {
-      //     // W00t, you have camera access and the scanner is initialized.
-      //     // QRscanner.show() should feel very fast.
-      //   } else if (status.denied) {
-      //    // The video preview will remain black, and scanning is disabled. We can
-      //    // try to ask the user to change their mind, but we'll have to send them
-      //    // to their device settings with `QRScanner.openSettings()`.
-      //   } else {
-      //     console.log('QRScanner ERROR');
-      //     // we didn't get permission, but we didn't get permanently denied. (On
-      //     // Android, a denial isn't permanent unless the user checks the "Don't
-      //     // ask again" box.) We can ask again at the next relevant opportunity.
-      //   }
-      // }
-
-
-      // localStorage.uname = 'aaaa';
-      // localStorage.key = 'bbbb';
-      // if (isLoggedIn()) {app.loginScreen.open('#my-login-screen');} else {app.loginScreen.open('#my-login-screen');}
-      // Init/Create views
+        }
 
 
     },
@@ -308,7 +282,10 @@ var app  = new Framework7({
 
 
       //device ready here
+      // console.log(page.name);
+      console.log('pageInit');
       console.log(page.name);
+
       // if (page.name =='setting') {console.log('setting')} else {console.log('unfound')}
       if (
       	isLoggedIn()) {
@@ -440,13 +417,6 @@ $$('.fill-form-from-data').on('click', function(){
 
 
 $$('.qrscanner').on('click', function(){
-	
-
-
-
-
-
-
 	var done = function(err){
         if(err){
           console.error(err._message);
@@ -480,54 +450,7 @@ $$('.qrscanner').on('click', function(){
 });
 
 
-function onBackKeyDown() {
-	var cpage = app.views.main.router.url;
-	console.log(cpage);
-
-	// var cpage = homeView.activePage;
-	var cpagename = cpage.name;
-	var cpage = app.views.main.router.url;
-	console.log(cpage);
-	// app.dialog.alert('Back pressed. \n'+cpage+' . ');
-	// Create toast with large message
-	// var obK = app.toast.create({
-	// 	text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+cpage+' . ',
-	// 	position: 'bottom',
-	// 	closeTimeout: 10000,
-	// });
-
-	// obK.open();
-
-	var leftp = app.panel.left && app.panel.left.opened;
-	var rightp = app.panel.right && app.panel.right.opened;
-	console.log(leftp);
-	console.log(rightp);
-// console.log(cpagename);
-    if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
-    	app.panel.right.close(true);
-    	app.panel.left.close(true);
-
-    	return false;
-    } else if (cpage == '/') {
-    	app.dialog.confirm('Are you sure you want to exit?', function() {
-            // var deviceType = device.platform;
-            // if(deviceType == 'Android' || deviceType == 'android'){
-            	navigator.app.exitApp();
-            // }
-        },
-        function() {
-        });
-    } else {
-    	homeView.router.back();
-    	homeView.router.refreshPage();
-    	homeView.router.back({
-		  url: '/', // - in case you use Ajax pages
-		  // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
-		  force: true
-		});
-    }
-
-}
+        
 
 
 

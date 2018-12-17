@@ -20,6 +20,7 @@
       <div class="block block-strong">
         <a href="#" class="button button-raised" @click="openAlert">Open Alert</a>
         <a href="#" class="button button-raised" @click="openAlert">Test Method</a>
+        <a href="#" class="button button-raised" @click="$root.onBackKeyDown()">Test SCAN QR</a>
       </div>
       <div class="block-title">Page Component Data</div>
       <div class="block block-strong">
@@ -53,6 +54,39 @@
           <li><a @click="$root.helloWorld()">$root.helloWorld()</a></li>
         </ul>
 
+        <h4>$root Cordova</h4>
+        <p>CORDOVA</p>
+        <ul style="padding-left:25px">
+          <li><b>available</b>: {{$root.cdv.available}}</li>
+          <li><b>cordova</b>: {{$root.cdv.cordova}}</li>
+          <li><b>isVirtual</b>: {{$root.cdv.isVirtual}}</li>
+          <li><b>manufacturer</b>: {{$root.cdv.manufacturer}}</li>
+          <li><b>model</b>: {{$root.cdv.model}}</li>
+          <li><b>platform</b>: {{$root.cdv.platform}}</li>
+          <li><b>serial</b>: {{$root.cdv.serial}}</li>
+          <li><b>uuid</b>: {{$root.cdv.uuid}}</li>
+          <li><b>version</b>: {{$root.cdv.version}}</li>
+        </ul>
+
+
+        <h4>$root QR Status</h4>
+        <p>QR Scanner Status</p>
+        <ul style="padding-left:25px">
+          <li><b>authorized</b>: {{$root.qrstatus.authorized}}</li>
+          <li><b>denied</b>: {{$root.qrstatus.denied}}</li>
+          <li><b>restricted</b>: {{$root.qrstatus.restricted}}</li>
+          <li><b>currentCamera</b>: {{$root.qrstatus.currentCamera}}</li>
+          <li><b>canChangeCamera</b>: {{$root.qrstatus.canChangeCamera}}</li>
+          <li><b>canEnableLight</b>: {{$root.qrstatus.canEnableLight}}</li>
+          <li><b>canOpenSettings</b>: {{$root.qrstatus.canOpenSettings}}</li>
+          <li><b>lightEnabled</b>: {{$root.qrstatus.lightEnabled}}</li>
+          <li><b>prepared</b>: {{$root.qrstatus.prepared}}</li>
+          <li><b>previewing</b>: {{$root.qrstatus.previewing}}</li>
+          <li><b>scanning</b>: {{$root.qrstatus.scanning}}</li>
+          <li><b>showing</b>: {{$root.qrstatus.showing}}</li>
+        </ul>
+
+
         <h4>$theme</h4>
         <p>Currently active theme:</p>
         <ul style="padding-left:25px">
@@ -64,9 +98,9 @@
   </div>
 </template>
 <style>
-  p {
-    margin: 10px 0;
-  }
+p {
+  margin: 10px 0;
+}
 </style>
 <script>
   return {

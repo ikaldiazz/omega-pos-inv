@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page" data-name="config">
   <div class="navbar">
     <div class="navbar-inner sliding">
       <div class="left">
@@ -133,6 +133,7 @@
         <a @click="logout" href="#" class="button logout-button col button-big button-fill button-raised color-red" id="logout-btn">Logout</a>
         <a href="#" class="qrscanner button logout-button col button-big button-fill button-raised color-red">BACK</a>
         <a @click="$root.formToData('#setting-form')">Test Method</a>
+        <a @click="$root.onBackKeyDown()">Test Back</a>
       </p>
     </div>
     </form>

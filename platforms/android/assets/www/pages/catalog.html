@@ -92,43 +92,43 @@
       // pageMounted: function(e, page) {
       //   console.log('pageMounted', page);
       // },
-    pageInit: function(e, page) {
-      var self = this;
-      var app = self.$app;
-      // console.log('init', page);
-      app.preloader.show(); //var app is initialized by now
-      // console.log(self);
-      // $$('.progressbar-infinite').show();
-      // app.progressbar.show(el, progress, color)
-      app.progressbar.show()
-      // app.progressbar.show();
-        app.request({
-          url: 'http://khojati.id/titip/api/v2/api.php/records/items',
-          dataType: 'json',
-          method: 'GET',
-          cache: false,
-          crossDomain: true,
-          success: function (data) {
-            app.preloader.hide(); //var app is initialized by now
-          // app.progressbar.hide();
-            console.log(data);
-             self.$setState({
-                   products: data.records
-                });
-              //some-more-logic
-          },
-          error: function (xhr, status) {
-            app.preloader.hide(); //var app is initialized by now
-            app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
-          // app.progressbar.hide();
-            // console.log(data);
-            //  self.$setState({
-            //        products: data.records
-            //     });
-              //some-more-logic
-          }
-        });
-      },
+    // pageInit: function(e, page) {
+    //   var self = this;
+    //   var app = self.$app;
+    //   // console.log('init', page);
+    //   app.preloader.show(); //var app is initialized by now
+    //   // console.log(self);
+    //   // $$('.progressbar-infinite').show();
+    //   // app.progressbar.show(el, progress, color)
+    //   app.progressbar.show()
+    //   // app.progressbar.show();
+    //     app.request({
+    //       url: 'http://khojati.id/titip/api/v2/api.php/records/items',
+    //       dataType: 'json',
+    //       method: 'GET',
+    //       cache: false,
+    //       crossDomain: true,
+    //       success: function (data) {
+    //         app.preloader.hide(); //var app is initialized by now
+    //       // app.progressbar.hide();
+    //         console.log(data);
+    //          self.$setState({
+    //                products: data.records
+    //             });
+    //           //some-more-logic
+    //       },
+    //       error: function (xhr, status) {
+    //         app.preloader.hide(); //var app is initialized by now
+    //         app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
+    //       // app.progressbar.hide();
+    //         // console.log(data);
+    //         //  self.$setState({
+    //         //        products: data.records
+    //         //     });
+    //           //some-more-logic
+    //       }
+    //     });
+    //   },
     //   pageBeforeIn: function(e, page) {
     //     console.log('pageBeforeIn', page);
     //   },

@@ -1,59 +1,3 @@
-document.addEventListener('deviceready', () => {
-  console.log('Device ready event fired!');
-   // console.log(cordova.plugins); // Undefined
-   function checkConnection() {
-    var networkState = navigator.connection.type;
-
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
-
-    // console.log('Connection type: ' + states[networkState]);
-    console.log('Connection type: ' + states[networkState]);
-}
-
-checkConnection();
-// document.addEventListener("offline", onOffline, false);
-
-// function onOffline() {
-//     // Handle the offline event
-//     console.log('Connection type: OFFLINE');
-
-// }
-
-// QRScanner.prepare(onDone); // show the prompt
- 
-// function onDone(err, status){
-//   if (err) {
-//    // here we can handle errors and clean up any loose ends.
-//    console.error(err);
-//    console.log(JSON.parse(status));
-//   }
-//   if (status.authorized) {
-//     // W00t, you have camera access and the scanner is initialized.
-//     // QRscanner.show() should feel very fast.
-//   } else if (status.denied) {
-//    // The video preview will remain black, and scanning is disabled. We can
-//    // try to ask the user to change their mind, but we'll have to send them
-//    // to their device settings with `QRScanner.openSettings()`.
-//   } else {
-//     // we didn't get permission, but we didn't get permanently denied. (On
-//     // Android, a denial isn't permanent unless the user checks the "Don't
-//     // ask again" box.) We can ask again at the next relevant opportunity.
-//   }
-// }
-
-
-});
-
-
-
 // Dom7
 var $$ = Dom7;
 
@@ -62,13 +6,24 @@ var $$ = Dom7;
 
 var store = localStorage;
 var debugMode = true;
-
+var statusQR;
 // Framework7 App main instance
 var app  = new Framework7({
   root: '#app', // App root element
-  id: 'com.mbutgae.omega', // App bundle ID
+  id: 'com.mbutgae.omega.inv', // App bundle ID
+  version: '1.0.12',
   name: 'Omega POS Inventory', // App name
   theme: 'auto', // Automatic theme detection
+  pushState: true, //backButton
+ //  view: {
+	// pushState: true,
+	// //pushStateRoot: ‘/example/’, // if the address like this https://www.example.com/example/ 5
+ //  },
+  // Enable swipe panel
+  panel: {
+    swipe: 'both',
+    swipeCloseOpposite: true,
+  },
   // App root data
   data: function () {
     return {
@@ -82,6 +37,10 @@ var app  = new Framework7({
         firstName: 'John',
         lastName: 'Doe',
       },
+      qrstatus:{
+
+      },
+      cdv:{},
       // Demo products for Catalog section
       products: [
         {
@@ -106,6 +65,53 @@ var app  = new Framework7({
   methods: {
     helloWorld: function () {
       app.dialog.alert('Hello World!');
+    },
+    // scanQR: function () {
+      // QRScanner.scan(function(err, contents){
+      //   if(err){
+      //     if(err.name === 'SCAN_CANCELED') {
+      //       console.error('The scan was canceled before a QR code was found.');
+      //     } else {
+      //       console.error(err._message);
+      //     }
+      //   }
+      //   console.log('Scan returned: ' + contents);
+      // });
+    // },
+    onBackKeyDown: function() {
+      var cpage = app.views.main.router.url;
+      console.log(cpage);
+      var cpagename = cpage.name;
+      var cpage = app.views.main.router.url;
+      console.log(cpage);
+      var leftp = app.panel.left && app.panel.left.opened;
+      var rightp = app.panel.right && app.panel.right.opened;
+      console.log(leftp);
+      console.log(rightp);
+      // console.log(cpagename);
+      if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
+        app.panel.right.close(true);
+        app.panel.left.close(true);
+
+        return false;
+      } else if (cpage == '/') {
+        app.dialog.confirm('Are you sure you want to exit?', function() {
+          // var deviceType = device.platform;
+          // if(deviceType == 'Android' || deviceType == 'android'){
+            navigator.app.exitApp();
+          // }
+        },
+        function() {
+        });
+      } else {
+        homeView.router.back();
+        homeView.router.refreshPage();
+        homeView.router.back({
+        url: '/', // - in case you use Ajax pages
+        // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
+        force: true
+        });
+        }
     },
     getData: function (tablename) {
       // app.dialog.alert('Hello World!');
@@ -159,17 +165,110 @@ var app  = new Framework7({
   on: {
     init() {
       //device ready here
-      console.log("Ready");
+      // console.log("INIT APP.JS");
       // $$('#notifx').show();
+      var networkState = navigator.connection.type;
+
+      var tempcdv;
+
       document.addEventListener('deviceready', () => {
+        console.log(this);
+        console.log("DEVICE READY SECOND ON APP.JS");
+	      document.addEventListener('backbutton', onBackKeyDown, false);
+
         // console.log('Device ready event fired!');
-         console.log(cordova.plugins); // Undefined
+         // console.log(cordova); // Undefined
+         tempcdv = device;
+         // console.log('Connection Error: '+networkState); // Undefined
+	      document.addEventListener("offline", onOffline, false);
+	      document.addEventListener("online", onOnline, false);
       });
 
-      // localStorage.uname = 'aaaa';
-      // localStorage.key = 'bbbb';
-      // if (isLoggedIn()) {app.loginScreen.open('#my-login-screen');} else {app.loginScreen.open('#my-login-screen');}
-      // Init/Create views
+      this.data.cdv = tempcdv;
+
+      var tempqrstat;
+      QRScanner.getStatus(function(status){
+        tempqrstat = status;
+
+        var toastLargeMessage = app.toast.create({
+          text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+JSON.stringify(status,null,2)+'.',
+          position: 'bottom',
+          closeTimeout: 10000,
+        });
+
+        toastLargeMessage.open();
+
+
+      });
+      	this.data.qrstatus = tempqrstat;
+
+      var rSF = function(){ return Math.round(Math.random()*15)};
+      new Chartist.Line('.ct-chart', {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        series: [
+          [rSF(), 9, 7, 8, 5, rSF()],
+          [rSF(), 1, 3.5, 7, 3, rSF()],
+          [rSF(), 3, 4, 5, 6, rSF()]
+        ]
+      }, {
+        high: 15,
+        low: 0,
+        showArea: true,
+        fullWidth: true,
+        chartPadding: {
+          right: 40
+        }
+      });
+
+      function onBackKeyDown() {
+          var cpage = app.views.main.router.url;
+          console.log(cpage);
+          console.log(app.page.name);
+
+          // var cpage = homeView.activePage;
+          var cpagename = cpage.name;
+          var cpage = app.views.main.router.url;
+          console.log(cpage);
+          // app.dialog.alert('Back pressed. \n'+cpage+' . ');
+          // Create toast with large message
+          // var obK = app.toast.create({
+          //  text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+cpage+' . ',
+          //  position: 'bottom',
+          //  closeTimeout: 10000,
+          // });
+
+          // obK.open();
+
+          var leftp = app.panel.left && app.panel.left.opened;
+          var rightp = app.panel.right && app.panel.right.opened;
+          console.log(leftp);
+          console.log(rightp);
+        // console.log(cpagename);
+            if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
+              app.panel.right.close(true);
+              app.panel.left.close(true);
+
+              return false;
+            } else if (cpage == '/') {
+              app.dialog.confirm('Are you sure you want to exit?', function() {
+                    // var deviceType = device.platform;
+                    // if(deviceType == 'Android' || deviceType == 'android'){
+                      navigator.app.exitApp();
+                    // }
+                },
+                function() {
+                });
+            } else {
+              homeView.router.back();
+              homeView.router.refreshPage();
+              homeView.router.back({
+              url: '/', // - in case you use Ajax pages
+              // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
+              force: true
+            });
+            }
+
+        }
 
 
     },
@@ -177,8 +276,16 @@ var app  = new Framework7({
       $$('.progressbar-infinite').hide();
       $$('#notif-progress').show();
 
+      
+      // var ctx = document.getElementById("myChart").getContext('2d');
+      
+
+
       //device ready here
+      // console.log(page.name);
+      console.log('pageInit');
       console.log(page.name);
+
       // if (page.name =='setting') {console.log('setting')} else {console.log('unfound')}
       if (
       	isLoggedIn()) {
@@ -310,47 +417,127 @@ $$('.fill-form-from-data').on('click', function(){
 
 
 $$('.qrscanner').on('click', function(){
+	var done = function(err){
+        if(err){
+          console.error(err._message);
+          // Create toast with large message
+          var errQR = app.toast.create({
+            text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.',
+            position: 'bottom',
+            closeTimeout: 5000,
+          });
 
-  QRScanner.getStatus(function(status){
-    console.log(status);
-    // app.dialog.alert(JSON.stringify(status) , 'Status');
+          errQR.open();
 
-    // Create toast with large message
-    var toastLargeMessage = app.toast.create({
-      text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, quae, ab. Delectus amet optio facere autem sapiente quisquam beatae culpa dolore. '+JSON.stringify(status)+'.',
-      closeTimeout: 2000,
-    });
+        } 
+          console.log('QRScanner is initialized. Status:');
+          
+          QRScanner.getStatus(function(status){
+            console.log(status);
+            statusQR = status;
 
-    toastLargeMessage.open();
+            var statQR = app.toast.create({
+              text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.',
+              position: 'bottom',
+              closeTimeout: 5000,
+            });
+            console.log(JSON.stringify(status));
+            statQR.open();
+          });
+      };
+      QRScanner.prepare(done);
 
-  });
-
-  // QRScanner.getStatus(function(status){
-  //   if(!status.authorized && status.canOpenSettings){
-  //     if(confirm("Would you like to enable QR code scanning? You can allow camera access in your settings.")){
-  //       QRScanner.openSettings();
-  //     }
-  //   }
-  // });
-
-      // QRScanner.prepare(onDone); // show the prompt
- 
-      // function onDone(err, status){
-      //   if (err) {
-      //    // here we can handle errors and clean up any loose ends.
-      //    console.error(err);
-      //   }
-      //   if (status.authorized) {
-      //     // W00t, you have camera access and the scanner is initialized.
-      //     // QRscanner.show() should feel very fast.
-      //   } else if (status.denied) {
-      //    // The video preview will remain black, and scanning is disabled. We can
-      //    // try to ask the user to change their mind, but we'll have to send them
-      //    // to their device settings with `QRScanner.openSettings()`.
-      //   } else {
-      //     // we didn't get permission, but we didn't get permanently denied. (On
-      //     // Android, a denial isn't permanent unless the user checks the "Don't
-      //     // ask again" box.) We can ask again at the next relevant opportunity.
-      //   }
-      // }
 });
+
+
+        
+
+
+
+function onOffline() {
+  // Handle the offline event
+  console.log('Connection type: OFFLINE');
+  toastOffline = app.toast.create({
+      text: 'OFFLINE: Tidak Ada Koneksi Internet',
+      position: 'bottom',
+      closeTimeout: 4000,
+    });
+  // Open it
+  toastOffline.open();
+
+}
+
+function onOnline() {
+  // Handle the offline event
+  console.log('Connection type: ONLINE');
+
+  toastOnline = app.toast.create({
+      text: 'ONLINE: Koneksi Internet Kembali Aktif',
+      position: 'bottom',
+      closeTimeout: 4000,
+    });
+  // Open it
+  toastOnline.open();
+}
+
+
+document.addEventListener('deviceready', () => {
+  // console.log(this);
+  console.log('STARTER====>>Device ready event fired!');
+   // console.log(cordova.plugins); // Undefined
+   function checkConnection() {
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    // console.log('Connection type: ' + states[networkState]);
+    console.log('Connection type: ' + states[networkState]);
+    console.log('Connection typeX: ' + JSON.stringify(states));
+}
+
+        // console.log(document.addEventListener());
+
+// checkConnection();
+
+
+
+
+// document.addEventListener("offline", onOffline, false);
+
+
+// QRScanner.prepare(onDone); // show the prompt
+ 
+// function onDone(err, status){
+//   if (err) {
+//    // here we can handle errors and clean up any loose ends.
+//    console.error(err);
+//    console.log(JSON.parse(status));
+//   }
+//   if (status.authorized) {
+//     // W00t, you have camera access and the scanner is initialized.
+//     // QRscanner.show() should feel very fast.
+//   } else if (status.denied) {
+//    // The video preview will remain black, and scanning is disabled. We can
+//    // try to ask the user to change their mind, but we'll have to send them
+//    // to their device settings with `QRScanner.openSettings()`.
+//   } else {
+//     // we didn't get permission, but we didn't get permanently denied. (On
+//     // Android, a denial isn't permanent unless the user checks the "Don't
+//     // ask again" box.) We can ask again at the next relevant opportunity.
+//   }
+// }
+
+
+});
+
+// document.addEventListener("offline", onOffline, false);
+// document.addEventListener("online", onOnline, false);
+

@@ -345,6 +345,8 @@ routes = [
       pageInit: function (e, page) {
         // do something when page initialized
         console.log('b');
+              console.log(navigator);
+      console.log(device.platform);
         var searchbar = app.searchbar.create({
           el: '.searchbar',
           searchContainer: '.list',
@@ -439,6 +441,18 @@ routes = [
       
     }
     // ignoreCache: true,
+  },
+  {
+    path: '/swipe/',
+    componentUrl: './pages/search-swipe.html',
+  },
+  {
+    path: '/vilist/',
+    componentUrl: './pages/virtual-list.html',
+  },
+  {
+    path: '/vilistvdom/',
+    componentUrl: './pages/virtual-list-vdom.html',
   },
   // Default route (404 page). MUST BE THE LAST
   {
