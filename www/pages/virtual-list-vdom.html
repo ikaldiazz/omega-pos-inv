@@ -25,18 +25,6 @@
             <span class="searchbar-disable-button">Cancel</span>
           </div>
         </form>
-        <!-- <div class="subnavbar">
-          <form data-search-container=".virtual-list-vdom" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
-            <div class="searchbar-inner">
-              <div class="searchbar-input-wrap">
-                <input type="search" placeholder="Search"/>
-                <i class="searchbar-icon"></i>
-                <span class="input-clear-button"></span>
-              </div>
-              <span class="searchbar-disable-button">Cancel</span>
-            </div>
-          </form>
-        </div> -->
       </div>
     </div>
     <div class="searchbar-backdrop"></div>
@@ -44,7 +32,7 @@
       <div class="block">
         <p>EXAMPLE Virtual DOM</p>
       </div>
-      <div class="list simple-list searchbar-not-found">
+      <div class="list virtual-list virtual-list-vdom media-list searchbar-not-found">
         <ul>
           <li>Nothing found</li>
         </ul>
@@ -52,17 +40,6 @@
       <div class="list virtual-list virtual-list-vdom media-list searchbar-found">
         <ul>
           {{#each vlData.items}}
-<!--           <li key="{{id}}" style="top: {{../../vlData.topPosition}}px">
-            <a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">{{iid}}</div>
-                </div>
-                <div class="item-subtitle">{{subtitle}}</div>
-              </div>
-            </a>
-          </li> -->
-
           <li key="{{id}}" style="top: {{../../vlData.topPosition}}px" class="swipeout">
             <div class="swipeout-content">
               <a href="#" class="item-link item-content">
