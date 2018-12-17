@@ -35,6 +35,39 @@
         <li><b>$root.user.lastName</b>: {{$root.user.lastName}}</li>
       </ul>
 
+
+
+      <!-- 
+      authorized: false
+      canChangeCamera: false
+      canEnableLight: false
+      canOpenSettings: false
+      currentCamera: 0
+      denied: false
+      lightEnabled: false
+      prepared: false
+      previewing: false
+      restricted: false
+      scanning: false
+      showing: true 
+      -->
+      <h4>$root QR Status</h4>
+      <p>QR Scanner Status</p>
+      <ul style="padding-left:25px">
+        <li><b>authorized</b>: {{$root.qrstatus.authorized}}</li>
+        <li><b>canChangeCamera</b>: {{$root.qrstatus.canChangeCamera}}</li>
+        <li><b>canEnableLight</b>: {{$root.qrstatus.canEnableLight}}</li>
+        <li><b>canOpenSettings</b>: {{$root.qrstatus.canOpenSettings}}</li>
+        <li><b>currentCamera</b>: {{$root.qrstatus.currentCamera}}</li>
+        <li><b>denied</b>: {{$root.qrstatus.denied}}</li>
+        <li><b>lightEnabled</b>: {{$root.qrstatus.lightEnabled}}</li>
+        <li><b>prepared</b>: {{$root.qrstatus.prepared}}</li>
+        <li><b>previewing</b>: {{$root.qrstatus.previewing}}</li>
+        <li><b>restricted</b>: {{$root.qrstatus.restricted}}</li>
+        <li><b>scanning</b>: {{$root.qrstatus.scanning}}</li>
+        <li><b>showing</b>: {{$root.qrstatus.showing}}</li>
+      </ul>
+
       <h4>$theme</h4>
       <p>Currently active theme:</p>
       <ul style="padding-left:25px">

@@ -50,6 +50,7 @@
   <title>My App</title>
 
   <link rel="stylesheet" href="lib/framework7/css/framework7.min.css">
+  <link rel="stylesheet" href="lib/chartist/chartist.min.css">
   <link rel="stylesheet" href="css/icons.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
@@ -76,6 +77,27 @@
                   <a href="/about/" class="item-content item-link">
                     <div class="item-inner">
                       <div class="item-title">About</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/swipe/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">SearchBar with Swipe</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/vilist/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Virtual List</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/vilistvdom/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Virtual List VDOM with Swipe</div>
                     </div>
                   </a>
                 </li>
@@ -266,11 +288,113 @@
 
           <!-- Scrollable page content-->
           <div class="page-content">
+            <div class="block-title">Lorem Ipsum</div>
             <div class="block block-strong">
               <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
               <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
             </div>
 
+            <div class="block-title">List View Accordion</div>
+            <div class="list accordion-list">
+              <ul>
+                <li class="accordion-item">
+                  <a href="#" class="item-link item-content">
+                    <div class="item-inner">
+                      <div class="item-title">Lorem Ipsum</div>
+                    </div>
+                  </a>
+                  <div class="accordion-item-content">
+                    <div class="block">
+                    <div class="ct-chart ct-perfect-fourth"></div>
+
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum id neque nec commodo. Sed vel justo at turpis laoreet pellentesque quis sed lorem. Integer semper arcu nibh, non mollis arcu tempor vel. Sed pharetra tortor vitae est rhoncus, vel congue dui sollicitudin. Donec eu arcu dignissim felis viverra blandit suscipit eget ipsum.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="accordion-item">
+                  <a href="#" class="item-link item-content">
+                    <div class="item-inner">
+                      <div class="item-title">Nested List</div>
+                    </div>
+                  </a>
+                  <div class="accordion-item-content">
+                    <div class="list">
+                      <ul>
+                        <li>
+                          <div class="item-content">
+                            <div class="item-media"> <i class="icon icon-f7"></i>
+                            </div>
+                            <div class="item-inner">
+                              <div class="item-title">Item 1</div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="item-content">
+                            <div class="item-media"> <i class="icon icon-f7"></i>
+                            </div>
+                            <div class="item-inner">
+                              <div class="item-title">Item 2</div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="item-content">
+                            <div class="item-media">
+                              <i class="icon icon-f7"></i>
+                            </div>
+                            <div class="item-inner">
+                              <div class="item-title">Item 3</div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="item-content">
+                            <div class="item-media">
+                              <i class="icon icon-f7"></i>
+                            </div>
+                            <div class="item-inner">
+                              <div class="item-title">Item 4</div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li class="accordion-item">
+                  <a href="#" class="item-link item-content">
+                    <div class="item-inner">
+                      <div class="item-title">Integer semper</div>
+                    </div>
+                  </a>
+                  <div class="accordion-item-content">
+                    <div class="block">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum id neque nec commodo. Sed vel justo at turpis laoreet pellentesque quis sed lorem. Integer semper arcu nibh, non mollis arcu tempor vel. Sed pharetra tortor vitae est rhoncus, vel congue dui sollicitudin. Donec eu arcu dignissim felis viverra blandit suscipit eget ipsum.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+
+            <div class="block-title">Lorem Ipsum</div>
+            <div class="block block-strong">
+              <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
+              <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
+            </div>
+
+            <div class="block-title">Lorem Ipsum</div>
+            <div class="block block-strong">
+              <img data-src="img/joglo.jpg" class="block lazy lazy-fade-in demo-lazy"/>
+              <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
+              <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
+            </div>
+            
             <!-- <div class="block-title">Navigation</div>
             <div class="list">
               <ul>
@@ -422,7 +546,9 @@
   <script src="cordova.js"></script>
   <script src="cordova_plugins.js"></script>
 
-  
+  <!-- Chartist.js -->
+  <script src="lib/chartist/chartist.min.js"></script>
+
 
   <!-- Framework7 library -->
   <script src="lib/framework7/js/framework7.min.js"></script>

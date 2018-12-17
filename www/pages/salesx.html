@@ -1,0 +1,291 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left sliding">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title sliding">Searchbar</div>
+      <div class="right">
+        <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-demo">
+          <i class="icon f7-icons ios-only">search_strong</i>
+          <i class="icon material-icons md-only">search</i>
+        </a>
+      </div>
+      <form data-search-container=".search-list" data-search-in=".swipeout-content" class="searchbar searchbar-expandable searchbar-demo searchbar-init">
+        <div class="searchbar-inner">
+          <div class="searchbar-input-wrap">
+            <input type="search" placeholder="Search"/>
+            <i class="searchbar-icon"></i>
+            <span class="input-clear-button"></span>
+          </div>
+          <span class="searchbar-disable-button">Cancel</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="searchbar-backdrop"></div>
+    <div class="list simple-list searchbar-not-found">
+      <ul>
+        <li>Nothing found</li>
+      </ul>
+    </div>
+    <div class="list search-list searchbar-found media-list">
+      <ul>
+
+        <li class="swipeout">
+            <div class="swipeout-content">
+              <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">Facebook</div>
+                    <div class="item-after">17:14</div>
+                  </div>
+                  <div class="item-subtitle">New messages from John Doe</div>
+                  <div class="item-text">
+                    Lorem ipsum dolor sit amet, consectetur aaaaaa adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="swipeout-actions-left">
+              <a href="#" class="color-green swipeout-overswipe" @click="reply">Reply</a>
+              <a href="#" class="color-blue" @click="forward">Forward</a>
+            </div>
+            <div class="swipeout-actions-right">
+              <a href="#" @click="more">More</a>
+              <a href="#" class="color-orange" @click="mark">Mark</a>
+              <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>
+            </div>
+          </li>
+          <li class="swipeout">
+            <div class="swipeout-content">
+              <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">John Doe (via Twitter)</div>
+                    <div class="item-after">17:11</div>
+                  </div>
+                  <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter! bbbbb</div>
+                  <div class="item-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="swipeout-actions-left">
+              <a href="#" class="color-green swipeout-overswipe" @click="reply">Reply</a>
+              <a href="#" class="color-blue" @click="forward">Forward</a>
+            </div>
+            <div class="swipeout-actions-right">
+              <a href="#" @click="more">More</a>
+              <a href="#" class="color-orange" @click="mark">Mark</a>
+              <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>
+            </div>
+          </li>
+          <li class="swipeout">
+            <div class="swipeout-content">
+              <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">Facebook ccccccc</div>
+                    <div class="item-after">16:48</div>
+                  </div>
+                  <div class="item-subtitle">New messages from John Doe</div>
+                  <div class="item-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="swipeout-actions-left">
+              <a href="#" class="color-green swipeout-overswipe" @click="reply">Reply</a>
+              <a href="#" class="color-blue" @click="forward">Forward</a>
+            </div>
+            <div class="swipeout-actions-right">
+              <a href="#" @click="more">More</a>
+              <a href="#" class="color-orange" @click="mark">Mark</a>
+              <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>
+            </div>
+          </li>
+          <li class="swipeout">
+            <div class="swipeout-content">
+              <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">John Doe (via Twitter)</div>
+                    <div class="item-after">15:32 ddddddd</div>
+                  </div>
+                  <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
+                  <div class="item-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="swipeout-actions-left">
+              <a href="#" class="color-green swipeout-overswipe" @click="reply">Reply</a>
+              <a href="#" class="color-blue" @click="forward">Forward</a>
+            </div>
+            <div class="swipeout-actions-right">
+              <a href="#" @click="more">More</a>
+              <a href="#" class="color-orange" @click="mark">Mark</a>
+              <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+  </div>
+</template>
+<script>
+  return {
+    data: function () {
+      // var results = function () {
+      //   this.$app.request({
+      //   url: 'http://192.168.0.100/api/v2/api.php/records/items/',
+      //   method: 'GET',
+      //   dataType: 'json',
+      //   contentType: 'application/json',
+      //   // data: {
+      //   //     uid: uname,
+      //   //     pass: pwd
+      //   // },
+      //   success: function(response){
+      //     $$('.progressbar-infinite').hide();
+      //     // self.$app.data.products =  response.records;
+      //     return JSON.stringify(response.records);
+      //   },
+      //   error: function(xhr, status){
+      //     $$('.progressbar-infinite').hide();
+      //     app.dialog.alert('Error Network', 'Error');
+      //     // alert('Error: '+JSON.stringify(xhr));
+      //     // alert('ErrorStatus: '+JSON.stringify(status));
+      //     return status;
+
+      //   }
+      //   });
+      // };
+
+      return {
+        // products: this.$root.products,
+        products: null,
+      };
+    },
+        // Component Methods
+    methods: {
+     more: function () {
+        var self = this;
+        self.actions.open();
+      },
+      mark: function () {
+        var app = this.$app;
+        app.dialog.alert('Mark');
+      },
+      reply: function () {
+        var app = this.$app;
+        app.dialog.alert('Reply');
+      },
+      forward: function () {
+        var app = this.$app;
+        app.dialog.alert('Forward');
+      },
+      onDeleted: function () {
+        var app = this.$app;
+        app.dialog.alert('Thanks, item removed!');
+      },
+    },
+    // Page Events
+    on: {
+      // pageMounted: function(e, page) {
+      //   console.log('pageMounted', page);
+      // },
+    pageInit: function(e, page) {
+      var self = this;
+      var app = self.$app;
+      self.actions = app.actions.create({
+          buttons: [
+            [
+              {
+                text: 'Here comes some optional description or warning for actions below',
+                label: true,
+              },
+              {
+                text: 'Action 1',
+              },
+              {
+                text: 'Action 2',
+              },
+            ],
+            [
+              {
+                text: 'Cancel',
+                bold: true,
+              }
+            ]
+          ],
+        })
+
+      // console.log('init', page);
+      // app.preloader.show(); //var app is initialized by now
+      // console.log(self);
+      // $$('.progressbar-infinite').show();
+      // app.progressbar.show(el, progress, color)
+      // app.progressbar.show()
+      // app.progressbar.show();
+        // app.request({
+        //   url: 'http://khojati.id/titip/api/v2/api.php/records/items',
+        //   dataType: 'json',
+        //   method: 'GET',
+        //   cache: false,
+        //   crossDomain: true,
+        //   success: function (data) {
+        //     app.preloader.hide(); //var app is initialized by now
+        //   // app.progressbar.hide();
+        //     console.log(data);
+        //      self.$setState({
+        //            products: data.records
+        //         });
+        //       //some-more-logic
+        //   },
+        //   error: function (xhr, status) {
+        //     app.preloader.hide(); //var app is initialized by now
+        //     app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
+        //   // app.progressbar.hide();
+        //     // console.log(data);
+        //     //  self.$setState({
+        //     //        products: data.records
+        //     //     });
+        //       //some-more-logic
+        //   }
+        // });
+      },
+    //   pageBeforeIn: function(e, page) {
+    //     console.log('pageBeforeIn', page);
+    //   },
+    //   pageAfterIn: function(e, page) {
+    //     console.log('pageAfterIn', page);
+    //   },
+    //   pageBeforeOut: function(e, page) {
+    //     console.log('pageBeforeOut', page);
+    //   },
+    //   pageAfterOut: function(e, page) {
+    //     console.log('pageAfterOut', page);
+    //   },
+    //   pageBeforeRemove: function(e, page) {
+    //     console.log('pageBeforeRemove', page);
+    //   },
+    }
+  };
+
+  
+
+</script>
