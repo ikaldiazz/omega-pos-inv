@@ -91,6 +91,7 @@ var app  = new Framework7({
       qrstatus:{
 
       },
+      cdv:{},
       // Demo products for Catalog section
       products: [
         {
@@ -171,13 +172,22 @@ var app  = new Framework7({
       console.log("INIT APP.JS");
       // $$('#notifx').show();
       var networkState = navigator.connection.type;
+
+      var tempcdv;
+
       document.addEventListener('deviceready', () => {
         console.log(this);
         console.log("DEVICE READY SECOND ON APP.JS");
         // console.log('Device ready event fired!');
-         // console.log(cordova.plugins); // Undefined
+         // console.log(cordova); // Undefined
+         tempcdv = device;
          // console.log('Connection Error: '+networkState); // Undefined
       });
+
+      this.data.cdv = tempcdv;
+      console.log('Status CORDOVA');
+      console.log(this.data.cdv);
+      console.log(cordova.device);
 
       document.addEventListener("offline", onOffline, false);
       document.addEventListener("online", onOnline, false);
