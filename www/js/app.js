@@ -11,7 +11,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.10',
+  version: '1.0.11',
   name: 'Omega POS Inventory', // App name
   theme: 'auto', // Automatic theme detection
   pushState: true, //backButton
@@ -128,13 +128,14 @@ var app  = new Framework7({
       document.addEventListener('deviceready', () => {
         console.log(this);
         console.log("DEVICE READY SECOND ON APP.JS");
+	      document.addEventListener('backbutton', onBackKeyDown, false);
+
         // console.log('Device ready event fired!');
          // console.log(cordova); // Undefined
          tempcdv = device;
          // console.log('Connection Error: '+networkState); // Undefined
 	      document.addEventListener("offline", onOffline, false);
 	      document.addEventListener("online", onOnline, false);
-	      document.addEventListener('backbutton', onBackKeyDown, false);
       });
 
       this.data.cdv = tempcdv;
@@ -195,7 +196,7 @@ var app  = new Framework7({
         // Create toast with large message
         var toastLargeMessage = app.toast.create({
           text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+JSON.stringify(status,null,2)+'.',
-          position: 'top',
+          position: 'bottom',
           closeTimeout: 10000,
         });
         // console.log(JSON.stringify(status));
@@ -439,6 +440,13 @@ $$('.fill-form-from-data').on('click', function(){
 
 
 $$('.qrscanner').on('click', function(){
+	
+
+
+
+
+
+
 	var done = function(err){
         if(err){
           console.error(err._message);
@@ -451,194 +459,57 @@ $$('.qrscanner').on('click', function(){
 
           errQR.open();
 
-        } else {
+        } 
           console.log('QRScanner is initialized. Status:');
           
           QRScanner.getStatus(function(status){
             console.log(status);
             statusQR = status;
-            // console.log(JSON.stringify(status));
-            // app.dialog.alert(JSON.stringify(status) , 'Status');
 
-            // Create toast with large message
             var statQR = app.toast.create({
               text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.',
-              position: 'top',
+              position: 'bottom',
               closeTimeout: 5000,
             });
             console.log(JSON.stringify(status));
-
             statQR.open();
-
-            QRScanner.scan(function(err, contents){
-			    if(err){
-			      app.dialog.alert(err);
-			      console.log(err);
-			      console.log(contents);
-			      // 0 UNEXPECTED_ERROR
-			      // 1 CAMERA_ACCESS_DENIED
-			      // 2 CAMERA_ACCESS_RESTRICTED
-			      // 3 BACK_CAMERA_UNAVAILABLE
-			      // 4 FRONT_CAMERA_UNAVAILABLE
-			      // 5 CAMERA_UNAVAILABLE
-			      // 6 SCAN_CANCELED
-			      // 7 LIGHT_UNAVAILABLE
-			      // 8 OPEN_SETTINGS_UNAVAILABLE
-
-
-			      if(err.code ==0) {
-			        console.error('UNEXPECTED_ERROR');
-			        var tm = app.toast.create({
-			          text: 'ERROR QRSCANNER. ',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 1) {
-			        console.error('CAMERA_ACCESS_DENIED');
-			        var tm = app.toast.create({
-			          text: 'Akses kamera ditolak',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 2) {
-			        console.error('CAMERA_ACCESS_RESTRICTED');
-			        var tm = app.toast.create({
-			          text: 'Akses kamera terbatas',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 3) {
-			        console.error('BACK_CAMERA_UNAVAILABLE');
-			        var tm = app.toast.create({
-			          text: 'Kamera(Belakang) tidak tersedia',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 4) {
-			        console.error('FRONT_CAMERA_UNAVAILABLE');
-			        var tm = app.toast.create({
-			          text: 'Kamera(Depan) tidak tersedia',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 5) {
-			        console.error('CAMERA_UNAVAILABLE');
-			        var tm = app.toast.create({
-			          text: 'Kamera tidak tersedia',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 6) {
-			        console.error('SCAN_CANCELED');
-			        var tm = app.toast.create({
-			          text: 'Pemindaian Dibatalkan',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 7) {
-			        console.error('LIGHT_UNAVAILABLE');
-			        var tm = app.toast.create({
-			          text: 'Pencahayaan tidak tersedia',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }if(err.code == 8) {
-			        console.error('OPEN_SETTINGS_UNAVAILABLE');
-			        var tm = app.toast.create({
-			          text: 'Setting QRScanner tidak tersedia',
-			          position: 'bottom',
-			          closeTimeout: 3000,
-			        });
-			        tm.open();
-			      }
-			      // else {
-			      //   console.error(err._message);
-			      //   console.error('KODE ERROR '+err.code);
-			      //   var tm = app.toast.create({
-			      //     text: 'QRSCANNER ERROR!!!',
-			      //     position: 'top',
-			      //     closeTimeout: 3000,
-			      //   });
-			      //   tm.open();
-			      // }
-			      
-			    }
-
-			    app.dialog.alert(contents);
-
-			    var tm = app.toast.create({
-			      text: 'Setting QRScanner tidak tersedia' + contents,
-			      position: 'bottom',
-			      closeTimeout: 3000,
-			    });
-			    tm.open();
-			    console.log('Scan returned: ' + contents);
-			  });
-
-
           });
-        }
       };
       QRScanner.prepare(done);
-	// console.log(app.methods);
-  // console.log(QRScanner);
-  // cancelScan: ƒ (callback)
-  // destroy: ƒ (callback)
-  // disableLight: ƒ (callback)
-  // enableLight: ƒ (callback)
-  // getStatus: ƒ (callback)
-  // hide: ƒ (callback)
-  // openSettings: ƒ (callback)
-  // pausePreview: ƒ (callback)
-  // prepare: ƒ (callback)
-  // resumePreview: ƒ (callback)
-  // scan: ƒ (callback)
-  // show: ƒ (callback)
-  // useBackCamera: ƒ (callback)
-  // useCamera: ƒ (index, callback)
-  // useFrontCamera: ƒ (callback)
-  
-
 
 });
 
 
 function onBackKeyDown() {
-	var cpage = homeView.activePage;
+	var cpage = app.views.main.router.url;
+	console.log(cpage);
+
+	// var cpage = homeView.activePage;
 	var cpagename = cpage.name;
-	app.dialog.alert('Back pressed. \n'+cpage+' . '+cpagename);
+	var cpage = app.views.main.router.url;
+	console.log(cpage);
+	// app.dialog.alert('Back pressed. \n'+cpage+' . ');
 	// Create toast with large message
-	var obK = app.toast.create({
-		text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+cpage+' . '+cpagename,
-		position: 'bottom',
-		closeTimeout: 10000,
-	});
-// console.log(JSON.stringify(status));
+	// var obK = app.toast.create({
+	// 	text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+cpage+' . ',
+	// 	position: 'bottom',
+	// 	closeTimeout: 10000,
+	// });
 
-obK.open();
+	// obK.open();
 
+	var leftp = app.panel.left && app.panel.left.opened;
+	var rightp = app.panel.right && app.panel.right.opened;
+	console.log(leftp);
+	console.log(rightp);
 // console.log(cpagename);
-    if (($$('#leftpanel').hasClass('active')) || ($$('#rightpanel').hasClass('active'))) { // #leftpanel and #rightpanel are id of both panels.
-    	console.log('panel status');
-    	console.log($$('#leftpanel').hasClass('active'));
-    	console.log($$('#rightpanel').hasClass('active'));
-    	app.closePanel();
+    if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
+    	app.panel.right.close(true);
+    	app.panel.left.close(true);
+
     	return false;
-    } else if ($$('.modal-in').length > 0) {
-    	console.log('modal status');
-    	console.log($$('.modal-in').length);
-    	app.closeModal();
-    	return false;
-    } else if (cpagename == 'index') {
-    	app.confirm('Are you sure you want to exit?', function() {
+    } else if (cpage == '/') {
+    	app.dialog.confirm('Are you sure you want to exit?', function() {
             // var deviceType = device.platform;
             // if(deviceType == 'Android' || deviceType == 'android'){
             	navigator.app.exitApp();
@@ -648,15 +519,24 @@ obK.open();
         });
     } else {
     	homeView.router.back();
+    	homeView.router.refreshPage();
+    	homeView.router.back({
+		  url: '/', // - in case you use Ajax pages
+		  // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
+		  force: true
+		});
     }
+
 }
+
+
 
 function onOffline() {
   // Handle the offline event
   console.log('Connection type: OFFLINE');
   toastOffline = app.toast.create({
       text: 'OFFLINE: Tidak Ada Koneksi Internet',
-      position: 'top',
+      position: 'bottom',
       closeTimeout: 4000,
     });
   // Open it
@@ -670,7 +550,7 @@ function onOnline() {
 
   toastOnline = app.toast.create({
       text: 'ONLINE: Koneksi Internet Kembali Aktif',
-      position: 'top',
+      position: 'bottom',
       closeTimeout: 4000,
     });
   // Open it
