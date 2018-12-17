@@ -11,7 +11,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.8',
+  version: '1.0.9',
   name: 'Omega POS Inventory', // App name
   theme: 'auto', // Automatic theme detection
   pushState: true, //backButton
@@ -246,9 +246,9 @@ var app  = new Framework7({
       // }
 
       function onBackKeyDown() {
-      	app.dialog.alert('Back pressed. \n'+cpage+' . '+cpagename);
       	var cpage = homeView.activePage;
       	var cpagename = cpage.name;
+      	app.dialog.alert('Back pressed. \n'+cpage+' . '+cpagename);
       	// Create toast with large message
         var obK = app.toast.create({
           text: 'This toast contains a lot of text. Lorem ipsum dolor sit amet. \n'+cpage+' . '+cpagename,
@@ -477,6 +477,42 @@ $$('.fill-form-from-data').on('click', function(){
 
 
 $$('.qrscanner').on('click', function(){
+	var done = function(err){
+        if(err){
+          console.error(err._message);
+          // Create toast with large message
+          var errQR = app.toast.create({
+            text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.',
+            position: 'bottom',
+            closeTimeout: 5000,
+          });
+
+          errQR.open();
+
+        } else {
+          console.log('QRScanner is initialized. Status:');
+          
+          QRScanner.getStatus(function(status){
+            console.log(status);
+            statusQR = status;
+            // console.log(JSON.stringify(status));
+            // app.dialog.alert(JSON.stringify(status) , 'Status');
+
+            // Create toast with large message
+            var statQR = app.toast.create({
+              text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.',
+              position: 'top',
+              closeTimeout: 5000,
+            });
+            console.log(JSON.stringify(status));
+
+            statQR.open();
+
+
+          });
+        }
+      };
+      QRScanner.prepare(done);
 	// console.log(app.methods);
   // console.log(QRScanner);
   // cancelScan: ƒ (callback)
@@ -595,6 +631,7 @@ $$('.qrscanner').on('click', function(){
       // }
       
     }
+
     app.dialog.alert(contents);
 
     var tm = app.toast.create({
