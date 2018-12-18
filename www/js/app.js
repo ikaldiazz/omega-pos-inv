@@ -11,7 +11,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.16',
+  version: '1.0.17',
   name: 'Omega POS Inventory', // App name
   theme: 'md', // Automatic theme detection
   pushState: true, //backButton
