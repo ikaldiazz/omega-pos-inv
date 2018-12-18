@@ -1,0 +1,173 @@
+<template>
+<div class="page" data-name="item_form">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="back link">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">Settings</div>
+      <div class="right">
+        <a href="#" class="link icon-only">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">notifications</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <!-- <div class="block-title">EDIT</div> -->
+    <!-- <form id="setting-form" action="send-here.html" method="POST" class="form-ajax-submit" enctype="multipart/form-data"> -->
+    <form id="item-form">
+    <div class="list no-hairlines-md">
+      <ul>
+        <input type="hidden" name="uid" placeholder="Your name" value="{{item.iid}}"/>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Nama Item</div>
+              <div class="item-input-wrap">
+                <input type="text" name="fname" placeholder="Your name" value="{{item.iname}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Kode Barang</div>
+              <div class="item-input-wrap">
+                <input type="text" name="icode" placeholder="Your name" value="{{item.icode}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <!-- bprice: 150000
+          catid: 1
+          created: "2018-10-28 05:26:17"
+          icode: "S_H_SACK"
+          iid: 3000001
+          iname: "SEMEN HOLCIM SACK 50 KG"
+          modified: "2018-10-28 06:24:50"
+          note: ""
+          status: 1
+          unitid: 1
+          xsprice: 0
+          ysprice: 0
+          zsprice: 0 -->
+          <a class="item-link smart-select smart-select-init" data-open-in="popup" data-searchbar="true" data-searchbar-placeholder="Search Category">
+            <select name="catid">
+              <option value="1" selected>SEMEN</option>
+              <option value="2">PASIR</option>
+              <option value="3">MUR</option>
+              <option value="4">BAUT</option>
+              <option value="5">GRAM</option>
+            </select>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title">Kategori</div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+            <select name="unitid">
+              <option value="1" selected>PCS</option>
+              <option value="2">KALENG</option>
+              <option value="3">SACK</option>
+              <option value="4">KG</option>
+            </select>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title">Unit</div>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Harga Barang</div>
+              <div class="item-input-wrap">
+                <input type="number" name="bprice" placeholder="0" value="" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+
+
+        <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title">Status</div>
+                <div class="item-input">
+                  <label class="toggle toggle-init color-blue">
+                    {{#js_if "this.item.status === 1"}}
+                    <input type="checkbox" name="status" checked>
+                    {{else}}
+                    <input type="checkbox" name="status">
+                    {{/js_if}}
+                    <span class="toggle-icon"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+        </li>
+        <li class="align-top">
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <!-- <div class="item-title item-label">Deskripsi</div> -->
+              <div class="item-input-wrap">
+                <textarea placeholder="Deskripsi" name="note" class="resizable" value="{{item.note}}"></textarea>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <!-- <a href="#" class="col button item-link list-button logout-button">ButtonXX</a> -->
+        <!-- <a @click="updateData" href="#" class="button convert-form-to-data col button-big button-fill button-raised color-green" id="save-btn">Simpan</a> -->
+        <!-- <a href="#" class="convert-form-to-data button col button-big button-fill button-raised color-green" id="save-btn">Simpan</a> -->
+      </p>
+      <p class="row">
+        <!-- <a @click="updateData" href="#" class="col button button-fill">Fill</a> -->
+        <!-- <a @click="logout" href="#" class="button logout-button col button-big button-fill button-raised color-red" id="logout-btn">Logout</a> -->
+        <a href="#" class="qrscanner button logout-button col button-big button-fill button-raised color-red">BACK</a>
+        <a @click="$root.formToData('#item-form')">Test Method</a>
+        <a @click="$root.onBackKeyDown()">Test Back</a>
+      </p>
+    </div>
+    </form>
+    <!-- <a @click="updateData" href="#" class="button logout-button col button-big button-fill button-raised color-green" id="logout-btn">Save</a> -->
+    
+
+    <div class="list">
+      <ul>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        // user: JSON.parse(localStorage.user),
+      };
+    },
+    // Component Methods
+    methods: {
+
+    }, 
+  };
+</script>

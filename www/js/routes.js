@@ -363,6 +363,85 @@ routes = [
     // ignoreCache: true,
   },
   {
+    path: '/form/edit/:itemId/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // console.log("USER: "+JSON.stringify(localStorage.user));
+      // Router instance
+      var router = this;
+      // App instance
+      var app = router.app;
+      // Show Preloader
+      app.preloader.show();
+      // User ID from request
+      var itemId = routeTo.params.itemId;
+      // Show Preloader
+      app.preloader.show();
+      // Item ID from request
+      // Simulate Ajax Request
+      setTimeout(function () {
+        // We got user data from request
+        app.request({
+          url: 'http://khojati.id/titip/api/v2/api.php/records/items/'+itemId,
+          dataType: 'json',
+          // data: data,
+          method: "GET",
+          crossDomain: true,
+          statusCode: {
+            404: function(xhr) {
+              console.log('page not found');
+            }
+          },
+          complete: function() {
+            // Hide Preloader
+            app.preloader.hide();
+            console.log('complete');
+          },
+          success: function(response) {
+            console.log('success get item');
+            console.log(response.records);
+            console.log(response);
+            // Hide Preloader
+            app.preloader.hide();
+            // console.log('TEMP');
+
+            // console.log("routes User: "+localStorage.user);
+
+            // Resolve route to load page
+            resolve(
+              {
+                componentUrl: './pages/form.html',
+              },
+              {
+                context: {
+                  item: response,
+                }
+              }
+            );
+          },
+          error: function() {
+            console.log('error');
+            app.preloader.hide();
+
+          }
+        });
+
+      }, 500);
+    },
+
+    on: {
+      pageAfterIn: function test (e, page) {
+        // do something after page gets into the view
+        console.log(page.name);
+        // app.view.current.router.refreshPage();
+      },
+      pageInit: function (e, page) {
+        // do something when page initialized
+      },
+      
+    }
+    // ignoreCache: true,
+  },
+  {
     path: '/config/',
     async: function (routeTo, routeFrom, resolve, reject) {
       console.log("UID: "+localStorage.uid);
