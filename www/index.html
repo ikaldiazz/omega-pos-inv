@@ -9,11 +9,6 @@
     * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
         * Enable inline JS: add 'unsafe-inline' to default-src
         * Enable eval(): add 'unsafe-eval' to default-src
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-        * Enable inline JS: add 'unsafe-inline' to default-src
-        * Enable eval(): add 'unsafe-eval' to default-src
 
 	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">
 	-->
@@ -23,16 +18,16 @@
 	<!-- This policy allows everything (eg CSS, AJAX, object, frame, media, etc) except that 
 	    * CSS only from the same origin and inline styles,
 	    * scripts only from the same origin and inline styles, and eval()
-
 	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-  -->
-<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#2196f3">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
+  -->
+<meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
+  <meta name="theme-color" content="#2196f3">
   <title>My App</title>
 
   <link rel="stylesheet" href="lib/framework7/css/framework7.min.css">
@@ -442,7 +437,7 @@
 
             <div class="block-title">Lorem Ipsum</div>
             <div class="block block-strong">
-              <img data-src="img/joglo.jpg" class="block lazy lazy-fade-in demo-lazy"/>
+              <!-- <img data-src="img/joglo.jpg" class="block lazy lazy-fade-in demo-lazy"/> -->
               <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
               <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
             </div>

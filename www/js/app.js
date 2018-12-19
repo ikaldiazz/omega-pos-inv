@@ -355,11 +355,11 @@ document.addEventListener('deviceready', () => {
 function onBackKeyDown() {
   var cpage = app.views.main.router.url;
   console.log(cpage);
-  console.log(app.page.name);
+  // console.log(app.page.name);
 
   // var cpage = homeView.activePage;
   var cpagename = cpage.name;
-  var cpage = app.views.main.router.url;
+  // var cpage = app.views.main.router.url;
   console.log(cpage);
   app.dialog.alert('Back pressed. \n'+cpage+' . ');
 
