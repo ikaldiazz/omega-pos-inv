@@ -350,6 +350,7 @@ document.addEventListener('deviceready', () => {
   document.addEventListener('backbutton', onBackKeyDown, false);
   document.addEventListener("offline", onOffline, false);
   document.addEventListener("online", onOnline, false);
+  console.log(document);
 });
 
 function onBackKeyDown() {
