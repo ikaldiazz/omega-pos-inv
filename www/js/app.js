@@ -40,6 +40,7 @@ var app  = new Framework7({
 
       },
       cdv:{},
+      cdvfile:{},
       // Demo products for Catalog section
       products: [
       {
@@ -133,13 +134,21 @@ var app  = new Framework7({
   on: {
     init() {
       console.log('init()');
+      console.log(navigator.camera);
       var tempcdv;
+      var tempcdvfile;
+      window.addEventListener('filePluginIsReady', function(){ console.log('File plugin is ready');}, false);
       document.addEventListener('deviceready', () => {
         console.log("DEVICE READY SECOND ON APP.JS");
         tempcdv = device;
+        tempcdvfile = cordova.file;
         document.addEventListener("offline", onOffline, false);
         document.addEventListener("online", onOnline, false);
         document.addEventListener('backbutton', onBackKeyDown, false);
+        document.addEventListener("pause", onPause, false);
+        document.addEventListener("resume", onResume, false);
+        console.log(cordova.file);
+
         // var tempqrstat;
         // QRScanner.getStatus(function(status){
         //   tempqrstat = status;
@@ -149,6 +158,7 @@ var app  = new Framework7({
         // this.data.qrstatus = tempqrstat;
       });
       this.data.cdv = tempcdv;
+      this.data.cdvfile = tempcdvfile;
 
 
       var rSF = function(){ return Math.round(Math.random()*15)};

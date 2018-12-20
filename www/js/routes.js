@@ -465,7 +465,7 @@ routes = [
     }
   },
   {
-    path: '/qr/',
+    path: '/cordovafile/',
     async: function (routeTo, routeFrom, resolve, reject) {
       var router = this;
 
@@ -477,11 +477,11 @@ routes = [
         app.preloader.hide();
         resolve(
         {
-          componentUrl: './pages/qr-status.html',
+          componentUrl: './pages/cordova-file-status.html',
         },
         {
           context: {
-            qr: app.data.qrstatus,
+            cdvfile: app.data.cdvfile,
           }
         }
         );

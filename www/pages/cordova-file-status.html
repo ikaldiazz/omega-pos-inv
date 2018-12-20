@@ -1,0 +1,171 @@
+<template>
+<div class="page" data-name="cordova_file_status">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="back link">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">Cordova File Status</div>
+      <div class="right">
+        <a href="#" class="link icon-only">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">notifications</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <form id="cordova-file-form">
+    <div class="list no-hairlines-md">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">applicationDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.applicationDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">applicationStorageDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.applicationStorageDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">cacheDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.cacheDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">dataDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.dataDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">documentsDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.documentsDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">externalApplicationStorageDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.externalApplicationStorageDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">externalCacheDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.externalCacheDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">externalDataDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.externalDataDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">externalRootDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.externalRootDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">sharedDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.sharedDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">syncedDataDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.syncedDataDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">tempDirectory</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="null" value="{{cdvfile.tempDirectory}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <a href="#" @click="$root.onBackKeyDown()" class="button col button-big button-fill button-raised color-red">Back</a>
+      </p>
+    </div>
+    </form>
+    
+
+    <div class="list">
+      <ul>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        // user: JSON.parse(localStorage.user),
+      };
+    },
+  };
+</script>

@@ -29,6 +29,7 @@
     <plugin name="cordova-plugin-network-information" spec="2.0.1" /> -->
     <platform name="android">
     	<!-- <preference name="android-build-tool" value="ant|gradle" /> -->
+        <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
     	<preference name="android-build-tool" value="gradle" />
     	<preference name="android-minSdkVersion" value="21" />
     	<preference name="android-maxSdkVersion" value="22" /> 
