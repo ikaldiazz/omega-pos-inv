@@ -10,7 +10,7 @@
       </div>
       <div class="title">Cordova Status</div>
       <div class="right">
-        <a href="#" class="link icon-only">
+        <a href="#" class="link icon-only " @click="$root.scanQR()">
           <i class="icon f7-icons ios-only">menu</i>
           <i class="icon material-icons md-only">notifications</i>
         </a>
@@ -106,7 +106,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Version</div>
               <div class="item-input-wrap">
-                <input type="text" value="{{cdv.verson}}" />
+                <input type="text" value="{{cdv.version}}" />
               </div>
             </div>
           </div>

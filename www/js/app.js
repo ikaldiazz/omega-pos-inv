@@ -65,6 +65,24 @@ var app  = new Framework7({
     helloWorld: function () {
       app.dialog.alert('Hello World!');
     },
+    scanQR: function () {
+      QRScanner.scan(displayContents);
+     
+      function displayContents(err, text){
+        if(err){
+          app.dialog.alert(err._message);
+
+          // an error occurred, or the scan was canceled (error code `6`)
+        } else {
+          // The scan completed, display the contents of the QR code:
+          console.log('QRSCANNER SCANNING...');
+          app.dialog.alert('The QR Code contains: ' + contents);
+        }
+      }
+       
+      // Make the webview transparent so the video preview is visible behind it.
+      QRScanner.show();
+    },
     onBackKeyDown: function() {
       var cpage = app.views.main.router.url;
       console.log(cpage);
@@ -122,16 +140,16 @@ var app  = new Framework7({
         document.addEventListener("offline", onOffline, false);
         document.addEventListener("online", onOnline, false);
         document.addEventListener('backbutton', onBackKeyDown, false);
+        var tempqrstat;
+        QRScanner.getStatus(function(status){
+          tempqrstat = status;
+          var initQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom',closeTimeout: 8000,});
+          initQRStat.open();
+        });
+        this.data.qrstatus = tempqrstat;
       });
       this.data.cdv = tempcdv;
 
-      var tempqrstat;
-      QRScanner.getStatus(function(status){
-        tempqrstat = status;
-        var initQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom',closeTimeout: 8000,});
-        initQRStat.open();
-      });
-      this.data.qrstatus = tempqrstat;
 
       var rSF = function(){ return Math.round(Math.random()*15)};
       new Chartist.Line('.ct-chart', {
@@ -295,21 +313,39 @@ $$('.scan-qr').on('click', function(){
   //     }
   //   }
   // });
-
-  QRScanner.show(function(status){
-    console.log('QRSCANNER SHOWING...');
-    console.log(status);
-  });
-  
-  var callback = function(err, contents){
+  QRScanner.scan(displayContents);
+ 
+  function displayContents(err, text){
     if(err){
-      console.error(err._message);
+      app.dialog.alert(err._message);
+
+      // an error occurred, or the scan was canceled (error code `6`)
+    } else {
+      // The scan completed, display the contents of the QR code:
+      console.log('QRSCANNER SCANNING...');
+      app.dialog.alert('The QR Code contains: ' + contents);
     }
-    console.log('QRSCANNER SCANNING...');
-    app.dialog.alert('The QR Code contains: ' + contents);
-  };
+  }
    
-  QRScanner.scan(callback);
+  // Make the webview transparent so the video preview is visible behind it.
+  QRScanner.show();
+  // Be sure to make any opaque HTML elements transparent here to avoid
+  // covering the video.
+
+  // QRScanner.show(function(status){
+  //   console.log('QRSCANNER SHOWING...');
+  //   console.log(status);
+  // });
+  
+  // var callback = function(err, contents){
+  //   if(err){
+  //     console.error(err._message);
+  //   }
+  //   console.log('QRSCANNER SCANNING...');
+  //   app.dialog.alert('The QR Code contains: ' + contents);
+  // };
+   
+  // QRScanner.scan(callback);
 
 
 
@@ -400,14 +436,6 @@ function onBackKeyDown() {
   }
 
 
-
-function onOffline() {
-  // Handle the offline event
-  // console.log('Connection type: OFFLINE');
-  toastOffline = app.toast.create({text: 'OFFLINE: Tidak Ada Koneksi Internet',position: 'bottom',closeTimeout: 4000, });
-  // Open it
-  toastOffline.open();
-}
 
 function onOnline() {
   // Handle the offline event
