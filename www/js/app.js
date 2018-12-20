@@ -305,6 +305,7 @@ $$('.status-qr').on('click', function(){
 });
 
 $$('.scan-qr').on('click', function(){
+	// console.log($$('body').css());
   // QRScanner.getStatus(function(status){
   //   console.log(status.authorized);
   //   if(!status.authorized && status.canOpenSettings){
@@ -313,9 +314,11 @@ $$('.scan-qr').on('click', function(){
   //     }
   //   }
   // });
+  QRScanner.show();
   QRScanner.scan(displayContents);
  
   function displayContents(err, text){
+	$$('.yuhu').css('background', 'none');
     if(err){
       app.dialog.alert(err._message);
 
@@ -328,7 +331,6 @@ $$('.scan-qr').on('click', function(){
   }
    
   // Make the webview transparent so the video preview is visible behind it.
-  QRScanner.show();
   // Be sure to make any opaque HTML elements transparent here to avoid
   // covering the video.
 
