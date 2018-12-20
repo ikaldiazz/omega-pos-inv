@@ -5,3 +5,12 @@
 .ios .tabbar-labels .tab-link.tab-link-active .icon:not(.icon-ios-fill) {
   display: none;
 }
+
+.ra-ketok {
+  background: none transparent !important;
+  opacity: 0.5 !important;
+}
+.ketok {
+  background: #212121 !important;
+  opacity: 1 !important;
+}

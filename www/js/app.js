@@ -98,7 +98,7 @@ var app  = new Framework7({
         app.panel.right.close(true);
         app.panel.left.close(true);
         return false;
-      } else if (cpage == '/') {
+      } else if (cpage == '/' ) {
         app.dialog.confirm('Are you sure you want to exit?', function() {
           // var deviceType = device.platform;
           // if(deviceType == 'Android' || deviceType == 'android'){
@@ -140,13 +140,13 @@ var app  = new Framework7({
         document.addEventListener("offline", onOffline, false);
         document.addEventListener("online", onOnline, false);
         document.addEventListener('backbutton', onBackKeyDown, false);
-        var tempqrstat;
-        QRScanner.getStatus(function(status){
-          tempqrstat = status;
-          var initQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom',closeTimeout: 8000,});
-          initQRStat.open();
-        });
-        this.data.qrstatus = tempqrstat;
+        // var tempqrstat;
+        // QRScanner.getStatus(function(status){
+        //   tempqrstat = status;
+        //   var initQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom',closeTimeout: 8000,});
+        //   initQRStat.open();
+        // });
+        // this.data.qrstatus = tempqrstat;
       });
       this.data.cdv = tempcdv;
 
@@ -224,6 +224,12 @@ $$('#view-home').on('tab:show', function () {
 
 // Login Screen Demo
 $$('#my-login-screen .login-button').on('click', function () {
+  var networkState = navigator.connection.type;
+  if (networkState !== Connection.NONE) {
+      app.dialog.alert('Tidak ada koneksi', 'OFFLINE');
+  }
+
+
   $$('.progressbar-infinite').show();
 
   var username = $$('#my-login-screen [name="username"]').val();
@@ -254,12 +260,12 @@ $$('#my-login-screen .login-button').on('click', function () {
       				});
 
             }else{
-              app.dialog.alert('Terjadi kesalahan koneksi atau username dan password salah', 'Error');
+              app.dialog.alert('username atau password salah', 'Error Input');
             }
           },
           function(xhr, status){
             $$('.progressbar-infinite').hide();
-            app.dialog.alert('Error Network', 'Error');
+            app.dialog.alert('Error XHR', 'Error');
             console.log('Error: '+JSON.stringify(xhr));
             console.log('ErrorStatus: '+JSON.stringify(status));
           }
@@ -288,8 +294,11 @@ $$('.convert-form-to-data').on('click', function(){
 });
 
 $$('.status-qr').on('click', function(){
+  console.log($$('.dialog.modal-in').length);
 	var done = function(err){
     if(err){
+      app.dialog.alert(JSON.stringify(err,null,2), 'Error QR');
+
       console.error(err._message);
           var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
           errQR.open();
@@ -297,6 +306,8 @@ $$('.status-qr').on('click', function(){
     console.log('QRScanner is initialized. Status:');
     QRScanner.getStatus(function(status){
       statusQR = status;
+      app.dialog.alert(JSON.stringify(status,null,2), 'Status QR');
+
       var statQR = app.toast.create({text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
       statQR.open();
     });
@@ -314,19 +325,28 @@ $$('.scan-qr').on('click', function(){
   //     }
   //   }
   // });
+
+  // background: none transparent !important;
+  // opacity: 0 !important;
+
+  // background: none transparent;
+  // opacity: 0;
+  $$('#app').addClass('ra-ketok');
+
   QRScanner.show();
   QRScanner.scan(displayContents);
  
   function displayContents(err, text){
-	$$('.yuhu').css('background', 'none');
     if(err){
       app.dialog.alert(err._message);
+      $$('#app').addClass('ketok');
 
       // an error occurred, or the scan was canceled (error code `6`)
     } else {
       // The scan completed, display the contents of the QR code:
       console.log('QRSCANNER SCANNING...');
       app.dialog.alert('The QR Code contains: ' + contents);
+      $$('#app').addClass('ketok');
     }
   }
    
@@ -388,11 +408,13 @@ document.addEventListener('deviceready', () => {
   //   console.log('Connection type: ' + states[networkState]);
   //   console.log('Connection typeX: ' + JSON.stringify(states));
   // }
-
   document.addEventListener('backbutton', onBackKeyDown, false);
   document.addEventListener("offline", onOffline, false);
   document.addEventListener("online", onOnline, false);
-  console.log(document);
+  document.addEventListener("pause", onPause, false);
+  document.addEventListener("resume", onResume, false);
+
+  // console.log(document);
 });
 
 function onBackKeyDown() {
@@ -408,6 +430,10 @@ function onBackKeyDown() {
 
   var leftp = app.panel.left && app.panel.left.opened;
   var rightp = app.panel.right && app.panel.right.opened;
+
+  console.log($$('.dialog.modal-in').length);
+  openedDialog = $$('.dialog.modal-in').length;
+
   // console.log(leftp);
   // console.log(rightp);
 // console.log(cpagename);
@@ -416,7 +442,7 @@ function onBackKeyDown() {
       app.panel.left.close(true);
 
       return false;
-    } else if (cpage == '/') {
+    } else if (cpage == '/' && openedDialog < 1) {
       app.dialog.confirm('Are you sure you want to exit?', function() {
             // var deviceType = device.platform;
             // if(deviceType == 'Android' || deviceType == 'android'){
@@ -442,7 +468,7 @@ function onBackKeyDown() {
 function onOnline() {
   // Handle the offline event
   // console.log('Connection type: ONLINE');
-  toastOnline = app.toast.create({text: 'ONLINE: Koneksi Internet Kembali Aktif', position: 'bottom', closeTimeout: 4000,});
+  toastOnline = app.toast.create({text: 'ONLINE: Koneksi Internet Kembali Aktif', position: 'bottom', closeTimeout: 1000,});
   // Open it
   toastOnline.open();
 }
@@ -450,7 +476,25 @@ function onOnline() {
 function onOffline() {
   // Handle the offline event
   // console.log('Connection type: OFFLINE');
-  toastOffline = app.toast.create({text: 'OFFLINE: Tidak Ada Koneksi Internet',position: 'bottom',closeTimeout: 4000, });
+  toastOffline = app.toast.create({text: 'OFFLINE: Tidak Ada Koneksi Internet',position: 'bottom', closeTimeout: 1000, });
   // Open it
   toastOffline.open();
+}
+
+
+function onPause() {
+  // Handle the pause event
+  toastP = app.toast.create({text: 'PAUSE: Aplikasi di Minimize',position: 'bottom', closeTimeout: 1000, });
+  // Open it
+  toastP.open();
+}
+
+function onResume() {
+  setTimeout(function() {
+    // TODO: do your thing!
+    toastR = app.toast.create({text: 'RESUME: Kembali ke Aplikasi',position: 'bottom', closeTimeout: 1000, });
+
+    toastR.open();
+
+  }, 0);
 }

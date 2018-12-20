@@ -94,7 +94,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Harga Barang</div>
               <div class="item-input-wrap">
-                <input type="number" name="bprice" placeholder="0" value="" />
+                <input type="number" name="bprice" placeholder="0" value="{{item.bprice}}" />
               </div>
             </div>
           </div>
@@ -118,12 +118,24 @@
               </div>
             </div>
         </li>
+
         <li class="align-top">
           <div class="item-content item-input">
             <div class="item-inner">
               <!-- <div class="item-title item-label">Deskripsi</div> -->
               <div class="item-input-wrap">
                 <textarea placeholder="Deskripsi" name="note" class="resizable" value="{{item.note}}"></textarea>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Dibuat</div>
+              <div class="item-input-wrap">
+                <input type="text" name="created" value="{{item.created}}" />
               </div>
             </div>
           </div>
