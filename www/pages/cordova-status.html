@@ -1,0 +1,148 @@
+<template>
+<div class="page" data-name="cordova_status">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="back link">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">Cordova Status</div>
+      <div class="right">
+        <a href="#" class="link icon-only">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">notifications</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <form id="cordova-form">
+    <div class="list no-hairlines-md">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Available</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.available}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Cordova</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.cordova}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">isVirtual</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.isVirtual}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Manufacturer</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.manufacturer}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Model</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.model}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Platform</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.platform}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Serial</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.serial}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">UUID</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.uuid}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Version</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{cdv.verson}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+
+
+        
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <a href="#" @click="$root.onBackKeyDown()" class="button col button-big button-fill button-raised color-red">BACK</a>
+      </p>
+    </div>
+    </form>
+    
+
+    <div class="list">
+      <ul>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        // user: JSON.parse(localStorage.user),
+      };
+    },
+    // Component Methods
+    methods: {
+
+    }, 
+  };
+</script>

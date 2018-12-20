@@ -1,0 +1,171 @@
+<template>
+<div class="page" data-name="cordova_status">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="back link">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">QR Scanner Status</div>
+      <div class="right">
+        <a href="#" class="link icon-only">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">notifications</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <form id="cordova-form">
+    <div class="list no-hairlines-md">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Authorized</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.authorized}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Denied</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.denied}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Restricted</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.restricted}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">canOpenSettings</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.canOpenSettings}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">canChangeCamera</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.canChangeCamera}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">canEnableLight</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.canEnableLight}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">currentCamera</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.currentCamera}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">lightEnabled</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.lightEnabled}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+         <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">prepared</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.prepared}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">previewing</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.previewing}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">scanning</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.scanning}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">showing</div>
+              <div class="item-input-wrap">
+                <input type="text" value="{{qr.showing}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <a href="#" @click="$root.onBackKeyDown()" class="button col button-big button-fill button-raised color-red">Back</a>
+      </p>
+    </div>
+    </form>
+    
+
+    <div class="list">
+      <ul>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        // user: JSON.parse(localStorage.user),
+      };
+    },
+  };
+</script>

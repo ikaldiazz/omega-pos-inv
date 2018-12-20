@@ -11,7 +11,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.18',
+  version: '1.0.19',
   name: 'Omega POS Inventory', // App name
   theme: 'md', // Automatic theme detection
   pushState: true, //backButton
@@ -269,7 +269,7 @@ $$('.convert-form-to-data').on('click', function(){
   console.log('xxxxxxx');
 });
 
-$$('.qrscanner').on('click', function(){
+$$('.status-qr').on('click', function(){
 	var done = function(err){
     if(err){
       console.error(err._message);
@@ -286,17 +286,37 @@ $$('.qrscanner').on('click', function(){
       QRScanner.prepare(done);
 });
 
-$$('.qrsetting').on('click', function(){
+$$('.scan-qr').on('click', function(){
+  // QRScanner.getStatus(function(status){
+  //   console.log(status.authorized);
+  //   if(!status.authorized && status.canOpenSettings){
+  //     if(confirm("Would you like to enable QR code scanning? You can allow camera access in your settings.")){
+  //       QRScanner.openSettings();
+  //     }
+  //   }
+  // });
 
+  QRScanner.show(function(status){
+    console.log('QRSCANNER SHOWING...');
+    console.log(status);
+  });
+  
   var callback = function(err, contents){
     if(err){
       console.error(err._message);
     }
+    console.log('QRSCANNER SCANNING...');
     app.dialog.alert('The QR Code contains: ' + contents);
   };
    
   QRScanner.scan(callback);
 
+
+
+});
+
+
+$$('.show-qr').on('click', function(){
   QRScanner.show(function(status){
     console.log(status);
   });
@@ -309,22 +329,6 @@ $$('.qrsetting').on('click', function(){
       }
     }
   });
-  
-
-  // var done = function(err){
-  //   if(err){
-  //     console.error(err._message);
-  //         var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
-  //         errQR.open();
-  //       } 
-  //   console.log('QRScanner is initialized. Status:');
-  //   QRScanner.getStatus(function(status){
-  //     statusQR = status;
-  //     var statQR = app.toast.create({text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
-  //     statQR.open();
-  //   });
-  // };
-  //     QRScanner.prepare(done);
 });
 
 
@@ -411,4 +415,12 @@ function onOnline() {
   toastOnline = app.toast.create({text: 'ONLINE: Koneksi Internet Kembali Aktif', position: 'bottom', closeTimeout: 4000,});
   // Open it
   toastOnline.open();
+}
+
+function onOffline() {
+  // Handle the offline event
+  // console.log('Connection type: OFFLINE');
+  toastOffline = app.toast.create({text: 'OFFLINE: Tidak Ada Koneksi Internet',position: 'bottom',closeTimeout: 4000, });
+  // Open it
+  toastOffline.open();
 }

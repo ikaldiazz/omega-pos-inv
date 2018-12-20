@@ -442,6 +442,54 @@ routes = [
     // ignoreCache: true,
   },
   {
+    path: '/cordova/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      var router = this;
+      var app = router.app;
+      app.preloader.show();
+      var itemId = routeTo.params.itemId;
+      console.log(app.data);
+      setTimeout(function () {
+        app.preloader.hide();
+        resolve(
+        {
+          componentUrl: './pages/cordova-status.html',
+        },
+        {
+          context: {
+            cdv: app.data.cdv,
+          }
+        }
+        );
+      }, 500);
+    }
+  },
+  {
+    path: '/qr/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      var router = this;
+
+      var app = router.app;
+      app.preloader.show();
+      var itemId = routeTo.params.itemId;
+      console.log(app.data);
+      setTimeout(function () {
+        app.preloader.hide();
+        resolve(
+        {
+          componentUrl: './pages/qr-status.html',
+        },
+        {
+          context: {
+            qr: app.data.qrstatus,
+          }
+        }
+        );
+      }, 500);
+    }
+  },
+
+  {
     path: '/config/',
     async: function (routeTo, routeFrom, resolve, reject) {
       console.log("UID: "+localStorage.uid);
