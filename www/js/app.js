@@ -11,9 +11,9 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.19',
+  version: '1.0.20',
   name: 'Omega POS Inventory', // App name
-  theme: 'md', // Automatic theme detection
+  theme: 'ios', // Automatic theme detection
   pushState: true, //backButton
  //  view: {
  //pushStateRoot: ‘/example/’, // if the address like this https://www.example.com/example/ 5
@@ -255,19 +255,15 @@ $$('#my-login-screen .login-button').on('click', function () {
 
         output = JSON.parse(response);
 
-        if(output.status=='success'){
+            if(output.status=='success'){
 
-          localStorage.uid = output.data.uid;
-          localStorage.key = output.data.key;
-          localStorage.user = JSON.stringify(output.user);
+            localStorage.uid = output.data.uid;
+            localStorage.key = output.data.key;
+            localStorage.user = JSON.stringify(output.user);
 	            // Close login screen
 	            app.loginScreen.close('#my-login-screen');
               app.dialog.alert('Selamat Datang '+output.user.firstname, 'Welcome');
-              homeView.router.back({
-      				  url: '/', // - in case you use Ajax pages
-      				  // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
-      				  force: true
-      				});
+              homeView.router.back({ url: '/',force: true	});
 
             }else{
               app.dialog.alert('username atau password salah', 'Error Input');
@@ -279,7 +275,7 @@ $$('#my-login-screen .login-button').on('click', function () {
             console.log('Error: '+JSON.stringify(xhr));
             console.log('ErrorStatus: '+JSON.stringify(status));
           }
-          );},      1000);
+    );},      1000);
 });
 
 // Login Screen Demo
@@ -326,6 +322,9 @@ $$('.status-qr').on('click', function(){
 });
 
 $$('.scan-qr').on('click', function(){
+  $$('#app').addClass('ra-ketok');
+  $$('#my-popup').addClass('ra-ketok');
+  $$('#my-login-screen').addClass('ra-ketok');
 	// console.log($$('body').css());
   // QRScanner.getStatus(function(status){
   //   console.log(status.authorized);
@@ -363,18 +362,27 @@ $$('.scan-qr').on('click', function(){
 
   QRScanner.show(function(status){
     console.log('QRSCANNER SHOWING...');
-    $$('#app').addClass('ra-ketok');
+    // $$('#app').addClass('ra-ketok');
+    // $$('#my-popup').addClass('ra-ketok');
+    // $$('#my-login-screen').addClass('ra-ketok');
 
     console.log(status);
   });
   
   var callback = function(err, contents){
-    if(err){
-      console.error(err._message);
-    }
+
     console.log('QRSCANNER SCANNING...');
-    app.dialog.alert('The QR Code contains: ' + contents);
+    if(err){console.error(err._message);}
+    $$('#app').removeClass('ra-ketok');
+    $$('#my-popup').removeClass('ra-ketok');
+    $$('#my-login-screen').removeClass('ra-ketok');
+
+    
     $$('#app').addClass('ketok');
+    $$('#my-popup').addClass('ketok');
+    $$('#my-login-screen').addClass('ketok');
+    app.dialog.alert('The QR Code contains: ' + contents);
+
   };
    
   QRScanner.scan(callback);
@@ -556,3 +564,9 @@ function onResume() {
 
   }, 0);
 }
+
+Template7.registerHelper('formatDate', function(date){
+
+var newDate = date.substr(0,10);
+return newDate;
+});
