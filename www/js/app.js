@@ -1,3 +1,4 @@
+
 // Dom7
 var $$ = Dom7;
 
@@ -133,13 +134,13 @@ var app  = new Framework7({
   routes: routes,
   on: {
     init() {
-      console.log('init()');
-      console.log(navigator.camera);
+      console.log('init() Framework7');
+      // console.log(navigator.camera);
       var tempcdv;
       var tempcdvfile;
       window.addEventListener('filePluginIsReady', function(){ console.log('File plugin is ready');}, false);
       document.addEventListener('deviceready', () => {
-        console.log("DEVICE READY SECOND ON APP.JS");
+        console.log("DEVICE READY SECOND ON APP.JS => on init() Framework7");
         tempcdv = device;
         tempcdvfile = cordova.file;
         document.addEventListener("offline", onOffline, false);
@@ -147,7 +148,7 @@ var app  = new Framework7({
         document.addEventListener('backbutton', onBackKeyDown, false);
         document.addEventListener("pause", onPause, false);
         document.addEventListener("resume", onResume, false);
-        console.log(cordova.file);
+        // console.log(cordova.file);
 
         // var tempqrstat;
         // QRScanner.getStatus(function(status){
@@ -305,24 +306,24 @@ $$('.convert-form-to-data').on('click', function(){
 
 $$('.status-qr').on('click', function(){
   console.log($$('.dialog.modal-in').length);
-	var done = function(err){
+  console.log(app);
+  var done = function(err){
     if(err){
       app.dialog.alert(JSON.stringify(err,null,2), 'Error QR');
 
       console.error(err._message);
-          var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
-          errQR.open();
-        } 
-    console.log('QRScanner is initialized. Status:');
+      var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
+      errQR.open();
+    } 
     QRScanner.getStatus(function(status){
       statusQR = status;
       app.dialog.alert(JSON.stringify(status,null,2), 'Status QR');
 
-      var statQR = app.toast.create({text: 'QRScanner Status no Error. \n'+JSON.stringify(status,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
+      var statQR = app.toast.create({text: 'NO Error. \n'+JSON.stringify(status,null,2)+'.', position: 'bottom', closeButton: true});
       statQR.open();
     });
   };
-      QRScanner.prepare(done);
+  QRScanner.prepare(done);
 });
 
 $$('.scan-qr').on('click', function(){
@@ -336,48 +337,48 @@ $$('.scan-qr').on('click', function(){
   //   }
   // });
 
-  // background: none transparent !important;
-  // opacity: 0 !important;
+  //==========================================================///
+  // $$('#app').addClass('ra-ketok');
 
-  // background: none transparent;
-  // opacity: 0;
-  $$('#app').addClass('ra-ketok');
-
-  QRScanner.show();
-  QRScanner.scan(displayContents);
+  // // QRScanner.show();
+  // QRScanner.scan(displayContents);
  
-  function displayContents(err, text){
-    if(err){
-      app.dialog.alert(err._message);
-      $$('#app').addClass('ketok');
+  // function displayContents(err, text){
+  //   if(err){
+  //     app.dialog.alert(err._message);
+  //     $$('#app').addClass('ketok');
 
-      // an error occurred, or the scan was canceled (error code `6`)
-    } else {
-      // The scan completed, display the contents of the QR code:
-      console.log('QRSCANNER SCANNING...');
-      app.dialog.alert('The QR Code contains: ' + contents);
-      $$('#app').addClass('ketok');
-    }
-  }
+  //     // an error occurred, or the scan was canceled (error code `6`)
+  //   } else {
+  //     // The scan completed, display the contents of the QR code:
+  //     console.log('QRSCANNER SCANNING...');
+  //     app.dialog.alert('The QR Code contains: ' + contents);
+  //     $$('#app').addClass('ketok');
+  //   }
+  // }
+  //=============================================================//
    
   // Make the webview transparent so the video preview is visible behind it.
   // Be sure to make any opaque HTML elements transparent here to avoid
   // covering the video.
 
-  // QRScanner.show(function(status){
-  //   console.log('QRSCANNER SHOWING...');
-  //   console.log(status);
-  // });
+  QRScanner.show(function(status){
+    console.log('QRSCANNER SHOWING...');
+    $$('#app').addClass('ra-ketok');
+
+    console.log(status);
+  });
   
-  // var callback = function(err, contents){
-  //   if(err){
-  //     console.error(err._message);
-  //   }
-  //   console.log('QRSCANNER SCANNING...');
-  //   app.dialog.alert('The QR Code contains: ' + contents);
-  // };
+  var callback = function(err, contents){
+    if(err){
+      console.error(err._message);
+    }
+    console.log('QRSCANNER SCANNING...');
+    app.dialog.alert('The QR Code contains: ' + contents);
+    $$('#app').addClass('ketok');
+  };
    
-  // QRScanner.scan(callback);
+  QRScanner.scan(callback);
 
 
 
@@ -385,25 +386,31 @@ $$('.scan-qr').on('click', function(){
 
 
 $$('.show-qr').on('click', function(){
+  $$('#app').addClass('ra-ketok');
+
   QRScanner.show(function(status){
     console.log(status);
+    app.dialog.alert('SHOW QR: ' + status);
+    $$('#app').addClass('ketok');
+
   });
 
-  QRScanner.getStatus(function(status){
-    console.log(status.authorized);
-    if(!status.authorized && status.canOpenSettings){
-      if(confirm("Would you like to enable QR code scanning? You can allow camera access in your settings.")){
-        QRScanner.openSettings();
-      }
-    }
-  });
+  // QRScanner.getStatus(function(status){
+  //   console.log(status.authorized);
+  //   if(!status.authorized && status.canOpenSettings){
+  //     if(confirm("Would you like to enable QR code scanning? You can allow camera access in your settings.")){
+  //       QRScanner.openSettings();
+  //     }
+  //   }
+  // });
 });
 
 
-
-
 document.addEventListener('deviceready', () => {
-  console.log('LATEST====>>Device ready event fired!');
+  console.log('on document addEventListener(deviceready) =>Device ready event fired!');
+  // console.log(cordova);
+  // console.log(navigator);
+
   //  function checkConnection() {
   //   var networkState = navigator.connection.type;
   //   var states = {};
@@ -424,8 +431,50 @@ document.addEventListener('deviceready', () => {
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", onResume, false);
 
-  // console.log(document);
+
+  QRScanner.prepare(onDone); // show the prompt
+  function onDone(err){
+    // console.error(err);
+    if (err) {
+    // here we can handle errors and clean up any loose ends.
+    // console.error(err);
+    // console.error(err._message);
+    errTEXT = err.code+' => '+err.name+' => '+err._message;
+    // console.error(errTEXT);
+    prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
+    prepQRErr.open();
+      // if(err.name === 'SCAN_CANCELED') {
+      // console.error('The scan was canceled before a QR code was found.');
+      // } else {
+      // console.error(err._message);
+      // }
+    }
+    else{
+      QRScanner.getStatus(function(status){
+        // console.log(status);
+        var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
+        prepQRStat.open();
+        // if (status.authorized) {
+        // // W00t, you have camera access and the scanner is initialized.
+        // // QRscanner.show() should feel very fast.
+        // } else if (status.denied) {
+        // // The video preview will remain black, and scanning is disabled. We can
+        // // try to ask the user to change their mind, but we'll have to send them
+        // // to their device settings with `QRScanner.openSettings()`.
+        // } else {
+        // // we didn't get permission, but we didn't get permanently denied. (On
+        // // Android, a denial isn't permanent unless the user checks the "Don't
+        // // ask again" box.) We can ask again at the next relevant opportunity.
+        // }
+      });
+      // console.error('NO ERROR');
+    }
+  }
 });
+
+
+
+
 
 function onBackKeyDown() {
   var cpage = app.views.main.router.url;
