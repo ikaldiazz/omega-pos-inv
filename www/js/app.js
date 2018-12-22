@@ -13,7 +13,7 @@ var app  = new Framework7({
   id: 'com.mbutgae.omega.inv', // App bundle ID
   version: '1.0.20',
   name: 'Omega POS Inventory', // App name
-  theme: 'ios', // Automatic theme detection
+  theme: 'auto', // Automatic theme detection
   pushState: true, //backButton
  //  view: {
  //pushStateRoot: ‘/example/’, // if the address like this https://www.example.com/example/ 5
@@ -362,7 +362,7 @@ $$('.scan-qr').on('click', function(){
     }
   }
 
-  
+
   // $$('#app').addClass('ra-ketok');
   // $$('#my-popup').addClass('ra-ketok');
   // $$('#my-login-screen').addClass('ra-ketok');
@@ -406,15 +406,22 @@ $$('.scan-qr').on('click', function(){
 
     console.log('QRSCANNER SCANNING...');
     if(err){console.error(err._message);}
-    $$('#app').removeClass('ra-ketok');
-    $$('#my-popup').removeClass('ra-ketok');
-    $$('#my-login-screen').removeClass('ra-ketok');
 
     
     $$('#app').addClass('ketok');
     $$('#my-popup').addClass('ketok');
     $$('#my-login-screen').addClass('ketok');
     app.dialog.alert('The QR Code contains: ' + contents);
+
+    QRScanner.hide(function(status){
+    console.log('QRSCANNER HIDING...');
+    $$('#app').removeClass('ra-ketok');
+    $$('#my-popup').removeClass('ra-ketok');
+    $$('#my-login-screen').removeClass('ra-ketok');
+    
+
+    console.log(status);
+  	});
 
   };
    
@@ -452,6 +459,13 @@ $$('.show-qr').on('click', function(){
   //     }
   //   }
   // });
+});
+
+$$('.cordova-file').on('click', function(){
+
+	var cdvFileToast = app.toast.create({text: 'CORDOVA.FILE.GETSTATUS. \n'+JSON.stringify(cordova.file,null,2)+'.',position: 'bottom', closeButton: true});
+        cdvFileToast.open();
+  
 });
 
 
