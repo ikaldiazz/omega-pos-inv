@@ -322,9 +322,50 @@ $$('.status-qr').on('click', function(){
 });
 
 $$('.scan-qr').on('click', function(){
-  $$('#app').addClass('ra-ketok');
-  $$('#my-popup').addClass('ra-ketok');
-  $$('#my-login-screen').addClass('ra-ketok');
+
+  QRScanner.prepare(onDone); // show the prompt
+  function onDone(err){
+    // console.error(err);
+    if (err) {
+    // here we can handle errors and clean up any loose ends.
+    // console.error(err);
+    // console.error(err._message);
+    errTEXT = err.code+' => '+err.name+' => '+err._message;
+    // console.error(errTEXT);
+    prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
+    prepQRErr.open();
+      // if(err.name === 'SCAN_CANCELED') {
+      // console.error('The scan was canceled before a QR code was found.');
+      // } else {
+      // console.error(err._message);
+      // }
+    }
+    else{
+      QRScanner.getStatus(function(status){
+        // console.log(status);
+        var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
+        prepQRStat.open();
+        // if (status.authorized) {
+        // // W00t, you have camera access and the scanner is initialized.
+        // // QRscanner.show() should feel very fast.
+        // } else if (status.denied) {
+        // // The video preview will remain black, and scanning is disabled. We can
+        // // try to ask the user to change their mind, but we'll have to send them
+        // // to their device settings with `QRScanner.openSettings()`.
+        // } else {
+        // // we didn't get permission, but we didn't get permanently denied. (On
+        // // Android, a denial isn't permanent unless the user checks the "Don't
+        // // ask again" box.) We can ask again at the next relevant opportunity.
+        // }
+      });
+      // console.error('NO ERROR');
+    }
+  }
+
+  
+  // $$('#app').addClass('ra-ketok');
+  // $$('#my-popup').addClass('ra-ketok');
+  // $$('#my-login-screen').addClass('ra-ketok');
 	// console.log($$('body').css());
   // QRScanner.getStatus(function(status){
   //   console.log(status.authorized);
@@ -360,14 +401,6 @@ $$('.scan-qr').on('click', function(){
   // Be sure to make any opaque HTML elements transparent here to avoid
   // covering the video.
 
-  QRScanner.show(function(status){
-    console.log('QRSCANNER SHOWING...');
-    // $$('#app').addClass('ra-ketok');
-    // $$('#my-popup').addClass('ra-ketok');
-    // $$('#my-login-screen').addClass('ra-ketok');
-
-    console.log(status);
-  });
   
   var callback = function(err, contents){
 
@@ -387,7 +420,16 @@ $$('.scan-qr').on('click', function(){
    
   QRScanner.scan(callback);
 
+  // QRScanner.show();
 
+  QRScanner.show(function(status){
+    console.log('QRSCANNER SHOWING...');
+    $$('#app').addClass('ra-ketok');
+    $$('#my-popup').addClass('ra-ketok');
+    $$('#my-login-screen').addClass('ra-ketok');
+
+    console.log(status);
+  });
 
 });
 
@@ -439,44 +481,7 @@ document.addEventListener('deviceready', () => {
   document.addEventListener("resume", onResume, false);
 
 
-  QRScanner.prepare(onDone); // show the prompt
-  function onDone(err){
-    // console.error(err);
-    if (err) {
-    // here we can handle errors and clean up any loose ends.
-    // console.error(err);
-    // console.error(err._message);
-    errTEXT = err.code+' => '+err.name+' => '+err._message;
-    // console.error(errTEXT);
-    prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
-    prepQRErr.open();
-      // if(err.name === 'SCAN_CANCELED') {
-      // console.error('The scan was canceled before a QR code was found.');
-      // } else {
-      // console.error(err._message);
-      // }
-    }
-    else{
-      QRScanner.getStatus(function(status){
-        // console.log(status);
-        var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
-        prepQRStat.open();
-        // if (status.authorized) {
-        // // W00t, you have camera access and the scanner is initialized.
-        // // QRscanner.show() should feel very fast.
-        // } else if (status.denied) {
-        // // The video preview will remain black, and scanning is disabled. We can
-        // // try to ask the user to change their mind, but we'll have to send them
-        // // to their device settings with `QRScanner.openSettings()`.
-        // } else {
-        // // we didn't get permission, but we didn't get permanently denied. (On
-        // // Android, a denial isn't permanent unless the user checks the "Don't
-        // // ask again" box.) We can ask again at the next relevant opportunity.
-        // }
-      });
-      // console.error('NO ERROR');
-    }
-  }
+  
 });
 
 
