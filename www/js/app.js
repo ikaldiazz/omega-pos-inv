@@ -411,7 +411,7 @@ $$('.scan-qr').on('click', function(){
   
   var callback = function(err, contents){
 
-    console.log('QRSCANNER SCANNING...');
+    console.log('QRSCANNER SCANNING... on callback');
     if(err){console.error(err._message);}
 
     
@@ -426,7 +426,7 @@ $$('.scan-qr').on('click', function(){
     $$('#my-popup').removeClass('ra-ketok');
     $$('#my-login-screen').removeClass('ra-ketok');
     
-  	QRScanner.destroy();
+  	QRScanner.cancelScan();
 
     console.log(status);
   	});
@@ -446,6 +446,9 @@ $$('.scan-qr').on('click', function(){
     $$('#app').addClass('ra-ketok');
     $$('#my-popup').addClass('ra-ketok');
     $$('#my-login-screen').addClass('ra-ketok');
+    console.log('QRSCANNER SCANNING...on SHOW METHOD');
+    QRScanner.scan(callback);
+
 
     console.log(status);
   });
@@ -586,6 +589,9 @@ function onPause() {
   toastP = app.toast.create({text: 'PAUSE: Aplikasi di Minimize',position: 'bottom', closeTimeout: 1000, });
   // Open it
   toastP.open();
+  QRScanner.destroy(function(status){
+  console.log(status);
+  });
 }
 
 function onResume() {
