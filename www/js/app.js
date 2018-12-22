@@ -66,24 +66,24 @@ var app  = new Framework7({
     helloWorld: function () {
       app.dialog.alert('Hello World!');
     },
-    scanQR: function () {
-      QRScanner.scan(displayContents);
+    // scanQR: function () {
+    //   QRScanner.scan(displayContents);
      
-      function displayContents(err, text){
-        if(err){
-          app.dialog.alert(err._message);
+    //   function displayContents(err, text){
+    //     if(err){
+    //       app.dialog.alert(err._message);
 
-          // an error occurred, or the scan was canceled (error code `6`)
-        } else {
-          // The scan completed, display the contents of the QR code:
-          console.log('QRSCANNER SCANNING...');
-          app.dialog.alert('The QR Code contains: ' + contents);
-        }
-      }
+    //       // an error occurred, or the scan was canceled (error code `6`)
+    //     } else {
+    //       // The scan completed, display the contents of the QR code:
+    //       console.log('QRSCANNER SCANNING...');
+    //       app.dialog.alert('The QR Code contains: ' + contents);
+    //     }
+    //   }
        
-      // Make the webview transparent so the video preview is visible behind it.
-      QRScanner.show();
-    },
+    //   // Make the webview transparent so the video preview is visible behind it.
+    //   QRScanner.show();
+    // },
     onBackKeyDown: function() {
       var cpage = app.views.main.router.url;
       console.log(cpage);
@@ -309,6 +309,8 @@ $$('.status-qr').on('click', function(){
       console.error(err._message);
       var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
       errQR.open();
+      QRScanner.destroy();
+
     } 
     QRScanner.getStatus(function(status){
       statusQR = status;
@@ -316,6 +318,8 @@ $$('.status-qr').on('click', function(){
 
       var statQR = app.toast.create({text: 'NO Error. \n'+JSON.stringify(status,null,2)+'.', position: 'bottom', closeButton: true});
       statQR.open();
+      QRScanner.destroy();
+
     });
   };
   QRScanner.prepare(done);
@@ -334,6 +338,8 @@ $$('.scan-qr').on('click', function(){
     // console.error(errTEXT);
     prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
     prepQRErr.open();
+    QRScanner.destroy();
+
       // if(err.name === 'SCAN_CANCELED') {
       // console.error('The scan was canceled before a QR code was found.');
       // } else {
@@ -345,6 +351,7 @@ $$('.scan-qr').on('click', function(){
         // console.log(status);
         var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
         prepQRStat.open();
+        QRScanner.destroy();
         // if (status.authorized) {
         // // W00t, you have camera access and the scanner is initialized.
         // // QRscanner.show() should feel very fast.
@@ -419,6 +426,7 @@ $$('.scan-qr').on('click', function(){
     $$('#my-popup').removeClass('ra-ketok');
     $$('#my-login-screen').removeClass('ra-ketok');
     
+  	QRScanner.destroy();
 
     console.log(status);
   	});
@@ -462,7 +470,7 @@ $$('.show-qr').on('click', function(){
 });
 
 $$('.cordova-file').on('click', function(){
-
+	app.dialog.alert(cordova.file);
 	var cdvFileToast = app.toast.create({text: 'CORDOVA.FILE.GETSTATUS. \n'+JSON.stringify(cordova.file,null,2)+'.',position: 'bottom', closeButton: true});
         cdvFileToast.open();
   
