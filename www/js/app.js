@@ -300,13 +300,13 @@ $$('.convert-form-to-data').on('click', function(){
 });
 
 $$('.status-qr').on('click', function(){
-  console.log($$('.dialog.modal-in').length);
-  console.log(app);
+  // console.log($$('.dialog.modal-in').length);
+  // console.log(app);
   var done = function(err){
     if(err){
       app.dialog.alert(JSON.stringify(err,null,2), 'Error QR');
 
-      console.error(err._message);
+      console.error('ERROR on STATUS QR on CLICK',err._message);
       var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
       errQR.open();
       QRScanner.destroy();
@@ -338,7 +338,7 @@ $$('.scan-qr').on('click', function(){
     // console.error(errTEXT);
     prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
     prepQRErr.open();
-    QRScanner.destroy();
+    QRScanner.cancelScan();
 
       // if(err.name === 'SCAN_CANCELED') {
       // console.error('The scan was canceled before a QR code was found.');
@@ -351,7 +351,7 @@ $$('.scan-qr').on('click', function(){
         // console.log(status);
         var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
         prepQRStat.open();
-        QRScanner.destroy();
+        // QRScanner.destroy();
         // if (status.authorized) {
         // // W00t, you have camera access and the scanner is initialized.
         // // QRscanner.show() should feel very fast.
@@ -439,6 +439,10 @@ $$('.scan-qr').on('click', function(){
 
   QRScanner.show(function(status){
     console.log('QRSCANNER SHOWING...');
+    $$('#app').removeClass('ketok');
+    $$('#my-popup').removeClass('ketok');
+    $$('#my-login-screen').removeClass('ketok');
+
     $$('#app').addClass('ra-ketok');
     $$('#my-popup').addClass('ra-ketok');
     $$('#my-login-screen').addClass('ra-ketok');
