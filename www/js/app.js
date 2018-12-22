@@ -470,7 +470,9 @@ $$('.show-qr').on('click', function(){
 });
 
 $$('.cordova-file').on('click', function(){
-	app.dialog.alert(cordova.file);
+	console.log(JSON.stringify(cordova.file,null,2));
+	filecdv = JSON.stringify(cordova.file,null,2);
+	app.dialog.alert(filecdv);
 	var cdvFileToast = app.toast.create({text: 'CORDOVA.FILE.GETSTATUS. \n'+JSON.stringify(cordova.file,null,2)+'.',position: 'bottom', closeButton: true});
         cdvFileToast.open();
   
