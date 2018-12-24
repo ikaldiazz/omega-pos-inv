@@ -18,15 +18,16 @@
     </div>
   </div>
   <div class="page-content">
+    <div class="block-title">CORDOVA FILE</div>
     <form id="cordova-file-form">
     <div class="list no-hairlines-md">
       <ul>
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">applicationDirectory</div>
+              <div class="item-title item-label">applicationDirectory - assets - (R)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.applicationDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.applicationDirectory}}"></textarea> 
               </div>
             </div>
           </div>
@@ -34,9 +35,9 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">applicationStorageDirectory</div>
+              <div class="item-title item-label">applicationStorageDirectory - &#47;data&#47;data&#47;app-id - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.applicationStorageDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.applicationStorageDirectory}}"></textarea> 
               </div>
             </div>
           </div>
@@ -44,9 +45,9 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">cacheDirectory</div>
+              <div class="item-title item-label">dataDirectory - files - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.cacheDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.dataDirectory}}"></textarea> 
               </div>
             </div>
           </div>
@@ -54,19 +55,9 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">dataDirectory</div>
+              <div class="item-title item-label">cacheDirectory - cache - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.dataDirectory}}" />
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-title item-label">documentsDirectory</div>
-              <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.documentsDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.cacheDirectory}}"></textarea> 
               </div>
             </div>
           </div>
@@ -74,9 +65,9 @@
          <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">externalApplicationStorageDirectory</div>
+              <div class="item-title item-label">externalApplicationStorageDirectory - Android&#47;data&#47;app-id - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.externalApplicationStorageDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.externalApplicationStorageDirectory}}"></textarea> 
               </div>
             </div>
           </div>
@@ -84,9 +75,9 @@
          <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">externalCacheDirectory</div>
+              <div class="item-title item-label">externalDataDirectory - files-external - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.externalCacheDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.externalDataDirectory}}"></textarea>
               </div>
             </div>
           </div>
@@ -94,9 +85,9 @@
          <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">externalDataDirectory</div>
+              <div class="item-title item-label">externalCacheDirectory - cache-external - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.externalDataDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.externalCacheDirectory}}"></textarea>
               </div>
             </div>
           </div>
@@ -104,19 +95,20 @@
          <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">externalRootDirectory</div>
+              <div class="item-title item-label">externalRootDirectory - sdcard - (R&#47;W)</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.externalRootDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.externalRootDirectory}}"></textarea>
               </div>
             </div>
           </div>
         </li>
+        <!-- IOS and Windows Phone Only
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">sharedDirectory</div>
+              <div class="item-title item-label">tempDirectory</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.sharedDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.tempDirectory}}" ></textarea>
               </div>
             </div>
           </div>
@@ -126,7 +118,7 @@
             <div class="item-inner">
               <div class="item-title item-label">syncedDataDirectory</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.syncedDataDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.syncedDataDirectory}}" ></textarea>
               </div>
             </div>
           </div>
@@ -134,13 +126,24 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">tempDirectory</div>
+              <div class="item-title item-label">documentsDirectory</div>
               <div class="item-input-wrap">
-                <input type="text" disabled placeholder="null" value="{{cdvfile.tempDirectory}}" />
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.documentsDirectory}}"></textarea> 
               </div>
             </div>
           </div>
         </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">sharedDirectory</div>
+              <div class="item-input-wrap">
+                <textarea class="resizable" disabled placeholder="null" value="{{cdvfile.sharedDirectory}}" ></textarea>
+              </div>
+            </div>
+          </div>
+        </li> 
+      -->
       </ul>
     </div>
     <div class="block block-strong">

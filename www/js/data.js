@@ -1,4 +1,4 @@
-data = function () {
+dataRoot = function () {
   return {
     user: {
       uid : 'mbutgae',

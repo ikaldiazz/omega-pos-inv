@@ -471,10 +471,12 @@ routes = [
 
       var app = router.app;
       app.preloader.show();
-      var itemId = routeTo.params.itemId;
       console.log(app.data);
+      loadstatus = app.toast.create({text: 'Checking Permission: Cordova File',position: 'bottom'});
+      loadstatus.open();
       setTimeout(function () {
         app.preloader.hide();
+        loadstatus.close();
         resolve(
         {
           componentUrl: './pages/cordova-file-status.html',
@@ -485,7 +487,7 @@ routes = [
           }
         }
         );
-      }, 500);
+      }, 1500);
     }
   },
 

@@ -3,6 +3,7 @@ events =
   init() {
     console.log('init() Framework7');
     var tempcdv;
+    var tempcdvfile;
     document.addEventListener('deviceready', () => {
       console.log('DEVICE READY SECOND ON APP.JS => on init() Framework7','LINE:120');
       tempcdv = device;
@@ -11,8 +12,14 @@ events =
       document.addEventListener('backbutton', onBackKeyDown, false);
       document.addEventListener("pause", onPause, false);
       document.addEventListener("resume", onResume, false);
-      window.addEventListener('filePluginIsReady', function(){ console.log('File plugin is ready');}, false);
+      window.addEventListener('filePluginIsReady', function(){ 
+        console.log('File plugin is ready');
+      }, false);
+      
     });
+
+    tempcdvfile = cordova.file;
+    this.data.cdvfile = tempcdvfile;
     this.data.cdv = tempcdv;
 
 
