@@ -4,14 +4,14 @@ methods = {
   },
   onBackKeyDown: function() {
     var cpage = app.views.main.router.url;
-    console.log(cpage);
+    // console.log(cpage);
     var cpagename = cpage.name;
     var cpage = app.views.main.router.url;
-    console.log(cpage);
+    // console.log(cpage);
     var leftp = app.panel.left && app.panel.left.opened;
     var rightp = app.panel.right && app.panel.right.opened;
-    console.log(leftp);
-    console.log(rightp);
+    // console.log(leftp);
+    // console.log(rightp);
       // console.log(cpagename);
       if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
         app.panel.right.close(true);

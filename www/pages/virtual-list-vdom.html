@@ -79,12 +79,12 @@
                 <div class="item-inner">
                   <div class="item-title-row">
                     <div class="item-title">{{iid}}</div>
-                    <div class="item-after">{{bprice}}</div>
+                    <div class="item-after">{{created}}</div>
                   </div>
                   <div class="item-subtitle">{{iname}}</div>
                   <div class="item-text">
+                    {{bprice}}
                     {{modified}}
-                    {{created}}
                   </div>
                 </div>
               </a>
@@ -116,27 +116,27 @@
       var app = self.$app;
       
       console.log('componentBeforeCreate', this);
-      console.log(self.virtualList);
+      console.log(app.virtualList);
     },
     created() {
       console.log('componentCreated', this);
-      console.log(self.virtualList);
+      console.log(this.$app.virtualList);
     },
     beforeMount() {
       console.log('componentBeforeMount', this);
-      console.log(self.virtualList);
+      console.log(this.$app.virtualList);
     },
     mounted() {
       console.log('componentMounted', this);
-      console.log(self.virtualList);
+      console.log(this.$app.virtualList);
     },
     beforeDestroy() {
       console.log('componentBeforeDestroy', this);
-      console.log(self.virtualList);
+      console.log(this.$app.virtualList);
     },
     destroyed() {
       console.log('componentDestroyed', this);
-      console.log(self.virtualList);
+      console.log(this.$app.virtualList);
     },
     // Component Data
     data: function() {
@@ -159,7 +159,6 @@
     methods: {
       more: function () {
         var self = this;
-
         self.actions.open();
       },
       mark: function () {
@@ -183,7 +182,7 @@
     on: {
       pageBeforeRemove: function () {
         var self = this;
-        self.virtualList.destroy();
+        self.$app.virtualList.destroy();
       },
       pageInit: function() {
         var self = this;

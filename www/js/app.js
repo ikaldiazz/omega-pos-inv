@@ -62,62 +62,89 @@ var app  = new Framework7({
   methods: methods,
   // App routes
   routes: routes,
-  on: {
-    init() {
-      console.log('init() Framework7');
-      // console.log(navigator.camera);
-      var tempcdv;
-      window.addEventListener('filePluginIsReady', function(){ console.log('File plugin is ready');}, false);
-      document.addEventListener('deviceready', () => {
-        console.log('DEVICE READY SECOND ON APP.JS => on init() Framework7','LINE:120');
-        tempcdv = device;
-        document.addEventListener("offline", onOffline, false);
-        document.addEventListener("online", onOnline, false);
-        document.addEventListener('backbutton', onBackKeyDown, false);
-        document.addEventListener("pause", onPause, false);
-        document.addEventListener("resume", onResume, false);
-      });
-      this.data.cdv = tempcdv;
+  on: events,
+  // {
+  //   init:function() {
+  //     console.log('init() Framework7');
+  //     // console.log(navigator.camera);
+  //     var tempcdv;
+  //     window.addEventListener('filePluginIsReady', function(){ console.log('File plugin is ready');}, false);
+  //     document.addEventListener('deviceready', () => {
+  //       console.log('DEVICE READY SECOND ON APP.JS => on init() Framework7','LINE:120');
+  //       tempcdv = device;
+  //       document.addEventListener("offline", onOffline, false);
+  //       document.addEventListener("online", onOnline, false);
+  //       document.addEventListener('backbutton', onBackKeyDown, false);
+  //       document.addEventListener("pause", onPause, false);
+  //       document.addEventListener("resume", onResume, false);
+  //     });
+  //     this.data.cdv = tempcdv;
 
 
-      var rSF = function(){ return Math.round(Math.random()*15)};
-      new Chartist.Line('.ct-chart', {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        series: [
-        [rSF(), 9, 7, 8, 5, rSF()],
-        [rSF(), 1, 3.5, 7, 3, rSF()],
-        [rSF(), 3, 4, 5, 6, rSF()]
-        ]
-      }, {
-        high: 15,
-        low: 0,
-        showArea: true,
-        fullWidth: true,
-        chartPadding: {
-          right: 40
-        }
-      });
+  //     var rSF = function(){ return Math.round(Math.random()*15)};
+  //     new Chartist.Line('.ct-chart', {
+  //       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  //       series: [
+  //       [rSF(), 9, 7, 8, 5, rSF()],
+  //       [rSF(), 1, 3.5, 7, 3, rSF()],
+  //       [rSF(), 3, 4, 5, 6, rSF()]
+  //       ]
+  //     }, {
+  //       high: 15,
+  //       low: 0,
+  //       showArea: true,
+  //       fullWidth: true,
+  //       chartPadding: {
+  //         right: 40
+  //       }
+  //     });
 
-    },
-    pageInit(page) {
-      console.log('pageInit(page)');
-      $$('.progressbar-infinite').hide();
-      $$('#notif-progress').show();
+  //   },
+  //   reInit:function () {
+  //     console.log('reinit');
+  //   },
+  //   pageInit:function(page) {
+  //     console.log('pageInit ', page.name);
+  //     console.log('pageInit(page)');
+  //     $$('.progressbar-infinite').hide();
+  //     $$('#notif-progress').show();
       
-      console.log(page.name);
+  //     console.log(page.name);
 
-      // if (page.name =='setting') {console.log('setting')} else {console.log('unfound')}
-      if (isLoggedIn()) {
-      	app.loginScreen.close('#my-login-screen'); 
-      } else {
-       app.loginScreen.open('#my-login-screen');
-     }
-    },
-    pageBeforeRemove: function () {
-        // var self = this;
-        app.toast.destroy();
-      },
-},
+  //     // if (page.name =='setting') {console.log('setting')} else {console.log('unfound')}
+  //     if (isLoggedIn()) {
+  //       app.loginScreen.close('#my-login-screen'); 
+  //     } else {
+  //      app.loginScreen.open('#my-login-screen');
+  //    }
+  //   },
+  //   pageBeforeRemove:function(page) {
+  //     console.log('page before remove ', page.name);
+  //     // var self = this;
+  //     app.toast.destroy();
+  //   },
+  //   pageMounted: function (page) {
+  //     console.log(' page mounted ', page.name);
+  //   },
+  //   pageBeforeIn: function (page) {
+  //     console.log('page before in ', page.name);
+  //   },
+  //   pageAfterIn: function (page) {
+  //     console.log('page after in ', page.name);
+  //   },
+  //   pageBeforeOut: function (page) {
+  //     console.log('page before out ', page.name);
+  //   },
+  //   pageAfterOut: function (page) {
+  //     console.log('page after out ', page.name);
+  //   },
+  //   pageBeforeUnmount: function (page) {
+  //     console.log('page before unmount ', page.name);
+  //   },
+  //   pageBeforeRemove: function (page) {
+  //     console.log('page before remove ', page.name);
+  //   },
+  // },
 });
 
 
@@ -230,52 +257,32 @@ $$('.status-qr').on('click', function(){
 
 $$('.scan-qr').on('click', function(){
 
-  QRScanner.prepare(onDone); // show the prompt
-  function onDone(err){
-    // console.error(err);
-    if (err) {
-    // here we can handle errors and clean up any loose ends.
-    // console.error(err);
-    // console.error(err._message);
-    errTEXT = err.code+' => '+err.name+' => '+err._message;
-    // console.error(errTEXT);
-    prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
-    prepQRErr.open();
-    QRScanner.cancelScan();
+  // QRScanner.prepare(onDone); // show the toast
+  // function onDone(err){
+  //   // console.error(err);
+  //   if (err) {
+  //   // here we can handle errors and clean up any loose ends.
+  //   // console.error(err._message);
+  //   errTEXT = err.code+' => '+err.name+' => '+err._message;
+  //   // console.error(errTEXT);
+  //   prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
+  //   prepQRErr.open();
+  //   QRScanner.cancelScan();
 
-      // if(err.name === 'SCAN_CANCELED') {
-      // console.error('The scan was canceled before a QR code was found.');
-      // } else {
-      // console.error(err._message);
-      // }
-    }
-    else{
-      QRScanner.getStatus(function(status){
-        // console.log(status);
-        var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
-        prepQRStat.open();
-        // QRScanner.destroy();
-        // if (status.authorized) {
-        // // W00t, you have camera access and the scanner is initialized.
-        // // QRscanner.show() should feel very fast.
-        // } else if (status.denied) {
-        // // The video preview will remain black, and scanning is disabled. We can
-        // // try to ask the user to change their mind, but we'll have to send them
-        // // to their device settings with `QRScanner.openSettings()`.
-        // } else {
-        // // we didn't get permission, but we didn't get permanently denied. (On
-        // // Android, a denial isn't permanent unless the user checks the "Don't
-        // // ask again" box.) We can ask again at the next relevant opportunity.
-        // }
-      });
-    }
-      // console.error('NO ERROR');
-  }
+  //   }
+  //   else{
+  //     QRScanner.getStatus(function(status){
+  //       // console.log(status);
+  //       var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
+  //       prepQRStat.open();
+
+  //     });
+  //   }
+  //     // console.error('NO ERROR');
+  // }
 
    
-  // Make the webview transparent so the video preview is visible behind it.
-  // Be sure to make any opaque HTML elements transparent here to avoid
-  // covering the video.
+  // Make the webview transparent so the video preview is visible behind it. Be sure to make any opaque HTML elements transparent here to avoid covering the video.
   
   var callback = function(err, contents){
     console.log('QRSCANNER SCANNING... on callback');
@@ -296,6 +303,8 @@ $$('.scan-qr').on('click', function(){
   };
    
   QRScanner.scan(callback);
+
+  
   QRScanner.show(function(status){
     console.log('QRSCANNER SHOWING...');
     $$('#app').removeClass('ketok');
