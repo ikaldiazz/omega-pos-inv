@@ -5,7 +5,7 @@ events =
     var tempcdv;
     var tempcdvfile;
     document.addEventListener('deviceready', () => {
-      console.log('DEVICE READY SECOND ON APP.JS => on init() Framework7','LINE:120');
+      // console.log('DEVICE READY SECOND ON APP.JS => on init() Framework7','LINE:120');
       tempcdv = device;
       document.addEventListener("offline", onOffline, false);
       document.addEventListener("online", onOnline, false);
@@ -13,7 +13,7 @@ events =
       document.addEventListener("pause", onPause, false);
       document.addEventListener("resume", onResume, false);
       window.addEventListener('filePluginIsReady', function(){ 
-        console.log('File plugin is ready');
+        // console.log('File plugin is ready');
       }, false);
       
     });
@@ -33,7 +33,7 @@ events =
     $$('.progressbar-infinite').hide();
     $$('#notif-progress').show();
 
-    console.log(page.name);
+    // console.log(page.name);
 
     if (isLoggedIn()) {
        app.loginScreen.close('#my-login-screen'); 
@@ -42,29 +42,29 @@ events =
      }
   },
   pageBeforeRemove:function(page) {
-    console.log('page before remove ', page.name);
+    // console.log('page before remove ', page.name);
     // var self = this;
     app.toast.destroy();
   },
   pageMounted: function (page) {
-    console.log(' page mounted ', page.name);
+    // console.log(' page mounted ', page.name);
   },
   pageBeforeIn: function (page) {
-    console.log('page before in ', page.name);
+    // console.log('page before in ', page.name);
   },
   pageAfterIn: function (page) {
-    console.log('page after in ', page.name);
+    // console.log('page after in ', page.name);
   },
   pageBeforeOut: function (page) {
-    console.log('page before out ', page.name);
+    // console.log('page before out ', page.name);
   },
   pageAfterOut: function (page) {
-    console.log('page after out ', page.name);
+    // console.log('page after out ', page.name);
   },
   pageBeforeUnmount: function (page) {
-    console.log('page before unmount ', page.name);
+    // console.log('page before unmount ', page.name);
   },
   pageBeforeRemove: function (page) {
-    console.log('page before remove ', page.name);
+    // console.log('page before remove ', page.name);
   }, 
 }

@@ -665,6 +665,77 @@ routes = [
     }
     // ignoreCache: true,
   },
+  {
+    path: '/listproduct/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      var router = this;
+      var app = router.app;
+      // Show Preloader
+      app.preloader.show();
+      console.log('SELFFFFFFFFFFFFFFFFFFFFFFF======LISTPRODUK');
+      console.log(self);
+      console.log(this.app);
+      // Item ID from request
+      // Simulate Ajax Request
+      setTimeout(function () {
+        // We got user data from request
+        app.request({
+          // url: 'http://khojati.id/titip/api/v2/api.php/records/items',
+          url: './json/items.json',
+          dataType: 'json',
+          method: "GET",
+          crossDomain: true,
+          statusCode: {
+            404: function(xhr) {
+              console.log('page not found');
+            }
+          },
+          complete: function() {
+            // Hide Preloader
+            app.preloader.hide();
+            console.log('complete');
+          },
+          success: function(response) {
+            console.log('success get item');
+            // console.log(response.records);
+            // console.log(response);
+            // Hide Preloader
+            app.preloader.hide();
+            console.log('app status');
+            console.log(app);
+
+            resolve(
+              {
+                componentUrl: './pages/product-list.html',
+              },
+              {
+                context: {
+                  item: response.records,
+                }
+              }
+            );
+          },
+          error: function() {
+            console.log('error');
+            app.preloader.hide();
+
+          }
+        });
+
+      }, 500);
+    },
+
+    on: {
+      pageAfterIn: function test (e, page) {
+        // do something after page gets into the view
+      },
+      pageInit: function (e, page) {
+        // do something when page initialized
+      },
+      
+    }
+    // ignoreCache: true,
+  },
   // Default route (404 page). MUST BE THE LAST
   {
     path: '(.*)',
