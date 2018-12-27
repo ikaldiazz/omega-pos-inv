@@ -9,7 +9,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.20',
+  version: '1.0.21',
   name: 'Omega POS Inventory', // App name
   theme: 'auto', // Automatic theme detection
   pushState: true, //backButton
@@ -340,6 +340,9 @@ $$('.cordova-file').on('click', function(){
 	// app.dialog.alert(filecdv);
 	// var cdvFileToast = app.toast.create({text: 'CORDOVA.FILE.GETSTATUS. \n'+JSON.stringify(cordova.file,null,2)+'.',position: 'bottom', closeButton: true});
  //  cdvFileToast.open();
+});
+$$('a.smart-select').on('click', function(){
+  app.dialog.alert('SMART SELECT CLICKED!');
 });
 
 

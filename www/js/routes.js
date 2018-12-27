@@ -17,7 +17,9 @@ routes = [
       
       // data= {};
       app.request( {
-        url: 'http://khojati.id/titip/api/v2/api.php/records/items/',
+        //http://khojati.id/titip/api/v2/api.php/records/items?join=categories&join=units
+        // url: 'http://khojati.id/titip/api/v2/api.php/records/items/',
+        url: 'http://khojati.id/titip/api/v2/api.php/records/items?join=categories&join=units',
         statusCode: {
           404: function(xhr) {
             console.log(xhr,'page not found');
@@ -381,7 +383,9 @@ routes = [
       setTimeout(function () {
         // We got user data from request
         app.request({
-          url: 'http://khojati.id/titip/api/v2/api.php/records/items/'+itemId,
+          // http://khojati.id/titip/api/v2/api.php/records/items?filter=iid,eq,3000029&join=units&join=categories
+          // url: 'http://khojati.id/titip/api/v2/api.php/records/items/'+itemId,
+          url: 'http://khojati.id/titip/api/v2/api.php/records/items?filter=iid,eq,'+itemId+'&join=units&join=categories',
           dataType: 'json',
           // data: data,
           method: "GET",
@@ -399,7 +403,7 @@ routes = [
           success: function(response) {
             console.log('success get item');
             console.log(response.records);
-            console.log(response);
+            // console.log(response);
             // Hide Preloader
             app.preloader.hide();
             // console.log('TEMP');
@@ -413,7 +417,7 @@ routes = [
               },
               {
                 context: {
-                  item: response,
+                  item: response.records[0],
                 }
               }
             );
@@ -582,6 +586,84 @@ routes = [
   {
     path: '/vilistvdom/',
     componentUrl: './pages/virtual-list-vdom.html',
+  },
+  {
+    path: '/products/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      // console.log("USER: "+JSON.stringify(localStorage.user));
+      // Router instance
+      var router = this;
+      // App instance
+      var app = router.app;
+      // Show Preloader
+      app.preloader.show();
+      console.log('SELFFFFFFFFFFFFFFFFFFFFFFF');
+      console.log(self);
+      console.log(this.app);
+      // Item ID from request
+      // Simulate Ajax Request
+      setTimeout(function () {
+        // We got user data from request
+        app.request({
+          // http://khojati.id/titip/api/v2/api.php/records/items?filter=iid,eq,3000029&join=units&join=categories
+          // url: 'http://khojati.id/titip/api/v2/api.php/records/items/'+itemId,
+          url: 'http://khojati.id/titip/api/v2/api.php/records/items',
+          dataType: 'json',
+          // data: data,
+          method: "GET",
+          crossDomain: true,
+          statusCode: {
+            404: function(xhr) {
+              console.log('page not found');
+            }
+          },
+          complete: function() {
+            // Hide Preloader
+            app.preloader.hide();
+            console.log('complete');
+          },
+          success: function(response) {
+            console.log('success get item');
+            // console.log(response.records);
+            // console.log(response);
+            // Hide Preloader
+            app.preloader.hide();
+            console.log('app status');
+            console.log(app);
+
+            resolve(
+              {
+                componentUrl: './pages/list-products.html',
+              },
+              {
+                context: {
+                  item: response.records,
+                }
+              }
+            );
+          },
+          error: function() {
+            console.log('error');
+            app.preloader.hide();
+
+          }
+        });
+
+      }, 500);
+    },
+
+    on: {
+      pageAfterIn: function test (e, page) {
+        // do something after page gets into the view
+        console.log(page.name);
+        // app.view.current.router.refreshPage();
+      },
+      pageInit: function (e, page) {
+        // do something when page initialized
+      },
+      
+    }
+    // ignoreCache: true,
   },
   // Default route (404 page). MUST BE THE LAST
   {

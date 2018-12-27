@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="vdom-product">
+  <div class="page" data-name="list-product">
     <div class="navbar">
       <div class="navbar-inner sliding">
         <div class="left sliding">
@@ -92,13 +92,8 @@
             <div class="swipeout-actions-left">
               <a href="/form/edit/{{iid}}/" class="color-green swipeout-overswipe">Edit</a>
               <a href="/product/{{iid}}/" class="color-blue">Lihat</a>
-              <!-- <a href="#" class="color-green swipeout-overswipe" @click="reply">Reply</a> 
-              <a href="#" class="color-blue" @click="forward">Forward</a>-->
             </div>
             <div class="swipeout-actions-right">
-              <!--<a href="#" @click="more">More</a>
-               <a href="" class="color-orange" @click="mark">Mark</a> 
-              <a href="/form/edit/{{iid}}/" class="color-orange">Edit</a>-->
               <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>
             </div>
           </li>
@@ -115,41 +110,33 @@
       var self = this;
       var app = self.$app;
       
-      console.log('componentBeforeCreate', this);
-      console.log(app.virtualList);
+      // console.log('componentBeforeCreate', this);
+      // console.log(app.virtualList);
     },
     created() {
-      console.log('componentCreated', this);
-      console.log(this.$app.virtualList);
+      // console.log('componentCreated', this);
+      // console.log(this.$app.virtualList);
     },
     beforeMount() {
-      console.log('componentBeforeMount', this);
-      console.log(this.$app.virtualList);
+      // console.log('componentBeforeMount', this);
+      // console.log(this.$app.virtualList);
     },
     mounted() {
-      console.log('componentMounted', this);
-      console.log(this.$app.virtualList);
+      // console.log('componentMounted', this);
+      // console.log(this.$app.virtualList);
     },
     beforeDestroy() {
-      console.log('componentBeforeDestroy', this);
-      console.log(this.$app.virtualList);
+      // console.log('componentBeforeDestroy', this);
+      // console.log(this.$app.virtualList);
     },
     destroyed() {
-      console.log('componentDestroyed', this);
-      console.log(this.$app.virtualList);
+      // console.log('componentDestroyed', this);
+      // console.log(this.$app.virtualList);
     },
     // Component Data
     data: function() {
-      var items = [];
-      for (var i = 1; i <= 10; i++) {
-        items.push({
-          id: i,
-          title: 'Item ' + i,
-          subtitle: 'Subtitle ' + i,
-        });
-      }
       return {
-        items: items,
+        // items: items,
         vlData: {
           items: [],
         },
@@ -188,34 +175,28 @@
         var self = this;
         var app = self.$app;
 
-
-        console.log(app);
-        app.preloader.show(); //var app is initialized by now
-
         console.log('SELFFFFFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-        console.log(self);
+        // console.log(self.item);
+        // app.preloader.show(); 
 
-        app.request({
-          url: 'http://khojati.id/titip/api/v2/api.php/records/items',
-          dataType: 'json',
-          method: 'GET',
-          cache: false,
-          crossDomain: true,
-          success: function (data) {
-            app.preloader.hide(); //var app is initialized by now
-            // app.progressbar.hide();
-            console.log(data);
-            // console.log(self);
-            self.$setState({
-             items: data.records
-            });
-            // self.virtualList.update();
-          //some-more-logic
-            self.virtualList = self.$app.virtualList.create({
+        self.$setState({
+                  items: self.item
+                });
+
+        // console.log(self.items);
+
+        self.$setState({
+                  vlData: self.item
+                });
+
+      // setTimeout(function () { ///SET TIMEOUT
+
+
+        self.virtualList = self.$app.virtualList.create({
               // List Element
               el: self.$el.find('.virtual-list'),
               // Pass array with items
-              items: self.items,
+              items: self.item,
               // Custom search function for searchbar
               searchAll: function (query, items) {
                 var found = [];
@@ -231,54 +212,27 @@
               // Item height
               height: self.$theme.md ? 100 : 100,
               cache:false,
-              // itemTemplate:
-              // '<li class="swipeout">'+
-              //   '<div class="swipeout-content">'+
-              //     '<a href="#" class="item-link item-content">'+
-              //       '<div class="item-media"><img src="https://picsum.photos/100/?image={{iid-3000000}}" width="80"/></div>'+
-              //       '<div class="item-inner">'+
-              //         '<div class="item-title-row">'+
-              //           '<div class="item-title">{{iid}}</div>'+
-              //           '<div class="item-after">{{bprice}}</div>'+
-              //         '</div>'+
-              //         '<div class="item-subtitle">{{iname}}</div>'+
-              //         '<div class="item-text">'+
-              //           '{{modified}}'+
-              //           '{{created}}'+
-              //         '</div>'+
-              //       '</div>'+
-              //     '</a>'+
-              //   '</div>'+
-              //   '<div class="swipeout-actions-left">'+
-              //     '<a href="#" class="color-green swipeout-overswipe" @click="reply">Reply</a>'+
-              //     '<a href="#" class="color-blue" @click="forward">Forward</a>'+
-              //   '</div>'+
-              //   '<div class="swipeout-actions-right">'+
-              //     '<a href="#" @click="more">More</a>'+
-              //     '<a href="#" class="color-orange" @click="mark">Mark</a>'+
-              //     '<a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>'+
-              //   '</div>'+
-              // '</li>',
-              // Render external function
+              rowsAfter :1000,
+              rowsBefore :1000,
               renderExternal: function(vl, vlData) {
 
-                console.log('renderExternal');
-                console.log(vl);
-                console.log(vlData);
+                // console.log('renderExternal');
+                // console.log(vl);
+                // console.log(vlData);
+                // vl.rowsToRender:
                 self.$setState({
                   vlData: vlData
                 });
               },
             });
-          },
-          error: function (xhr, status) {
-          app.preloader.hide(); //var app is initialized by now
-          console.log(xhr);
-          console.log(status);
-          app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
-          }
-        });
 
+        console.log('UPDATING VIRTUAL LIST================');
+        // self.virtualList.deleteAllItems(); 
+        // self.virtualList.update();
+        console.log(self.vlData);
+
+
+      // }, 5000); ///END OF SET TIMEOUT
 
       }
     }

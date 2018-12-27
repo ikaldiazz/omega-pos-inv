@@ -58,13 +58,21 @@
           xsprice: 0
           ysprice: 0
           zsprice: 0 -->
-          <a class="item-link smart-select smart-select-init" data-open-in="popup" data-searchbar="true" data-searchbar-placeholder="Search Category">
+          <a class="item-link smart-select category">
             <select name="catid">
-              <option value="1" selected>SEMEN</option>
+              
+              <!-- <option value="1" selected>SEMEN</option>
               <option value="2">PASIR</option>
               <option value="3">MUR</option>
               <option value="4">BAUT</option>
-              <option value="5">GRAM</option>
+              <option value="5">GRAM</option> -->
+              {{#categories}}
+
+              <option value="{{id}}" {{#js_if '../item.catid.id == this.id'}}selected{{else}}{{/js_if}} >{{name}}</option>
+              
+              {{/categories}}
+              
+
             </select>
             <div class="item-content">
               <div class="item-inner">
@@ -74,12 +82,13 @@
           </a>
         </li>
         <li>
-          <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+          <a class="item-link smart-select unit">
             <select name="unitid">
-              <option value="1" selected>PCS</option>
-              <option value="2">KALENG</option>
-              <option value="3">SACK</option>
-              <option value="4">KG</option>
+              {{#units}}
+
+              <option value="{{id}}" {{#js_if '../item.unitid.id == this.id'}}selected{{else}}{{/js_if}} >{{name}}</option>
+              
+              {{/units}}
             </select>
             <div class="item-content">
               <div class="item-inner">
@@ -92,9 +101,42 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">Harga Barang</div>
+              <div class="item-title item-label">Harga Beli</div>
               <div class="item-input-wrap">
                 <input type="number" name="bprice" placeholder="0" value="{{item.bprice}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Harga Jual 1</div>
+              <div class="item-input-wrap">
+                <input type="number" name="xsprice" placeholder="0" value="{{item.xsprice}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Harga Jual 2</div>
+              <div class="item-input-wrap">
+                <input type="number" name="ysprice" placeholder="0" value="{{item.ysprice}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Harga Jual 3</div>
+              <div class="item-input-wrap">
+                <input type="number" name="zsprice" placeholder="0" value="{{item.zsprice}}" />
               </div>
             </div>
           </div>
@@ -107,11 +149,13 @@
                 <div class="item-title">Status</div>
                 <div class="item-input">
                   <label class="toggle toggle-init color-blue">
-                    {{#js_if "this.item.status === 1"}}
+
+                    {{#js_if 'this.item.status > 0'}}
                     <input type="checkbox" name="status" checked>
                     {{else}}
                     <input type="checkbox" name="status">
                     {{/js_if}}
+              
                     <span class="toggle-icon"></span>
                   </label>
                 </div>
@@ -130,7 +174,7 @@
           </div>
         </li>
 
-        <li>
+        <!-- <li>
           <div class="item-content item-input">
             <div class="item-inner">
               <div class="item-title item-label">Dibuat</div>
@@ -139,7 +183,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="block block-strong">
@@ -152,6 +196,7 @@
         <!-- <a @click="updateData" href="#" class="col button button-fill">Fill</a> -->
         <!-- <a @click="logout" href="#" class="button logout-button col button-big button-fill button-raised color-red" id="logout-btn">Logout</a> -->
         <a href="#" class="qrscanner button logout-button col button-big button-fill button-raised color-red">Back</a>
+        <a @click="$root.formToData('#item-form')">FormToData</a>
         <!-- <a @click="$root.formToData('#item-form')">Test Method</a>
         <a @click="$root.onBackKeyDown()">Test Back</a> -->
       </p>
@@ -163,14 +208,219 @@
 </template>
 <script>
   return {
+    //Lifecycle Hooks
+    beforeCreate() {
+      // console.log('componentBeforeCreate', this);
+      var self = this;
+      // console.log('pageInit', e, page);
+      $$('a.smart-select').on('click', function(){
+        // self.$app.dialog.alert('SMART SELECT CLICKED!');
+        console.log('SMART SELECT CLICKED!');
+      });
+      // self.smartSelect = self.$app.smartSelect.create({
+        //   el: self.$el.find('.category'),
+
+        //   on: {
+        //     opened: function () {
+        //     console.log('Smart select opened');
+        //     }
+        //   }
+        // });
+    },
+    created() {
+      // console.log('componentCreated', this);
+    },
+    beforeMount() {
+      // console.log('componentBeforeMount', this);
+    },
+    mounted() {
+      // console.log('componentMounted', this);
+    },
+    beforeDestroy() {
+      // console.log('componentBeforeDestroy', this);
+    },
+    destroyed() {
+      // console.log('componentDestroyed', this);
+    },
+    // Component Data
     data: function () {
+      var categories = [];
+      for (var i = 1; i <= 5; i++) {
+        categories.push({
+          id: i,
+          name: 'Item ' + i,
+          note: 'Subtitle ' + i,
+        });
+      }
+      var units = [];
+      for (var i = 1; i <= 5; i++) {
+        units.push({
+          id: i,
+          name: 'Item ' + i,
+          note: 'Subtitle ' + i,
+        });
+      }
       return {
         // user: JSON.parse(localStorage.user),
+
+        categories: categories,
+        units: units,
       };
     },
     // Component Methods
     methods: {
 
-    }, 
+    },
+    // Page Events
+    on: {
+      init:function(e){
+        console.log(e);
+        console.log('INIT PAGE FORM');
+      },
+      pageMounted: function(e, page) {
+        // console.log('pageMounted', e, page);
+      },
+      pageInit: function(e, page) {
+        var self = this;
+        console.log('pageInit', e, page);
+
+        
+
+        app.request({
+          url: 'http://khojati.id/titip/api/v2/api.php/records/categories',
+          dataType: 'json',
+          method: 'GET',
+          cache: false,
+          crossDomain: true,
+          success: function (data) {
+            app.preloader.hide(); //var app is initialized by now
+
+            self.$setState({
+             categories: data.records
+            });
+          //some-more-logic
+            self.smartSelect = self.$app.smartSelect.create({
+              el: self.$el.find('.category'),
+              closeOnSelect : true,
+              openIn : 'popup',
+              searchbar : true,
+              searchbarPlaceholder : 'Cari Kategori',
+              appendSearchbarNotFound : 'Tidak Ditemukan',
+              
+            });
+          },
+          error: function (xhr, status) {
+          app.preloader.hide(); //var app is initialized by now
+          console.log(xhr);
+          console.log(status);
+          app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
+          }
+        });
+
+
+
+
+        app.request({
+          url: 'http://khojati.id/titip/api/v2/api.php/records/units',
+          dataType: 'json',
+          method: 'GET',
+          cache: false,
+          crossDomain: true,
+          success: function (data) {
+            app.preloader.hide(); //var app is initialized by now
+
+            self.$setState({
+             units: data.records
+            });
+          //some-more-logic
+            self.smartSelect = self.$app.smartSelect.create({
+              el: self.$el.find('.unit'),
+              closeOnSelect : true,
+              openIn : 'sheet',
+              
+            });
+          },
+          error: function (xhr, status) {
+          app.preloader.hide(); //var app is initialized by now
+          console.log(xhr);
+          console.log(status);
+          app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
+          }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $$('a.smart-select').on('click', function(){
+        //   // self.$app.dialog.alert('SMART SELECT CLICKED!');
+        //   console.log('SMART SELECT CLICKED!');
+        // });
+      },
+      pageBeforeIn: function(e, page) {
+        // console.log('pageBeforeIn', e, page);
+      },
+      pageAfterIn: function(e, page) {
+        // console.log('pageAfterIn', e, page);
+      },
+      pageBeforeOut: function(e, page) {
+        // console.log('pageBeforeOut', e, page);
+      },
+      pageAfterOut: function(e, page) {
+        // console.log('pageAfterOut', e, page);
+      },
+      pageBeforeRemove: function(e, page) {
+        var self = this;
+        self.$app.smartSelect.destroy('#category');
+        self.$app.smartSelect.destroy('#unit');
+        // console.log('pageBeforeRemove', e, page);
+      },
+    }
   };
 </script>
