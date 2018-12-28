@@ -148,7 +148,10 @@ routes = [
       var productId = routeTo.params.id;
       // data= {};
       app.request( {
-        url: 'http://khojati.id/titip/api/v2/api.php/records/items/'+productId,
+        // url: 'http://khojati.id/titip/api/v2/api.php/records/items/'+productId,
+        url: 'https://gardenexoteak.com/khojati/titip/api/v2/api.php/records/items?filter=iid,eq,'+productId+'&join=units&join=categories',
+        
+
         dataType: 'json',
         // data: data,
         method: "GET",
@@ -165,14 +168,14 @@ routes = [
         },
         success: function(response) {
           console.log('success');
-          console.log(response);
+          // console.log(response);
           resolve(
           {
             componentUrl: './pages/product.html'
           },
           {
             context: {
-              product: response
+              product: response.records[0]
             },
           }
           );

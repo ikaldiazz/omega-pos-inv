@@ -1,5 +1,5 @@
 <template>
-<div class="page" data-name="item_form">
+<div class="page" data-name="product-edit">
   <div class="navbar">
     <div class="navbar-inner sliding">
       <div class="left">
@@ -45,34 +45,11 @@
           </div>
         </li>
         <li>
-          <!-- bprice: 150000
-          catid: 1
-          created: "2018-10-28 05:26:17"
-          icode: "S_H_SACK"
-          iid: 3000001
-          iname: "SEMEN HOLCIM SACK 50 KG"
-          modified: "2018-10-28 06:24:50"
-          note: ""
-          status: 1
-          unitid: 1
-          xsprice: 0
-          ysprice: 0
-          zsprice: 0 -->
           <a class="item-link smart-select category">
             <select name="catid">
-              
-              <!-- <option value="1" selected>SEMEN</option>
-              <option value="2">PASIR</option>
-              <option value="3">MUR</option>
-              <option value="4">BAUT</option>
-              <option value="5">GRAM</option> -->
               {{#categories}}
-
               <option value="{{id}}" {{#js_if '../item.catid.id == this.id'}}selected{{else}}{{/js_if}} >{{name}}</option>
-              
               {{/categories}}
-              
-
             </select>
             <div class="item-content">
               <div class="item-inner">
@@ -188,21 +165,13 @@
     </div>
     <div class="block block-strong">
       <p class="row">
-        <!-- <a href="#" class="col button item-link list-button logout-button">ButtonXX</a> -->
-        <!-- <a @click="updateData" href="#" class="button convert-form-to-data col button-big button-fill button-raised color-green" id="save-btn">Simpan</a> -->
-        <!-- <a href="#" class="convert-form-to-data button col button-big button-fill button-raised color-green" id="save-btn">Simpan</a> -->
+        <a @click="$root.formToData('#item-form')">FormToData</a>
       </p>
       <p class="row">
-        <!-- <a @click="updateData" href="#" class="col button button-fill">Fill</a> -->
-        <!-- <a @click="logout" href="#" class="button logout-button col button-big button-fill button-raised color-red" id="logout-btn">Logout</a> -->
-        <a href="#" class="qrscanner button logout-button col button-big button-fill button-raised color-red">Back</a>
-        <a @click="$root.formToData('#item-form')">FormToData</a>
-        <!-- <a @click="$root.formToData('#item-form')">Test Method</a>
-        <a @click="$root.onBackKeyDown()">Test Back</a> -->
+        <a @click="$root.onBackKeyDown()" href="#" class="button logout-button col button-big button-fill button-raised color-red">Back</a>
       </p>
     </div>
     </form>
-    <!-- <a @click="updateData" href="#" class="button logout-button col button-big button-fill button-raised color-green" id="logout-btn">Save</a> -->
   </div>
 </div>
 </template>
@@ -217,15 +186,7 @@
         // self.$app.dialog.alert('SMART SELECT CLICKED!');
         console.log('SMART SELECT CLICKED!');
       });
-      // self.smartSelect = self.$app.smartSelect.create({
-        //   el: self.$el.find('.category'),
-
-        //   on: {
-        //     opened: function () {
-        //     console.log('Smart select opened');
-        //     }
-        //   }
-        // });
+      
     },
     created() {
       // console.log('componentCreated', this);
@@ -417,8 +378,9 @@
       },
       pageBeforeRemove: function(e, page) {
         var self = this;
-        self.$app.smartSelect.destroy('#category');
-        self.$app.smartSelect.destroy('#unit');
+        // self.$app.smartSelect.destroy('#category');
+        // self.$app.smartSelect.destroy('#unit');
+        self.$app.smartSelect.destroy();
         // console.log('pageBeforeRemove', e, page);
       },
     }

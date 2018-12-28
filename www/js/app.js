@@ -304,6 +304,35 @@ function onBackKeyDown() {
   });
 
   Template7.registerHelper('formatRupiah', function(number){
-    var newNum = 'Rp. '+number;
+    var   bilangan = number;
+        
+    var reverse = bilangan.toString().split('').reverse().join(''),
+      ribuan  = reverse.match(/\d{1,3}/g);
+      ribuan  = ribuan.join('.').split('').reverse().join('');
+
+    // Cetak hasil  
+    //document.write(ribuan); // Hasil: 23.456.789
+
+    var newNum = 'Rp '+ribuan;
     return newNum;
   });
+
+  function convertToRupiah(angka){
+    var rupiah = '';    
+    var angkarev = angka.toString().split('').reverse().join('');
+    for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+      return 'Rp '+rupiah.split('',rupiah.length-1).reverse().join('');
+        /**
+     * Usage example:
+     * alert(convertToRupiah(10000000)); -> "Rp. 10.000.000"
+     */
+  }
+
+ 
+ function convertToAngka(rupiah){
+  return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
+  /**
+ * Usage example:
+ * alert(convertToAngka("Rp 10.000.123")); -> 10000123
+ */
+}
