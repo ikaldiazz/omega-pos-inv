@@ -23,129 +23,9 @@ var app  = new Framework7({
   },
   // App root data
   data: dataRoot,
-  // function () {
-  //   return {
-  //     user: {
-  //       uid : 'mbutgae',
-  //       key :'fjehJHAWU8ArKNwq09nrwqapoaw=masdk*)Asdadaw9a0e',
-  //       mail : 'dev@mbutgae.com',
-  //       created : '2018-04-01',
-  //       status : 'debug',
-  //       level : 'verbose',
-  //       firstName: 'Jariman',
-  //       lastName: 'Tarto',
-  //     },
-  //     qrstatus:{
-  //     },
-  //     cdv:{},
-  //     cdvfile:{},
-  //     // Demo products for Catalog section
-  //     products: [
-  //     {
-  //       id: '1',
-  //       title: 'Apple iPhone 8',
-  //       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-  //     },
-  //     {
-  //       id: '2',
-  //       title: 'Test',
-  //       description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
-  //     },
-  //     {
-  //       id: '3',
-  //       title: 'Apple iPhone X',
-  //       description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
-  //     },
-  //     ]
-  //   };
-  // },
-  // App root methods
   methods: methods,
-  // App routes
   routes: routes,
   on: events,
-  // {
-  //   init:function() {
-  //     console.log('init() Framework7');
-  //     // console.log(navigator.camera);
-  //     var tempcdv;
-  //     window.addEventListener('filePluginIsReady', function(){ console.log('File plugin is ready');}, false);
-  //     document.addEventListener('deviceready', () => {
-  //       console.log('DEVICE READY SECOND ON APP.JS => on init() Framework7','LINE:120');
-  //       tempcdv = device;
-  //       document.addEventListener("offline", onOffline, false);
-  //       document.addEventListener("online", onOnline, false);
-  //       document.addEventListener('backbutton', onBackKeyDown, false);
-  //       document.addEventListener("pause", onPause, false);
-  //       document.addEventListener("resume", onResume, false);
-  //     });
-  //     this.data.cdv = tempcdv;
-
-
-  //     var rSF = function(){ return Math.round(Math.random()*15)};
-  //     new Chartist.Line('.ct-chart', {
-  //       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  //       series: [
-  //       [rSF(), 9, 7, 8, 5, rSF()],
-  //       [rSF(), 1, 3.5, 7, 3, rSF()],
-  //       [rSF(), 3, 4, 5, 6, rSF()]
-  //       ]
-  //     }, {
-  //       high: 15,
-  //       low: 0,
-  //       showArea: true,
-  //       fullWidth: true,
-  //       chartPadding: {
-  //         right: 40
-  //       }
-  //     });
-
-  //   },
-  //   reInit:function () {
-  //     console.log('reinit');
-  //   },
-  //   pageInit:function(page) {
-  //     console.log('pageInit ', page.name);
-  //     console.log('pageInit(page)');
-  //     $$('.progressbar-infinite').hide();
-  //     $$('#notif-progress').show();
-      
-  //     console.log(page.name);
-
-  //     // if (page.name =='setting') {console.log('setting')} else {console.log('unfound')}
-  //     if (isLoggedIn()) {
-  //       app.loginScreen.close('#my-login-screen'); 
-  //     } else {
-  //      app.loginScreen.open('#my-login-screen');
-  //    }
-  //   },
-  //   pageBeforeRemove:function(page) {
-  //     console.log('page before remove ', page.name);
-  //     // var self = this;
-  //     app.toast.destroy();
-  //   },
-  //   pageMounted: function (page) {
-  //     console.log(' page mounted ', page.name);
-  //   },
-  //   pageBeforeIn: function (page) {
-  //     console.log('page before in ', page.name);
-  //   },
-  //   pageAfterIn: function (page) {
-  //     console.log('page after in ', page.name);
-  //   },
-  //   pageBeforeOut: function (page) {
-  //     console.log('page before out ', page.name);
-  //   },
-  //   pageAfterOut: function (page) {
-  //     console.log('page after out ', page.name);
-  //   },
-  //   pageBeforeUnmount: function (page) {
-  //     console.log('page before unmount ', page.name);
-  //   },
-  //   pageBeforeRemove: function (page) {
-  //     console.log('page before remove ', page.name);
-  //   },
-  // },
 });
 
 
@@ -353,6 +233,7 @@ document.addEventListener('deviceready', () => {
   document.addEventListener("online", onOnline, false);
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", onResume, false);
+  
 });
 
 
@@ -408,9 +289,6 @@ function onBackKeyDown() {
   function onPause() {
     toastP = app.toast.create({text: 'PAUSE: Aplikasi di Minimize',position: 'bottom', closeTimeout: 1000, });
     toastP.open();
-    // QRScanner.destroy(function(status){
-    //   console.log(status);
-    // });
   }
 
   function onResume() {
@@ -423,4 +301,9 @@ function onBackKeyDown() {
   Template7.registerHelper('formatDate', function(date){
     var newDate = date.substr(0,10);
     return newDate;
+  });
+
+  Template7.registerHelper('formatRupiah', function(number){
+    var newNum = 'Rp. '+number;
+    return newNum;
   });

@@ -8,18 +8,13 @@ routes = [
     url: './pages/about.html',
   },
   {
-    path: '/catalog/',
-    componentUrl: './pages/catalog.html',
-  },
-  {
     path: '/item/',
     async(to, from, resolve, reject) {
-      
-      // data= {};
       app.request( {
         //http://khojati.id/titip/api/v2/api.php/records/items?join=categories&join=units
         // url: 'http://khojati.id/titip/api/v2/api.php/records/items/',
-        url: 'http://khojati.id/titip/api/v2/api.php/records/items?join=categories&join=units',
+        // url: 'http://khojati.id/titip/api/v2/api.php/records/items?join=categories&join=units',
+          url: './json/item_cat_unit.json',
         statusCode: {
           404: function(xhr) {
             console.log(xhr,'page not found');
@@ -173,12 +168,11 @@ routes = [
           console.log(response);
           resolve(
           {
-            componentUrl: './pages/product.html',
+            componentUrl: './pages/product.html'
           },
           {
             context: {
-              product: response,
-              // product: response.records,
+              product: response
             },
           }
           );
@@ -376,8 +370,6 @@ routes = [
       app.preloader.show();
       // User ID from request
       var itemId = routeTo.params.itemId;
-      // Show Preloader
-      app.preloader.show();
       // Item ID from request
       // Simulate Ajax Request
       setTimeout(function () {
@@ -576,12 +568,89 @@ routes = [
     // ignoreCache: true,
   },
   {
-    path: '/swipe/',
-    componentUrl: './pages/search-swipe.html',
+    path: '/user-config/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      console.log("UID: "+localStorage.uid);
+      console.log("KEY: "+localStorage.key);
+      console.log("USER: "+localStorage.user);
+      // console.log("USER: "+JSON.stringify(localStorage.user));
+
+      // Router instance
+      var router = this;
+
+      // App instance
+      var app = router.app;
+
+      // Show Preloader
+      app.preloader.show();
+
+      // User ID from request
+
+      // Simulate Ajax Request
+      setTimeout(function () {
+        // We got user data from request
+        app.request({
+          // url: 'http://khojati.id/titip/api/v2/api.php/records/items/',
+          url: './json/item_cat_unit.json',
+          dataType: 'json',
+          // data: data,
+          method: "GET",
+          crossDomain: true,
+          statusCode: {
+            404: function(xhr) {
+              console.log('page not found');
+            }
+          },
+          complete: function() {
+            // Hide Preloader
+            // app.preloader.hide();
+            console.log('complete');
+          },
+          success: function(response) {
+            console.log('success');
+            console.log(response);
+            // Hide Preloader
+            app.preloader.hide();
+            console.log('TEMP');
+
+            console.log("routes User: "+localStorage.user)
+
+            // Resolve route to load page
+            resolve(
+              {
+                componentUrl: './pages/config-user.html',
+              },
+              {
+                context: {
+                  user: localStorage.user,
+                }
+              }
+            );
+          },
+          error: function() {
+            console.log('error');
+          }
+        });
+
+      }, 1000);
+    },
+
+    on: {
+      pageAfterIn: function test (e, page) {
+        // do something after page gets into the view
+        // console.log(page.name);
+        // app.view.current.router.refreshPage();
+      },
+      pageInit: function (e, page) {
+        // do something when page initialized
+      },
+      
+    }
+    // ignoreCache: true,
   },
   {
-    path: '/vilist/',
-    componentUrl: './pages/virtual-list.html',
+    path: '/swipe/',
+    componentUrl: './pages/search-swipe.html',
   },
   {
     path: '/vilistvdom/',
@@ -653,11 +722,6 @@ routes = [
     },
 
     on: {
-      pageAfterIn: function test (e, page) {
-        // do something after page gets into the view
-        console.log(page.name);
-        // app.view.current.router.refreshPage();
-      },
       pageInit: function (e, page) {
         // do something when page initialized
       },
@@ -672,10 +736,6 @@ routes = [
       var app = router.app;
       // Show Preloader
       app.preloader.show();
-      console.log('SELFFFFFFFFFFFFFFFFFFFFFFF======LISTPRODUK');
-      console.log(self);
-      console.log(this.app);
-      // Item ID from request
       // Simulate Ajax Request
       setTimeout(function () {
         // We got user data from request
@@ -691,22 +751,74 @@ routes = [
             }
           },
           complete: function() {
-            // Hide Preloader
             app.preloader.hide();
             console.log('complete');
           },
           success: function(response) {
             console.log('success get item');
-            // console.log(response.records);
-            // console.log(response);
-            // Hide Preloader
             app.preloader.hide();
-            console.log('app status');
-            console.log(app);
 
             resolve(
               {
                 componentUrl: './pages/product-list.html',
+              },
+              {
+                context: {
+                  item: response.records,
+                }
+              }
+            );
+          },
+          error: function() {
+            app.preloader.hide();
+            console.log('error');
+
+          }
+        });
+
+      }, 500);
+    },
+
+    on: {
+      pageInit: function (e, page) {
+        // do something when page initialized
+      },
+      
+    }
+    // ignoreCache: true,
+  },
+  {
+    path: '/catalog/',
+    async: function (routeTo, routeFrom, resolve, reject) {
+      var router = this;
+      var app = router.app;
+      // Show Preloader
+      app.preloader.show();
+      setTimeout(function () {
+        // We got user data from request
+        app.request({
+          // url: 'http://khojati.id/titip/api/v2/api.php/records/items',
+          // url: './json/items.json',
+          url: './json/item_cat_unit.json',
+          dataType: 'json',
+          method: "GET",
+          crossDomain: true,
+          statusCode: {
+            404: function(xhr) {
+              console.log('page not found');
+            }
+          },
+          complete: function() {
+            app.preloader.hide();
+            console.log('complete');
+          },
+          success: function(response) {
+            app.preloader.hide();
+            console.log('success get item');
+
+            resolve(
+              {
+                componentUrl: './pages/catalog.html',
               },
               {
                 context: {
@@ -726,9 +838,6 @@ routes = [
     },
 
     on: {
-      pageAfterIn: function test (e, page) {
-        // do something after page gets into the view
-      },
       pageInit: function (e, page) {
         // do something when page initialized
       },

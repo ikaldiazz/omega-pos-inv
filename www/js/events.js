@@ -29,11 +29,11 @@ events =
 
   },
   pageInit(page) {
-    console.log('pageInit(page)');
+    console.log('pageInit(page) - ',page.name);
     $$('.progressbar-infinite').hide();
     $$('#notif-progress').show();
+    $$('#user-context').html('Selamat Datang '+app.data.user.firstName);
 
-    // console.log(page.name);
 
     if (isLoggedIn()) {
        app.loginScreen.close('#my-login-screen'); 

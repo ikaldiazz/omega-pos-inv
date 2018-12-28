@@ -1,152 +1,196 @@
 <template>
-  <div class="page" data-name="catalog">
+  <div class="page" data-name="all-product">
     <div class="navbar">
       <div class="navbar-inner sliding">
-        <div class="title">Catalog</div>
+        <div class="left sliding">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Katalog Produk</div>
+        <div class="right">
+          <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-demo">
+            <i class="icon f7-icons ios-only">search_strong</i>
+            <i class="icon material-icons md-only">search</i>
+          </a>
+        </div>
+        <form data-search-container=".virtual-list"  data-search-item="li" data-search-in=".swipeout-content" class="searchbar searchbar-expandable searchbar-demo searchbar-init">
+          <div class="searchbar-inner">
+            <div class="searchbar-input-wrap">
+              <input type="search" placeholder="Search"/>
+              <i class="searchbar-icon"></i>
+              <span class="input-clear-button"></span>
+            </div>
+            <span class="searchbar-disable-button">Cancel</span>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="page-content">
-      <!-- {{#each products}} -->
-      <div class="list links-list">
+    <div class="searchbar-backdrop"></div>
+    <!-- FAB MORPH 
+    <div class="fab fab-right-bottom fab-morph" data-morph-to=".toolbar.fab-morph-target">
+      <a href="#">
+        <i class="icon f7-icons ios-only">search_strong</i>
+        <i class="icon material-icons md-only">camera_alt</i>
+      </a>
+    </div>-->
+<!--
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md fab-morph-target">
+      <div class="toolbar-inner">
+        <a class="tab-link tab-link-active">
+          <i class="icon f7-icons ios-only">email</i>
+          <i class="icon icon-fill f7-icons ios-only">email_fill</i>
+          <i class="icon material-icons md-only">email</i>
+          <span class="tabbar-label">Inbox</span>
+        </a>
+        <a class="tab-link">
+          <i class="icon f7-icons ios-only">today</i>
+          <i class="icon icon-fill f7-icons ios-only">today_fill</i>
+          <i class="icon material-icons md-only">today</i>
+          <span class="tabbar-label">Calendar</span>
+        </a>
+        <a class="scan-qr tab-link">
+          <i class="icon f7-icons ios-only">cloud</i>
+          <i class="icon icon-fill f7-icons ios-only">cloud_fill</i>
+          <i class="icon material-icons md-only">file_upload</i>
+          <span class="tabbar-label">Upload</span>
+        </a>
+      </div>
+    </div>
+    end of FAB MORPH -->
+
+    <div class="page-content ptr-content" @ptr:refresh="refreshPage">
+      <div class ="ptr-preloader">
+        <div class ="preloader"></div>
+        <div class ="ptr-arrow"></div>
+      </div>
+      <div class="block">
+        <p>Cari berdasarkan kata kunci atau scan dengan kamera</p>
+      </div>
+      <div class="list media-list searchbar-not-found">
         <ul>
-          {{#each products}}
-            <li><a href="/product/{{iid}}/">{{iname}}</a></li>
-          {{/each}}
+          <li>
+            <div class ="item-content bg-color-pink">
+              <div class ="item-inner">
+                <div class ="item-title-row">
+                  <div class ="item-title text-color-white">Tidak Ditemukan</div>
+                </div>
+                <div class ="item-subtitle"></div>
+              </div>
+              <!-- <div class="item-media"><img src="./img/product.png" width="75"/></div> -->
+            </div>
+          </li>
         </ul>
+      </div>
+      <div class="list virtual-list media-list searchbar-found">
+        
       </div>
     </div>
   </div>
 </template>
 <script>
   return {
-    data: function () {
-      // var results = function () {
-      //   this.$app.request({
-      //   url: 'http://192.168.0.100/api/v2/api.php/records/items/',
-      //   method: 'GET',
-      //   dataType: 'json',
-      //   contentType: 'application/json',
-      //   // data: {
-      //   //     uid: uname,
-      //   //     pass: pwd
-      //   // },
-      //   success: function(response){
-      //     $$('.progressbar-infinite').hide();
-      //     // self.$app.data.products =  response.records;
-      //     return JSON.stringify(response.records);
-      //   },
-      //   error: function(xhr, status){
-      //     $$('.progressbar-infinite').hide();
-      //     app.dialog.alert('Error Network', 'Error');
-      //     // alert('Error: '+JSON.stringify(xhr));
-      //     // alert('ErrorStatus: '+JSON.stringify(status));
-      //     return status;
-
-      //   }
-      //   });
-      // };
-
+    // Component Data
+    data: function() {
+      var self = this;
+      var app = self.$app;
+      var items = self.item;
       return {
-        // products: this.$root.products,
-        products: null,
+        items: items,
       };
     },
-        // Component Methods
+    // Component Methods
     methods: {
-      // getProducts: function () {
-      //   $$('.progressbar-infinite').show();
+      more: function () {
+        var self = this;
+        self.actions.open();
+      },
+      mark: function () {
+        var app = this.$app;
+        app.dialog.alert('Mark');
+      },
+      reply: function () {
+        var app = this.$app;
+        app.dialog.alert('Reply');
+      },
+      forward: function () {
+        var app = this.$app;
+        app.dialog.alert('Forward');
+      },
+      onDeleted: function () {
+        var app = this.$app;
+        app.dialog.alert('Thanks, item removed!');
+      },
+      refreshPage: function (e, done) {
+        var self = this;
+        var $ = self.$$;
 
-      //   console.log('getProducts initiated');
-      //   var self = this;
-
-      //   // self.$app.dialog.confirm('Apakah anda yakin ingin keluar?', 'Logout', function () {
-      //   //   localStorage.clear();
-      //   //   self.$app.loginScreen.open('#my-login-screen');
-      //   // });
-      //   self.$app.request({
-      //   url: 'http://192.168.0.100/api/v2/api.php/records/items/',
-      //   method: 'GET',
-      //   dataType: 'json',
-      //   contentType: 'application/json',
-      //   // data: {
-      //   //     uid: uname,
-      //   //     pass: pwd
-      //   // },
-      //   success: function(response){
-      //     $$('.progressbar-infinite').hide();
-      //     self.$app.data.products =  response.records;
-      //   },
-      //   error: function(xhr, status){
-      //     $$('.progressbar-infinite').hide();
-      //     app.dialog.alert('Error Network', 'Error');
-      //     // alert('Error: '+JSON.stringify(xhr));
-      //     // alert('ErrorStatus: '+JSON.stringify(status));
-      //   }
-      //   });
-
-
-      // },
+        setTimeout(function () {
+          
+          // Done
+          done();
+        }, 1000);
+      }
     },
-    // Page Events
+    // Page Lifecycle
     on: {
-      // pageMounted: function(e, page) {
-      //   console.log('pageMounted', page);
-      // },
-    // pageInit: function(e, page) {
-    //   var self = this;
-    //   var app = self.$app;
-    //   // console.log('init', page);
-    //   app.preloader.show(); //var app is initialized by now
-    //   // console.log(self);
-    //   // $$('.progressbar-infinite').show();
-    //   // app.progressbar.show(el, progress, color)
-    //   app.progressbar.show()
-    //   // app.progressbar.show();
-    //     app.request({
-    //       url: 'http://khojati.id/titip/api/v2/api.php/records/items',
-    //       dataType: 'json',
-    //       method: 'GET',
-    //       cache: false,
-    //       crossDomain: true,
-    //       success: function (data) {
-    //         app.preloader.hide(); //var app is initialized by now
-    //       // app.progressbar.hide();
-    //         console.log(data);
-    //          self.$setState({
-    //                products: data.records
-    //             });
-    //           //some-more-logic
-    //       },
-    //       error: function (xhr, status) {
-    //         app.preloader.hide(); //var app is initialized by now
-    //         app.dialog.alert('Terjadi kesalahan koneksi', 'Error');
-    //       // app.progressbar.hide();
-    //         // console.log(data);
-    //         //  self.$setState({
-    //         //        products: data.records
-    //         //     });
-    //           //some-more-logic
-    //       }
-    //     });
-    //   },
-    //   pageBeforeIn: function(e, page) {
-    //     console.log('pageBeforeIn', page);
-    //   },
-    //   pageAfterIn: function(e, page) {
-    //     console.log('pageAfterIn', page);
-    //   },
-    //   pageBeforeOut: function(e, page) {
-    //     console.log('pageBeforeOut', page);
-    //   },
-    //   pageAfterOut: function(e, page) {
-    //     console.log('pageAfterOut', page);
-    //   },
-    //   pageBeforeRemove: function(e, page) {
-    //     console.log('pageBeforeRemove', page);
-    //   },
+      pageBeforeRemove: function () {
+        var self = this;
+        self.$app.virtualList.destroy();
+      },
+      pageInit: function() {
+        var self = this;
+        var app = self.$app;
+        self.virtualList = self.$app.virtualList.create({
+          // List Element
+          el: self.$el.find('.virtual-list'),
+          // Pass array with items
+          items: self.items,
+          // Custom search function for searchbar
+          searchAll: function (query, items) {
+            var found = [];
+            for (var i = 0; i < items.length; i++) {
+              if (items[i].iid.toString().toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].iname.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].icode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+            }
+            console.log(found);
+            return found; //return array with mathced indexes
+          },
+          cache : false,
+          // List item Template7 template
+          itemTemplate:
+          '<li key="{{iid}}" style="" class="swipeout">'+
+            '<div class="swipeout-content">'+
+              '<a href="#" class="item-link item-content">'+
+                '<div class="item-media"><img src="./img/product.png" width="70"/></div>'+
+                '<div class="item-inner">'+
+                  '<div class="item-title-row">'+
+                    '<div class="item-title">{{iid}}</div>'+
+                    '<div class="item-after">{{formatRupiah bprice}}</div>'+
+                  '</div>'+
+                  '<div class="item-subtitle">{{iname}}</div>'+
+                  '<div class="item-text">Kategori: {{catid.name}} - Satuan: {{unitid.name}}</div>'+
+                '</div>'+
+              '</a>'+
+            '</div>'+
+            '<div class="swipeout-actions-left">'+
+              '<a href="/product/{{iid}}/" class="color-blue swipeout-overswipe">Lihat</a>'+
+              '<a href="/form/edit/{{iid}}/" class="color-green">Edit</a>'+
+            '</div>'+
+            '<div class="swipeout-actions-right">'+
+              '<a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>'+
+            '</div>'+
+          '</li>',
+          // Item height
+          height: 100,
+        });
+
+        // console.log(items);
+        console.log(self.item);
+
+
+      }
     }
-  };
-
-  
-
+  }
 </script>
+

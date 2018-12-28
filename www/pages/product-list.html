@@ -28,41 +28,9 @@
       </div>
     </div>
     <div class="searchbar-backdrop"></div>
-    <!-- FAB MORPH -->
-    <div class="fab fab-right-top fab-morph" data-morph-to=".toolbar.fab-morph-target">
-      <a href="#">
-        <i class="icon f7-icons ios-only">search_strong</i>
-        <i class="icon material-icons md-only">camera_alt</i>
-      </a>
-    </div>
-
-    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md fab-morph-target">
-      <div class="toolbar-inner">
-        <a class="tab-link tab-link-active">
-          <i class="icon f7-icons ios-only">email</i>
-          <i class="icon icon-fill f7-icons ios-only">email_fill</i>
-          <i class="icon material-icons md-only">email</i>
-          <span class="tabbar-label">Inbox</span>
-        </a>
-        <a class="tab-link">
-          <i class="icon f7-icons ios-only">today</i>
-          <i class="icon icon-fill f7-icons ios-only">today_fill</i>
-          <i class="icon material-icons md-only">today</i>
-          <span class="tabbar-label">Calendar</span>
-        </a>
-        <a class="scan-qr tab-link">
-          <i class="icon f7-icons ios-only">cloud</i>
-          <i class="icon icon-fill f7-icons ios-only">cloud_fill</i>
-          <i class="icon material-icons md-only">file_upload</i>
-          <span class="tabbar-label">Upload</span>
-        </a>
-      </div>
-    </div>
-    <!--end of FAB MORPH -->
 
     <div class="page-content">
       <div class="block">
-          
         <p>Cari berdasarkan kata kunci atau scan dengan kamera</p>
       </div>
       <div class="list virtual-list virtual-list-vdom media-list searchbar-not-found">
@@ -91,11 +59,11 @@
               </a>
             </div>
             <div class="swipeout-actions-left">
-              <a href="/form/edit/{{iid}}/" class="color-green swipeout-overswipe">Edit</a>
-              <a href="/product/{{iid}}/" class="color-blue">Lihat</a>
+              <a href="/product/{{iid}}/" class="color-blue swipeout-overswipe">Lihat</a>
+              <a href="/form/edit/{{iid}}/" class="color-green">Edit</a>
             </div>
             <div class="swipeout-actions-right">
-              <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a>
+              <a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Hapus</a>
             </div>
           </li>
           {{/each}}
@@ -138,16 +106,7 @@
     data: function() {
       var self = this;
       var app = self.$app;
-      console.log('DATAAAAAAAAAAAAAAAAA');
-      console.log(self.item);
       var items = self.item;
-      // for (var i = 1; i <= 10; i++) {
-      //   items.push({
-      //     id: i,
-      //     title: 'Item ' + i,
-      //     subtitle: 'Subtitle ' + i,
-      //   });
-      // }
       return {
         items: items,
         vlData: {
@@ -188,63 +147,31 @@
         var self = this;
         var app = self.$app;
 
-        console.log('SELFFFFFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-        console.log(self.item);
-        // app.preloader.show(); 
-
-        // self.$setState({
-        //           items: self.items
-        //         });
-
-        // console.log(self.items);
-
-        // self.$setState({
-        //           vlData: self.items
-        //         });
-        // console.log(self.vlData);
-
-      // setTimeout(function () { ///SET TIMEOUT
-
 
         self.virtualList = self.$app.virtualList.create({
-              // List Element
-              el: self.$el.find('.virtual-list'),
-              // Pass array with items
-              items: self.items,
-              // Custom search function for searchbar
-              searchAll: function (query, items) {
-                var found = [];
-                for (var i = 0; i < items.length; i++) {
-                  if ( items[i].iid.toString().toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].iname.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].icode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') {
-                    // console.log(i);
-                    found.push(i);
-                  }
-                }
-                return found; //return array with mathced indexes
-              },
-              // Item height
-              // height: self.$theme.md ? 100 : 100,
-              // height: app.theme === 'ios' ? 63 : 73,
-              // cache:true,
-              reachEnd:true,
-              showFilteredItemsOnly:true,
-              renderExternal: function(vl, vlData) {
-                console.log('renderExternal');
-                console.log(vlData);
-                console.log(vl);
-                // vlData.toIndex(100);
-                self.$setState({
-                  vlData: vlData
-                });
-              },
+          // List Element
+          el: self.$el.find('.virtual-list'),
+          // Pass array with items
+          items: self.items,
+          // Custom search function for searchbar
+          searchAll: function (query, items) {
+            var found = [];
+            for (var i = 0; i < items.length; i++) {
+              if ( items[i].iid.toString().toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].iname.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].icode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') {
+                // console.log(i);
+                found.push(i);
+              }
+            }
+            return found; //return array with mathced indexes
+          },
+          showFilteredItemsOnly:true,
+          renderExternal: function(vl, vlData) {
+            self.$setState({
+              vlData: vlData
             });
+          },
+        });
 
-        console.log('UPDATING VIRTUAL LIST================');
-        // console.log(self.vlData);
-        // console.log(self.virtualList);
-
-
-      // }, 5000); ///END OF SET TIMEOUT
 
       }
     }

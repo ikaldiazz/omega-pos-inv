@@ -2,35 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-
-  <!-- Good default declaration:
-    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-        * Enable inline JS: add 'unsafe-inline' to default-src
-        * Enable eval(): add 'unsafe-eval' to default-src
-
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">
-	-->
-	<!-- Allow everything but only from the same origin and foo.com 
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' foo.com">
-	-->
-	<!-- This policy allows everything (eg CSS, AJAX, object, frame, media, etc) except that 
-	    * CSS only from the same origin and inline styles,
-	    * scripts only from the same origin and inline styles, and eval()
-	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' http: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.phonegap.com blob:; media-src *; img-src 'self' data: https://picsum.photos; font-src *; connect-src *;">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-  -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.phonegap.com blob:; media-src *;  img-src * data: ; font-src *; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.phonegap.com blob:; media-src *;  img-src * data: ; font-src *; connect-src *;">
 
   <meta name="theme-color" content="#2196f3">
-  <title>My App</title>
+  <title>Omega POS Inventory</title>
 
   <link rel="stylesheet" href="lib/framework7/css/framework7.min.css">
   <link rel="stylesheet" href="lib/chartist/chartist.min.css">
@@ -41,6 +16,8 @@
   <div id="app">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar"></div>
+
+
     <!-- Left panel with cover effect-->
     <div class="panel panel-left panel-cover theme-dark">
       <div class="view">
@@ -51,7 +28,8 @@
             </div>
           </div>
           <div class="page-content">
-            <div class="block">Left panel content goes here</div>
+            <div class="block"><img class="align-items-center" src="./img/product.png" width="100"/></div>
+            <div class="block" id="user-context">Left panel content goes here</div>
 
             <div class="block-title">Navigation</div>
             <div class="list">
@@ -60,6 +38,13 @@
                   <a href="/about/" class="item-content item-link">
                     <div class="item-inner">
                       <div class="item-title">About</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/catalog/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">catalog</div>
                     </div>
                   </a>
                 </li>
@@ -93,8 +78,6 @@
                 </li>
                 <li>
                   <a href="#" class="item-content item-link popup-open" data-popup="#my-popup">
-                  <!-- </a> -->
-                  <!-- <a href="/about/" class="item-content item-link"> -->
                     <div class="item-inner">
                       <div class="item-title">Popup</div>
                     </div>
@@ -140,6 +123,9 @@
         </div>
       </div>
     </div>
+
+
+
     <!-- Right panel with reveal effect-->
     <div class="panel panel-right panel-reveal theme-dark">
       <div class="view">
@@ -191,6 +177,15 @@
               <div class="list links-list">
                 <ul>
                   <li>
+                    <a href="/sales/">Sales</a>
+                  </li>
+                  <li>
+                    <a href="/user-config/">Config</a>
+                  </li>
+                  <li>
+                    <a href="#" class="qrscanner" id="qrscanner">SCAN QR</a>
+                  </li>
+                  <li>
                     <a href="/page-loader-template7/vladimir/123/about-me/1/?start=0&end=30#top">Template7 Page</a>
                   </li>
                   <li>
@@ -203,19 +198,10 @@
                     <a href="/request-and-load/user/123456/">Request Data & Load</a>
                   </li>
                   <li>
-                    <a href="/sales/">Sales</a>
-                  </li>
-                  <li>
-                    <a href="/config/">Config</a>
-                  </li>
-                  <li>
                     <a href="#" class="panel-open" data-panel="left">Left Panel</a>
                   </li>
                   <li>
                     <a href="#" class="panel-open" data-panel="right">Right Panel</a>
-                  </li>
-                  <li>
-                    <a href="#" class="qrscanner" id="qrscanner">SCAN QR</a>
                   </li>
                 </ul>
               </div>
@@ -225,37 +211,6 @@
       </div>
     </div>
 
-    <!-- Views/Tabs container 
-    <div class="views tabs ios-edges">-->
-      <!-- Tabbar for switching views-tabs -->
-      <!--<div class="toolbar tabbar-labels toolbar-bottom-md">
-        <div class="toolbar-inner">
-          <a href="#view-home" class="tab-link tab-link-active">
-            <i class="icon f7-icons ios-only">home</i>
-            <i class="icon f7-icons ios-only icon-ios-fill">home_fill</i>
-            <i class="icon material-icons md-only">home</i>
-            <span class="tabbar-label">Home</span>
-          </a>
-          <a href="#view-catalog" class="tab-link">
-            <i class="icon f7-icons ios-only">list</i>
-            <i class="icon f7-icons ios-only icon-ios-fill">list_fill</i>
-            <i class="icon material-icons md-only">local_grocery_store</i>
-            <span class="tabbar-label">Products</span>
-          </a>
-          <a href="#view-item" class="tab-link">
-            <i class="icon f7-icons ios-only">share</i>
-            <i class="icon f7-icons ios-only icon-ios-fill">share_fill</i>
-            <i class="icon material-icons md-only">dns</i>
-            <span class="tabbar-label">Stock</span>
-          </a>
-           <a href="#view-settings" class="tab-link">
-            <i class="icon f7-icons ios-only">settings</i>
-            <i class="icon f7-icons ios-only icon-ios-fill">settings_fill</i>
-            <i class="icon material-icons md-only">settings</i>
-            <span class="tabbar-label">Settings</span>
-          </a> 
-        </div>
-      </div>-->
       <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
       <div id="view-home" class="view view-main tab tab-active">
         <!-- Page, data-name contains page name which can be used in page callbacks -->
@@ -281,100 +236,102 @@
 
           <!-- Scrollable page content-->
           <div class="page-content">
-            <div class="block-title">Lorem Ipsum</div>
-            <div class="block block-strong">
-              <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
-              <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
-            </div>
 
             <div class="list">
-            	<ul>
-	            	<li>
-	                  <a href="/swipe/" class="item-content item-link">
-	                    <div class="item-inner">
-	                      <div class="item-title">SearchBar with Swipe</div>
-	                    </div>
-	                  </a>
-	                </li>
-                  <li>
-                    <a href="/listproduct/" class="item-content item-link">
-                      <div class="item-inner">
-                        <div class="item-title">Product List</div>
-                      </div>
-                    </a>
-                  </li>
-	                <li>
-	                  <a href="/vilist/" class="item-content item-link">
-	                    <div class="item-inner">
-	                      <div class="item-title">Virtual List</div>
-	                    </div>
-	                  </a>
-	                </li>
-                  <li>
-                    <a href="/products/" class="item-content item-link">
-                      <div class="item-inner">
-                        <div class="item-title">LIST PRODUK</div>
-                      </div>
-                    </a>
-                  </li>
-	                <li>
-	                  <a href="/form/edit/3000024/" class="item-content item-link">
-	                    <div class="item-inner">
-	                      <div class="item-title">EDIT ITEM FORM</div>
-	                    </div>
-	                  </a>
-	                </li>
-	                <li>
-	                  <a href="/vilistvdom/" class="item-content item-link">
-	                    <div class="item-inner">
-	                      <div class="item-title">Virtual List VDOM with Swipe</div>
-	                    </div>
-	                  </a>
-	                </li>
-	                <li>
-	                  <a href="/sales/" class="item-content item-link">
-	                    <div class="item-inner">
-	                      <div class="item-title">Sales</div>
-	                    </div>
-	                  </a>
-	                </li>
-	                <li>
-	                  <a href="/config/" class="item-content item-link">
-	                    <div class="item-inner">
-	                      <div class="item-title">Setting</div>
-	                    </div>
-	                  </a>
-	                </li>
-                  <li>
-                    <a href="/cordova/" class="item-content item-link">
-                      <div class="item-inner">
-                        <div class="item-title">Cordova Status</div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/cordovafile/" class="item-content item-link cordova-file">
-                      <div class="item-inner">
-                        <div class="item-title">Cordova File Status</div>
-                      </div>
-                    </a>
-                  </li>
-	                <li>
-	                   <a href="#" class="status-qr item-content item-link">
-	                   <div class="item-inner">
-	                      <div class="item-title">Test Error and get Status QR (TOAST)</div>
-	                    </div>
-	                   </a>
-	                </li>
+              <ul>
+                <li>
+                  <a href="/catalog/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Katalog (Data Semua Produk)</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/listproduct/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Pencarian Produk</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/swipe/" class="item-content item-link">
+                    <div class="item-inner"><div class="item-title">Pencarian Produk - SWIPE (ASYNC)</div></div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/products/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">List Produk (ASYNC)</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/form/edit/3000024/" class="item-content item-link">
+                   <div class="item-inner">
+                     <div class="item-title">Edit Produk 3000024</div>
+                   </div>
+                 </a>
+                </li>
+                <li>
+                  <a href="/vilistvdom/" class="item-content item-link">
+                   <div class="item-inner">
+                     <div class="item-title">List Produk (ASYNC) Virtual List VDOM with Swipe</div>
+                   </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/sales/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Penjualan</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/config/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Konfigurasi</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/cordova/" class="item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Cordova Status</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/cordovafile/" class="item-content item-link cordova-file">
+                    <div class="item-inner">
+                      <div class="item-title">Cordova File Status</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="status-qr item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">QR Scanner (Test Error and getStatus - TOAST)</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="scan-qr item-content item-link">
+                    <div class="item-inner">
+                      <div class="item-title">Scan QR</div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-                  <li>
-                     <a href="#" class="scan-qr item-content item-link">
-                     <div class="item-inner">
-                        <div class="item-title">Scan QR</div>
-                      </div>
-                     </a>
-                  </li>
-            	</ul>
+
+            <div class="block-title">Graph</div>
+
+            <div class="block">
+            <div class="ct-chart ct-perfect-fourth"></div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum id neque nec commodo. Sed vel justo at turpis laoreet pellentesque quis sed lorem. Integer semper arcu nibh, non mollis arcu tempor vel. Sed pharetra tortor vitae est rhoncus, vel congue dui sollicitudin. Donec eu arcu dignissim felis viverra blandit suscipit eget ipsum.
+              </p>
             </div>
 
             <div class="block-title">List View Accordion</div>
@@ -471,75 +428,6 @@
               <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
               <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
             </div>
-
-            <div class="block-title">Lorem Ipsum</div>
-            <div class="block block-strong">
-              <!-- <img data-src="img/joglo.jpg" class="block lazy lazy-fade-in demo-lazy"/> -->
-              <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
-              <p>Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.</p>
-            </div>
-            
-            <!-- <div class="block-title">Navigation</div>
-            <div class="list">
-              <ul>
-                <li>
-                  <a href="/about/" class="item-content item-link">
-                    <div class="item-inner">
-                      <div class="item-title">About</div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="block-title">Modals</div>
-            <div class="block block-strong">
-              <div class="row">
-                <div class="col-50">
-                  <a href="#" class="button button-raised button-fill popup-open" data-popup="#my-popup">Popup</a>
-                </div>
-                <div class="col-50">
-                  <a href="#" class="button button-raised button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="block-title">Panels</div>
-            <div class="block block-strong">
-              <div class="row">
-                <div class="col-50">
-                  <a href="#" class="button button-raised button-fill panel-open" data-panel="left">Left Panel</a>
-                </div>
-                <div class="col-50">
-                  <a href="#" class="button button-raised button-fill panel-open" data-panel="right">Right Panel</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="block-title searchbar-hide-on-search">Page Loaders & Router</div>
-            <div class="list links-list searchbar-hide-on-search">
-              <ul>
-                <li>
-                  <a href="/page-loader-template7/vladimir/123/about-me/1/?start=0&end=30#top">Template7 Page</a>
-                </li>
-                <li>
-                  <a href="/page-loader-component/vladimir/123/about-me/1/?start=0&end=30#top">Component Page</a>
-                </li>
-                <li>
-                  <a href="/load-something-that-doesnt-exist/">Default Route (404)</a>
-                </li>
-                <li>
-                  <a href="/request-and-load/user/123456/">Request Data & Load</a>
-                </li>
-                <li>
-                  <a href="/sales/">Sales</a>
-                </li>
-                <li>
-                  <a href="/config/">Config</a>
-                </li>
-              </ul>
-            </div> -->
-
             
           </div>
         </div>
@@ -549,17 +437,14 @@
       <!-- <div id="view-catalog" class="view tab"> -->
         <!-- Catalog page will be loaded here dynamically from /catalog/ route -->
       <!-- </div> -->
-
-       <!-- Item View -->
-      <!-- <div id="view-item" class="view tab"> -->
-        <!-- Catalog page will be loaded here dynamically from /catalog/ route -->
-      <!-- </div> -->
-
-      <!-- Settings View -->
-      <!-- <div id="view-settings" class="view tab"> -->
-        <!-- Settings page will be loaded here dynamically from /settings/ route -->
-      <!-- </div> -->
     </div>
+
+
+
+
+
+
+
 
     <!-- Popup -->
     <div class="popup" id="my-popup">
@@ -626,7 +511,6 @@
     </div>
   </div>
   <!-- Cordova -->
-  
   <script src="cordova.js"></script>
   <!-- <script src="cordova_plugins.js"></script> -->
 
@@ -639,11 +523,11 @@
 
   <!-- App routes -->
   <script src="js/routes.js"></script>
-  <!-- root Methods -->
+  <!-- App Methods -->
   <script src="js/methods.js"></script>
-  <!-- root Events -->
+  <!-- App Events -->
   <script src="js/events.js"></script>
-  <!-- root data -->
+  <!-- App data -->
   <script src="js/data.js"></script>
 
   <!-- Your custom app scripts -->

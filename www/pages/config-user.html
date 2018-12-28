@@ -1,0 +1,194 @@
+<template>
+<div class="page" data-name="config">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="back link">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">Settings</div>
+      <div class="right">
+        <a @click="updateData" href="#" class="link icon-only">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">notifications</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block-title">Bio </div>
+    <!-- <form id="setting-form" action="send-here.html" method="POST" class="form-ajax-submit" enctype="multipart/form-data"> -->
+    <form id="setting-form">
+    <div class="list no-hairlines-md">
+      <ul>
+          <input type="hidden" name="uid" placeholder="Your name" value="{{user.uid}}"/>
+        <li>
+          <!-- {"uid":"1","firstname":"Test","lastname":"Tost","email":"tes@tos.com","password":"1","phone":"085333669940","created":"2018-11-24 12:36:39","modified":"2018-11-24 12:36:39","status":"1"} -->
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Name</div>
+              <div class="item-input-wrap">
+                <input type="text" name="fname" placeholder="Your name" value="{{user.firstname}}" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">E-mail</div>
+              <div class="item-input-wrap">
+                <input type="email" name="mail" placeholder="E-mail" value="{{user.email}}"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">URL</div>
+              <div class="item-input-wrap">
+                <input type="url" name="url" placeholder="URL"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Password</div>
+              <div class="item-input-wrap">
+                <input type="password" name="password" placeholder="Password" value="{{user.password}}"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Phone</div>
+              <div class="item-input-wrap">
+                <input type="tel" name="phone" placeholder="Phone" value="{{user.phone}}"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Gender</div>
+              <div class="item-input-wrap">
+                <select name="sex">
+                  <option value="m">Male</option>
+                  <option value="f">Female</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Birth date</div>
+              <div class="item-input-wrap">
+                <input type="date" name="birth" placeholder="Birth day" value="2014-04-30"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        
+
+        <li class="align-top">
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Textarea</div>
+              <div class="item-input-wrap">
+                <textarea placeholder="Bio" name="bio"></textarea>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="align-top">
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Resizable</div>
+              <div class="item-input-wrap">
+                <textarea placeholder="Bio" name="descr" class="resizable"></textarea>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <!-- <a href="#" class="col button item-link list-button logout-button">ButtonXX</a> -->
+        <a @click="updateData" href="#" class="button convert-form-to-data col button-big button-fill button-raised color-green" id="save-btn">Simpan</a>
+        <!-- <a href="#" class="convert-form-to-data button col button-big button-fill button-raised color-green" id="save-btn">Simpan</a> -->
+      </p>
+      <p class="row">
+        <!-- <a @click="updateData" href="#" class="col button button-fill">Fill</a> -->
+        <a @click="logout" href="#" class="button logout-button col button-big button-fill button-raised color-red" id="logout-btn">Logout</a>
+        <a href="#" class="qrscanner button logout-button col button-big button-fill button-raised color-red">BACK</a>
+        <a @click="$root.formToData('#setting-form')">Test Method</a>
+        <a @click="$root.onBackKeyDown()">Test Back</a>
+      </p>
+    </div>
+    </form>
+    <!-- <a @click="updateData" href="#" class="button logout-button col button-big button-fill button-raised color-green" id="logout-btn">Save</a> -->
+    
+
+    <div class="list">
+      <ul>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        user: JSON.parse(localStorage.user),
+      };
+    },
+    // Component Methods
+    methods: {
+      logout: function () {
+        var self = this;
+
+        self.$app.dialog.confirm('Apakah anda yakin ingin keluar?', 'Logout', function () {
+          // self.$app.dialog.alert('Great!');
+          console.log('logout');
+          localStorage.clear();
+          self.$app.loginScreen.open('#my-login-screen');
+        });
+        // self.$app.dialog.alert('Hello World');
+      },
+      updateData: function () {
+        console.log('woi');
+        var tested = this.$root.formToData('#setting-form');
+        console.log(tested);
+
+        app.dialog.confirm(
+          'Apakah anda yakin ingin menyimpan perubahan data?', 'Simpan',
+          function () {
+            // proceed navigation
+            // resolve();
+	        var formData = app.form.convertToData('#setting-form');
+	        alert(JSON.stringify(formData));
+          },
+          function () {
+            // stay on page
+            // reject();
+          }
+        )
+        
+      },
+    }, 
+  };
+</script>
