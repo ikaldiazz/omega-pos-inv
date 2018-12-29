@@ -34,6 +34,8 @@ events =
     $$('#notif-progress').show();
     $$('#user-context').html('Selamat Datang '+app.data.user.firstName);
 
+    
+
 
     if (isLoggedIn()) {
        app.loginScreen.close('#my-login-screen'); 

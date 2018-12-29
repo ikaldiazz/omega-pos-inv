@@ -8,9 +8,12 @@
   <title>Omega POS Inventory</title>
 
   <link rel="stylesheet" href="lib/framework7/css/framework7.min.css">
+  <link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
   <link rel="stylesheet" href="lib/chartist/chartist.min.css">
   <link rel="stylesheet" href="css/icons.css">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="pages/error/error.css">
+
 </head>
 <body>
   <div id="app">
@@ -23,7 +26,7 @@
       <div class="view">
         <div class="page" data-name="menu-l">
           <div class="navbar">
-            <div class="navbar-inner">
+            <div class="navbar-inner sliding">
               <div class="title">Menu</div>
             </div>
           </div>
@@ -34,6 +37,20 @@
             <div class="block-title">Navigation</div>
             <div class="list">
               <ul>
+                <li>
+                  <a href="./index.html?theme=ios" class="external item-content item-link change-theme">
+                    <div class="item-inner">
+                      <div class="item-title">Change Theme IOS</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="./index.html?theme=md" class="external item-content item-link change-theme">
+                    <div class="item-inner">
+                      <div class="item-title">Change Theme MD</div>
+                    </div>
+                  </a>
+                </li>
                 <li>
                   <a href="/about/" class="item-content item-link">
                     <div class="item-inner">
@@ -130,29 +147,42 @@
     <div class="panel panel-right panel-reveal theme-dark">
       <div class="view">
         <div class="page" data-name="menu-r">
+
           <div class="navbar">
             <div class="navbar-inner sliding">
+              <div class="left">
+                Notifikasi
+              </div>
+              <!-- <p class="progressbar-infinite" id="notif-progress"></p> -->
+                <!-- <span class="progressbar-infinite" ></span> -->
+              <div class="subnavbar">
+                <form class="searchbar searchbar-panel-r">
+                  <div class="searchbar-inner">
+                    <div class="searchbar-input-wrap">
+                      <input type="search" placeholder="Search">
+                      <i class="searchbar-icon"></i>
+                      <span class="input-clear-button"></span>
+                    </div>
+                    <span class="searchbar-disable-button">Batal</span>
+                  </div>
+                </form>
+
+              </div>
               <div class="right">
-                <a href="#" reload-current="true">
-                  <!-- <i class="icon icon-back"></i> -->
-                  <i class="icon material-icons md-only">refresh</i>
-                  <span class="ios-only">Refresh</span>
-                </a>
-              </div>        
-              <div class="title">Notifikasi</div>
-                <!--<div class="subnavbar">
-                 Searchbar with auto init 
-              </div>-->
-
-              
-
+                <a href="#" class="link icon material-icons ios-only">refresh</a>
+              </div>              
             </div>
           </div>
+
           <div class="page-content">
-            <div class="progressbar-infinite" id="notif-progress"></div>
-            <div class="block">Right panel content goes here</div>
-            <div class="block-title">Navigation</div>
-              <div class="list">
+            <!-- Searchbar backdrop -->
+            <div class="searchbar-backdrop"></div>
+            <!-- hide-on-search element -->
+            <!-- <div class="block">Right panel content goes here</div> -->
+            <!-- <div class="block-title">Navigation</div> -->
+            <div class="block-title">'</div>
+              <div class="block-title">About & Popup</div>
+              <div class="list search-list-panel-r">
                 <ul>
                   <li>
                     <a href="/about/" class="item-content item-link">
@@ -163,8 +193,6 @@
                   </li>
                   <li>
                     <a href="#" class="item-content item-link popup-open" data-popup="#my-popup">
-                    <!-- </a> -->
-                    <!-- <a href="/about/" class="item-content item-link"> -->
                       <div class="item-inner">
                         <div class="item-title">Popup</div>
                       </div>
@@ -174,7 +202,7 @@
               </div>
 
               <div class="block-title">Page Loaders & Router</div>
-              <div class="list links-list">
+              <div class="list links-list search-list-panel-r">
                 <ul>
                   <li>
                     <a href="/sales/">Sales</a>
@@ -205,7 +233,70 @@
                   </li>
                 </ul>
               </div>
-              
+              <div class="block-title">Page Loaders & Router</div>
+              <div class="list links-list search-list-panel-r">
+                <ul>
+                  <li>
+                    <a href="/sales/">Sales</a>
+                  </li>
+                  <li>
+                    <a href="/user-config/">Config</a>
+                  </li>
+                  <li>
+                    <a href="#" class="qrscanner" id="qrscanner">SCAN QR</a>
+                  </li>
+                  <li>
+                    <a href="/page-loader-template7/vladimir/123/about-me/1/?start=0&end=30#top">Template7 Page</a>
+                  </li>
+                  <li>
+                    <a href="/page-loader-component/vladimir/123/about-me/1/?start=0&end=30#top">Component Page</a>
+                  </li>
+                  <li>
+                    <a href="/load-something-that-doesnt-exist/">Default Route (404)</a>
+                  </li>
+                  <li>
+                    <a href="/request-and-load/user/123456/">Request Data & Load</a>
+                  </li>
+                  <li>
+                    <a href="#" class="panel-open" data-panel="left">Left Panel</a>
+                  </li>
+                  <li>
+                    <a href="#" class="panel-open" data-panel="right">Right Panel</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="block-title">Page Loaders & Router</div>
+              <div class="list links-list search-list-panel-r">
+                <ul>
+                  <li>
+                    <a href="/sales/">Sales</a>
+                  </li>
+                  <li>
+                    <a href="/user-config/">Config</a>
+                  </li>
+                  <li>
+                    <a href="#" class="qrscanner" id="qrscanner">SCAN QR</a>
+                  </li>
+                  <li>
+                    <a href="/page-loader-template7/vladimir/123/about-me/1/?start=0&end=30#top">Template7 Page</a>
+                  </li>
+                  <li>
+                    <a href="/page-loader-component/vladimir/123/about-me/1/?start=0&end=30#top">Component Page</a>
+                  </li>
+                  <li>
+                    <a href="/load-something-that-doesnt-exist/">Default Route (404)</a>
+                  </li>
+                  <li>
+                    <a href="/request-and-load/user/123456/">Request Data & Load</a>
+                  </li>
+                  <li>
+                    <a href="#" class="panel-open" data-panel="left">Left Panel</a>
+                  </li>
+                  <li>
+                    <a href="#" class="panel-open" data-panel="right">Right Panel</a>
+                  </li>
+                </ul>
+              </div>
           </div>
         </div>
       </div>
@@ -220,7 +311,7 @@
             <div class="navbar-inner">
               <div class="left">
                 <a href="#" class="link icon-only panel-open" data-panel="left">
-                  <i class="icon f7-icons ios-only">menu</i>
+                  <i class="icon f7-icons ios-only">data</i>
                   <i class="icon material-icons md-only">apps</i>
                 </a>
               </div>
@@ -235,7 +326,7 @@
           </div>
 
           <!-- Scrollable page content-->
-          <div class="page-content">
+          <div class="page-content hide-navbar-on-scroll">
 
             <div class="list">
               <ul>
@@ -327,7 +418,7 @@
 
             <div class="block-title">Graph</div>
 
-            <div class="block">
+            <div class="block block-strong">
             <div class="ct-chart ct-perfect-fourth"></div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum id neque nec commodo. Sed vel justo at turpis laoreet pellentesque quis sed lorem. Integer semper arcu nibh, non mollis arcu tempor vel. Sed pharetra tortor vitae est rhoncus, vel congue dui sollicitudin. Donec eu arcu dignissim felis viverra blandit suscipit eget ipsum.

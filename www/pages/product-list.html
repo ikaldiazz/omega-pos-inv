@@ -15,7 +15,7 @@
             <i class="icon material-icons md-only">search</i>
           </a>
         </div>
-        <form data-search-container=".virtual-list-vdom"  data-search-item="li" data-search-in=".swipeout-content" class="searchbar searchbar-expandable searchbar-demo searchbar-init">
+        <form class="searchbar searchbar-expandable searchbar-demo searchbar-init" data-search-container=".virtual-list-vdom"  data-search-item="li" data-search-in=".swipeout-content">
           <div class="searchbar-inner">
             <div class="searchbar-input-wrap">
               <input type="search" placeholder="Search"/>
@@ -29,7 +29,7 @@
     </div>
     <div class="searchbar-backdrop"></div>
 
-    <div class="page-content">
+    <div class="page-content hide-navbar-on-scroll">
       <div class="block">
         <p>Cari berdasarkan kata kunci atau scan dengan kamera</p>
       </div>
@@ -165,7 +165,14 @@
             return found; //return array with mathced indexes
           },
           showFilteredItemsOnly:true,
+          // height:function(e){
+
+          //   console.log(this);
+          // },
+          height: app.theme === 'ios' ? 95 : 99,
           renderExternal: function(vl, vlData) {
+            console.log(this);
+
             self.$setState({
               vlData: vlData
             });

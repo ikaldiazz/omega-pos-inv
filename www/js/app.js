@@ -1,6 +1,10 @@
 // Dom7
 var $$ = Dom7;
-
+// Theme
+var theme = 'auto';
+if (document.location.search.indexOf('theme=') >= 0) {
+  theme = document.location.search.split('theme=')[1].split('&')[0];
+}
 
 var store = localStorage;
 var debugMode = true;
@@ -11,7 +15,7 @@ var app  = new Framework7({
   id: 'com.mbutgae.omega.inv', // App bundle ID
   version: '1.0.21',
   name: 'Omega POS Inventory', // App name
-  theme: 'auto', // Automatic theme detection
+  theme: theme, // Automatic theme detection
   pushState: true, //backButton
  //  view: {
  //pushStateRoot: ‘/example/’, // if the address like this https://www.example.com/example/ 5
@@ -21,12 +25,34 @@ var app  = new Framework7({
     // swipe: 'both',
     // swipeCloseOpposite: true,
   },
+  navbar: {
+    hideOnPageScroll: true,
+    iosCenterTitle: false,
+  },
   // App root data
   data: dataRoot,
   methods: methods,
   routes: routes,
   on: events,
+  touch: {
+    // tapHold: true,
+    materialRipple:true,
+  }
 });
+
+var searchbarpanelright = app.searchbar.create({
+      el: '.searchbar-panel-r',
+      searchContainer: '.search-list-panel-r',
+      searchIn: 'li',
+      on: {
+        enable: function () {
+          console.log('Searchbar enabled');
+        },
+        search(sb, query, previousQuery) {
+        console.log(query, previousQuery);
+        }
+      }
+    })
 
 
 //preAuth
@@ -223,6 +249,12 @@ $$('.cordova-file').on('click', function(){
 });
 $$('a.smart-select').on('click', function(){
   app.dialog.alert('SMART SELECT CLICKED!');
+});
+
+$$('.change-theme').on('click', function(){
+  // app.dialog.alert('change-theme!');
+  console.log('change-theme');
+  console.log(app);
 });
 
 

@@ -28,45 +28,37 @@
       </div>
     </div>
     <div class="searchbar-backdrop"></div>
-    <!-- FAB MORPH 
+    <!-- FAB MORPH -->
     <div class="fab fab-right-bottom fab-morph" data-morph-to=".toolbar.fab-morph-target">
       <a href="#">
-        <i class="icon f7-icons ios-only">search_strong</i>
+        <i class="icon f7-icons ios-only">sort_round_fill</i>
         <i class="icon material-icons md-only">camera_alt</i>
       </a>
-    </div>-->
-<!--
+    </div>
+
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md fab-morph-target">
       <div class="toolbar-inner">
-        <a class="tab-link tab-link-active">
-          <i class="icon f7-icons ios-only">email</i>
-          <i class="icon icon-fill f7-icons ios-only">email_fill</i>
-          <i class="icon material-icons md-only">email</i>
-          <span class="tabbar-label">Inbox</span>
-        </a>
-        <a class="tab-link">
-          <i class="icon f7-icons ios-only">today</i>
-          <i class="icon icon-fill f7-icons ios-only">today_fill</i>
-          <i class="icon material-icons md-only">today</i>
-          <span class="tabbar-label">Calendar</span>
-        </a>
         <a class="scan-qr tab-link">
-          <i class="icon f7-icons ios-only">cloud</i>
-          <i class="icon icon-fill f7-icons ios-only">cloud_fill</i>
-          <i class="icon material-icons md-only">file_upload</i>
-          <span class="tabbar-label">Upload</span>
+          <i class="f7-icons ios-only">card</i>
+          <i class="icon material-icons md-only">developer_board</i>
+          <span class="tabbar-label">Scan QR</span>
+        </a>
+        <a class="tab-link fab-close">
+          <i class="icon icon-fill f7-icons ios-only">close_round_fill</i>
+          <i class="icon material-icons md-only">close</i>
+          <span class="tabbar-label">Batal</span>
         </a>
       </div>
     </div>
-    end of FAB MORPH -->
+    <!--end of FAB MORPH -->
 
     <div class="page-content ptr-content" @ptr:refresh="refreshPage">
       <div class ="ptr-preloader">
         <div class ="preloader"></div>
         <div class ="ptr-arrow"></div>
       </div>
-      <div class="block">
-        <p>Cari berdasarkan kata kunci atau scan dengan kamera</p>
+      <div class="block-strong hide-on-scroll">
+        <p>Cari berdasarkan nama, kategori, harga atau scan kode QR</p>
       </div>
       <div class="list media-list searchbar-not-found">
         <ul>
@@ -153,7 +145,6 @@
             for (var i = 0; i < items.length; i++) {
               if (items[i].iid.toString().toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].iname.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].icode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
             }
-            console.log(found);
             return found; //return array with mathced indexes
           },
           cache : false,
@@ -186,7 +177,7 @@
         });
 
         // console.log(items);
-        console.log(self.item);
+        // console.log(self.item);
 
 
       }

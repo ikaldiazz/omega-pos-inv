@@ -1,0 +1,15 @@
+.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+
+	background-image: url('img/dribbble_1.gif');
+	height: 400px;
+	background-position: center;
+}
+
+.four_zero_four_bg h1{
+	font-size:80px;
+}
