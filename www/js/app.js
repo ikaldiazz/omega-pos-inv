@@ -13,7 +13,7 @@ var statusQR;
 var app  = new Framework7({
   root: '#app', // App root element
   id: 'com.mbutgae.omega.inv', // App bundle ID
-  version: '1.0.21',
+  version: '1.0.22',
   name: 'Omega POS Inventory', // App name
   theme: theme, // Automatic theme detection
   pushState: true, //backButton
@@ -46,10 +46,10 @@ var searchbarpanelright = app.searchbar.create({
       searchIn: 'li',
       on: {
         enable: function () {
-          console.log('Searchbar enabled');
+          // console.log('Searchbar enabled');
         },
         search(sb, query, previousQuery) {
-        console.log(query, previousQuery);
+        // console.log(query, previousQuery);
         }
       }
     })
@@ -200,11 +200,15 @@ $$('.scan-qr').on('click', function(){
     app.dialog.alert('The QR Code contains: ' + contents);
 
     QRScanner.hide(function(status){
+      QRScanner.cancelScan();
       console.log('QRSCANNER HIDING...');
+      if($$('#app').hasClass('ra-ketok')||$$('#my-popup').hasClass('ra-ketok')||$$('#my-login-screen').hasClass('ra-ketok')){
+    	
       $$('#app').removeClass('ra-ketok');
       $$('#my-popup').removeClass('ra-ketok');
       $$('#my-login-screen').removeClass('ra-ketok');
-      QRScanner.cancelScan();
+    	}
+    	
     });
 
   };
@@ -214,9 +218,15 @@ $$('.scan-qr').on('click', function(){
   
   QRScanner.show(function(status){
     console.log('QRSCANNER SHOWING...');
-    $$('#app').removeClass('ketok');
-    $$('#my-popup').removeClass('ketok');
-    $$('#my-login-screen').removeClass('ketok');
+    if($$('#app').hasClass('ketok')||$$('#my-popup').hasClass('ketok')||$$('#my-login-screen').hasClass('ketok')){
+    	$$('#app').removeClass('ketok');
+    	$$('#my-popup').removeClass('ketok');
+    	$$('#my-login-screen').removeClass('ketok');
+    }
+    // if($$('#app').hasClass('ketok')){$$('#app').removeClass('ketok');}
+    // if($$('#my-popup').hasClass('ketok')){$$('#my-popup').removeClass('ketok');}
+    // if($$('#my-login-screen').hasClass('ketok')){$$('#my-login-screen').removeClass('ketok');}
+    
 
     $$('#app').addClass('ra-ketok');
     $$('#my-popup').addClass('ra-ketok');
@@ -257,7 +267,7 @@ $$('.change-theme').on('click', function(){
   console.log(app);
 });
 
-
+$window = window;
 document.addEventListener('deviceready', () => {
   console.log('on document addEventListener(deviceready) =>Device ready event fired!',' LINE:385');
   document.addEventListener('backbutton', onBackKeyDown, false);
@@ -265,6 +275,16 @@ document.addEventListener('deviceready', () => {
   document.addEventListener("online", onOnline, false);
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", onResume, false);
+  // console.log(cordova);
+  // console.log(navigator);
+  var cdvPlugin = app.toast.create({text: 'Plugins: \n'+JSON.stringify($window.cordova.plugins,null,2)+'.', position: 'bottom', closeButton: true});
+
+  if (window.cordova && window.cordova.plugins) {
+    console.log('window.cordova.plugins is available');
+    cdvPlugin.open();
+  } else {
+    console.log('window.cordova.plugins NOT available');
+  }
   
 });
 
@@ -278,6 +298,13 @@ function onBackKeyDown() {
   var leftp = app.panel.left && app.panel.left.opened;
   var rightp = app.panel.right && app.panel.right.opened;
   openedDialog = $$('.dialog.modal-in').length;
+  // app.dialog.alert();
+   toastR = app.toast.create({text: cpage, position: 'bottom', closeTimeout: 1000, });
+    toastR.open();
+
+    console.log('BackPressed');
+    console.log(cpage);
+    console.log(cpagename);
 
     if (leftp || rightp) { // #leftpanel and #rightpanel are id of both panels.
       app.panel.right.close(true);
@@ -285,19 +312,21 @@ function onBackKeyDown() {
 
       return false;
     } else if (cpage == '/' && openedDialog < 1) {
-      app.dialog.confirm('Are you sure you want to exit?', function() {
-            // var deviceType = device.platform;
-            // if(deviceType == 'Android' || deviceType == 'android'){
-              navigator.app.exitApp();
-            // }
-          },
-          function() {
-          });
+      app.dialog.confirm('Are you sure you want to exit?', 
+      	function() {
+        // var deviceType = device.platform;
+        // if(deviceType == 'Android' || deviceType == 'android'){
+          navigator.app.exitApp();
+        // }
+	    },
+	    function() {
+	  		homeView.router.refreshPage();
+	    });
     } else {
       homeView.router.back();
       homeView.router.refreshPage();
       homeView.router.back({
-      url: '/', // - in case you use Ajax pages
+      // url: '/', // - in case you use Ajax pages
       // pageName: 'homepage_name', // - in case you use Inline Pages or domCache
       force: true
     });

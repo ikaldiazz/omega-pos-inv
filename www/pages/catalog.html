@@ -38,7 +38,7 @@
 
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md fab-morph-target">
       <div class="toolbar-inner">
-        <a class="scan-qr tab-link">
+        <a @click="$root.scanProdukQR()" href="#" class="scan-qr tab-link">
           <i class="f7-icons ios-only">card</i>
           <i class="icon material-icons md-only">developer_board</i>
           <span class="tabbar-label">Scan QR</span>
@@ -59,6 +59,7 @@
       </div>
       <div class="block-strong hide-on-scroll">
         <p>Cari berdasarkan nama, kategori, harga atau scan kode QR</p>
+        <a @click="$root.onBackKeyDown()" href="#" class="button logout-button col button-big button-fill button-raised color-red">Back</a>
       </div>
       <div class="list media-list searchbar-not-found">
         <ul>

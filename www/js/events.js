@@ -32,12 +32,14 @@ events =
     console.log('pageInit(page) - ',page.name);
     $$('.progressbar-infinite').hide();
     $$('#notif-progress').show();
-    $$('#user-context').html('Selamat Datang '+app.data.user.firstName);
+    console.log($$('#app').hasClass('ketok'));
+
 
     
 
 
     if (isLoggedIn()) {
+       $$('#user-context').html('Selamat Datang '+app.data.user.firstName);
        app.loginScreen.close('#my-login-screen'); 
      } else {
        app.loginScreen.open('#my-login-screen');
@@ -46,7 +48,34 @@ events =
   pageBeforeRemove:function(page) {
     // console.log('page before remove ', page.name);
     // var self = this;
+    app.actions.destroy();
+    app.autocomplete.destroy();
+    app.calendar.destroy();
+    app.dataTable.destroy();
+    app.dialog.destroy();
+    app.gauge.destroy();
+    app.infiniteScroll.destroy();
+    app.lazy.destroy();
+    app.listIndex.destroy();
+    app.loginScreen.destroy();
+    app.messagebar.destroy();
+    app.messages.destroy();
+    app.notification.destroy();
+    app.photoBrowser.destroy();
+    app.picker.destroy();
+    app.popover.destroy();
+    app.popup.destroy();
+    app.ptr.destroy();
+    app.range.destroy();
+    app.searchbar.destroy();
+    app.sheet.destroy();
+    app.smartSelect.destroy();
+    app.stepper.destroy();
+    app.swiper.destroy();
     app.toast.destroy();
+    app.toggle.destroy();
+    app.tooltip.destroy();
+    app.virtualList.destroy();
   },
   pageMounted: function (page) {
     // console.log(' page mounted ', page.name);
