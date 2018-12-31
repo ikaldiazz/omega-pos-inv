@@ -52,11 +52,11 @@
         <icon qualifier="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
         <icon qualifier="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
     </platform>
-    <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
+    <!-- <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-feature android:name="android.hardware.camera" />
 	<uses-feature android:name="android.hardware.camera.autofocus" />
-	</config-file>
+	</config-file> -->
 	
     <engine name="android" spec="5.0.0" />
     <plugin name="cordova-plugin-camera" spec="4.0.0" />
