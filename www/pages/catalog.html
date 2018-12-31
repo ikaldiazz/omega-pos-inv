@@ -29,16 +29,16 @@
     </div>
     <div class="searchbar-backdrop"></div>
     <!-- FAB MORPH -->
-    <div class="fab fab-right-bottom fab-morph" data-morph-to=".toolbar.fab-morph-target">
+    <div class="fab fab-right-bottom popup-open" data-popup="#qr-popup">
       <a href="#">
         <i class="icon f7-icons ios-only">sort_round_fill</i>
         <i class="icon material-icons md-only">camera_alt</i>
       </a>
     </div>
-
+<!--
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md fab-morph-target">
       <div class="toolbar-inner">
-        <a @click="$root.scanProdukQR()" href="#" class="scan-qr tab-link">
+        <a @click="$root.scanProdukQR()" href="#" class="scan-qr tab-link"  data-popup="#my-popup">
           <i class="f7-icons ios-only">card</i>
           <i class="icon material-icons md-only">developer_board</i>
           <span class="tabbar-label">Scan QR</span>
@@ -50,7 +50,7 @@
         </a>
       </div>
     </div>
-    <!--end of FAB MORPH -->
+    end of FAB MORPH -->
 
     <div class="page-content ptr-content" @ptr:refresh="refreshPage">
       <div class ="ptr-preloader">
@@ -66,7 +66,7 @@
           <li>
             <div class ="item-content bg-color-pink">
               <div class ="item-inner">
-                <div class ="item-title-row">
+                <div class ="item-title-row"> 
                   <div class ="item-title text-color-white">Tidak Ditemukan</div>
                 </div>
                 <div class ="item-subtitle"></div>
