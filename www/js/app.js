@@ -4,6 +4,7 @@ var $$ = Dom7;
 var theme = 'auto';
 if (document.location.search.indexOf('theme=') >= 0) {
   theme = document.location.search.split('theme=')[1].split('&')[0];
+  console.log(theme);
 }
 
 var store = localStorage;
@@ -75,6 +76,8 @@ $$('#view-home').on('tab:show', function () {
     force: true
   });
 });
+
+// var qrView = app.views.create('#view-qr');
 
 
 
@@ -284,6 +287,8 @@ document.addEventListener('deviceready', () => {
     cdvPlugin.open();
   } else {
     console.log('window.cordova.plugins NOT available');
+    var noPlugin = app.toast.create({text: 'Plugins: No plugins', position: 'bottom', closeButton: true});
+    noPlugin.open();
   }
   
 });
@@ -337,25 +342,29 @@ function onBackKeyDown() {
 
 
   function onOnline() {
+    setTimeout(function() {
     toastOnline = app.toast.create({text: 'ONLINE: Koneksi Internet Kembali Aktif', position: 'bottom', closeTimeout: 1000,});
     toastOnline.open();
+    }, 0);
   }
 
   function onOffline() {
+    setTimeout(function() {
     toastOffline = app.toast.create({text: 'OFFLINE: Tidak Ada Koneksi Internet',position: 'bottom', closeTimeout: 1000, });
     toastOffline.open();
+    }, 0);
   }
 
 
   function onPause() {
-    toastP = app.toast.create({text: 'PAUSE: Aplikasi di Minimize',position: 'bottom', closeTimeout: 1000, });
-    toastP.open();
+    // toastP = app.toast.create({text: 'PAUSE: Aplikasi di Minimize',position: 'bottom', closeTimeout: 1000, });
+    // toastP.open();
   }
 
   function onResume() {
     setTimeout(function() {
-      toastR = app.toast.create({text: 'RESUME: Kembali ke Aplikasi',position: 'bottom', closeTimeout: 1000, });
-      toastR.open();
+      // toastR = app.toast.create({text: 'RESUME: Kembali ke Aplikasi',position: 'bottom', closeTimeout: 1000, });
+      // toastR.open();
     }, 0);
   }
 

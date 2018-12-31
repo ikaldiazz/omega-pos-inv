@@ -7,11 +7,11 @@
   <meta name="theme-color" content="#2196f3">
   <title>Omega POS Inventory</title>
 
-  <link rel="stylesheet" href="lib/framework7/css/framework7.min.css">
-  <link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
   <link rel="stylesheet" href="lib/chartist/chartist.min.css">
   <link rel="stylesheet" href="css/icons.css">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="lib/framework7/css/framework7.min.css">
+  <link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
   <link rel="stylesheet" href="pages/error/error.css">
 
 </head>
@@ -19,6 +19,8 @@
   <div id="app">
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar"></div>
+
+
 
 
     <!-- Left panel with cover effect-->
@@ -320,6 +322,7 @@
                 <a href="#" class="link icon-only panel-open" data-panel="right">
                   <i class="icon f7-icons ios-only">menu</i>
                   <i class="icon material-icons md-only">notifications</i>
+                  <!-- <i class="icon material-icons md-only">settings</i> -->
                 </a>
               </div>
             </div>
@@ -528,6 +531,32 @@
       <!-- <div id="view-catalog" class="view tab"> -->
         <!-- Catalog page will be loaded here dynamically from /catalog/ route -->
       <!-- </div> -->
+
+      
+    <!-- View QR 
+    <div id="view-qr" class="view ketok">
+      <div class="page" data-name="qr">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="title sliding">Scan QR</div>
+            <div class="right">
+              <a href="#" class="link icon-only panel-open" data-panel="right">
+                <i class="icon f7-icons ios-only">settings_fill</i>
+                <i class="icon material-icons md-only">settings</i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="page-content">
+          <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        </div>
+
+      </div>
+    </div>
+-->
+
+
+
     </div>
 
 
@@ -600,7 +629,51 @@
         </div>
       </div>
     </div>
+
+
+    <div class="popup" id="qr-popup">
+      <div class="view">
+        <div class="page">
+
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title sliding">Scan QR</div>
+              <div class="right">
+                <a href="#" class="link icon-only panel-open" data-panel="right">
+                  <i class="icon f7-icons ios-only">settings_fill</i>
+                  <i class="icon material-icons md-only">settings</i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Popup</div>
+              <div class="right">
+                <a href="#" class="link popup-close">Close</a>
+              </div>
+            </div>
+          </div> -->
+          <div class="page-content">
+            <div class="block">
+              <!-- <p>Popup content goes here.</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
   </div>
+
+  
+
+
+
   <!-- Cordova -->
   <script src="cordova.js"></script>
   <!-- <script src="cordova_plugins.js"></script> -->

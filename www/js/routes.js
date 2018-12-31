@@ -759,6 +759,7 @@ routes = [
           },
           success: function(response) {
             console.log('success get item');
+            console.log(response.records);
             app.preloader.hide();
 
             resolve(
@@ -800,9 +801,9 @@ routes = [
       setTimeout(function () {
         // We got user data from request
         app.request({
-          // url: 'http://khojati.id/titip/api/v2/api.php/records/items',
+          url: 'https://gardenexoteak.com/khojati/titip/api/v2/api.php/records/items?join=categories&join=units',
           // url: './json/items.json',
-          url: './json/item_cat_unit.json',
+          // url: './json/items.json',
           dataType: 'json',
           method: "GET",
           crossDomain: true,
@@ -817,7 +818,8 @@ routes = [
           },
           success: function(response) {
             app.preloader.hide();
-            console.log('success get item');
+            console.log('success get item for catalog');
+            console.log(response.records);
 
             resolve(
               {
@@ -837,7 +839,7 @@ routes = [
           }
         });
 
-      }, 500);
+      }, 1000);
     },
 
     on: {

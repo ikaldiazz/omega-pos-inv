@@ -43,7 +43,7 @@
           <i class="icon material-icons md-only">developer_board</i>
           <span class="tabbar-label">Scan QR</span>
         </a>
-        <a class="tab-link fab-close">
+        <a @click="$root.scanProdukQR()" class="fab-close">
           <i class="icon icon-fill f7-icons ios-only">close_round_fill</i>
           <i class="icon material-icons md-only">close</i>
           <span class="tabbar-label">Batal</span>
@@ -149,6 +149,7 @@
             return found; //return array with mathced indexes
           },
           cache : false,
+          height: 100,
           // List item Template7 template
           itemTemplate:
           '<li key="{{iid}}" style="" class="swipeout">'+
@@ -161,6 +162,7 @@
                     '<div class="item-after">{{formatRupiah bprice}}</div>'+
                   '</div>'+
                   '<div class="item-subtitle">{{iname}}</div>'+
+                  '<div class="item-subtitle">{{icode}}</div>'+
                   '<div class="item-text">Kategori: {{catid.name}} - Satuan: {{unitid.name}}</div>'+
                 '</div>'+
               '</a>'+
@@ -174,7 +176,6 @@
             '</div>'+
           '</li>',
           // Item height
-          height: 100,
         });
 
         // console.log(items);

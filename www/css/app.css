@@ -7,10 +7,12 @@
 }
 
 .ra-ketok {
-  background: none transparent !important;
-  opacity: 0 !important;
+  /*background: none transparent !important;*/
+  /*opacity: 0 !important;*/
+  z-index: -1000;
 }
 .ketok {
-  background: #212121 !important;
-  opacity: 1 !important;
+  /*background: #212121 !important;*/
+  /*opacity: 1 !important;*/
+  z-index: auto;
 }

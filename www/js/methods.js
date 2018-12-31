@@ -13,6 +13,10 @@ methods = {
     var leftp = app.panel.left && app.panel.left.opened;
     var rightp = app.panel.right && app.panel.right.opened;
     console.log('BackPressed');
+    toastR = app.toast.create({text: 'cpage: '+cpage+' homeView.router: '+homeView.router+' self.views.main.router.url: '+self.views.main.router.url,position: 'bottom', closeTimeout: 5000, });
+
+      toastR.open();
+
     // console.log(self.views.main.router.url);
     // console.log(homeView.router);
 
@@ -63,9 +67,17 @@ methods = {
       var act = $$(form).attr("action");
       var met = $$(form).attr("method");
       var enc = $$(form).attr("enctype");
-      console.log(act, met, enc);
-      console.log(JSON.stringify(formData));
-      return JSON.stringify(formData);      
+      // console.log(act, met, enc);
+      if (formData.status[0]=='on') {
+        formData.status = 1
+      } else {
+        formData.status = 0
+      }
+      // console.log(JSON.stringify(formData));
+      console.log(formData);
+      // console.log(app.form);
+      // return JSON.stringify(formData); 
+      return formData; 
     },
   scanProdukQR: function (form) {
       var callback = function(err, contents){
@@ -115,4 +127,12 @@ methods = {
         console.log(status);
       });  
     },
+    cancelScan: function (form) {
+      QRScanner.cancelScan();
+
+
+       
+  
+    },
+
 }

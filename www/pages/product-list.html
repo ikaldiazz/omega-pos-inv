@@ -48,12 +48,11 @@
                 <div class="item-inner">
                   <div class="item-title-row">
                     <div class="item-title">{{iid}}</div>
-                    <div class="item-after">{{created}}</div>
+                    <div class="item-after">{{formatRupiah bprice}}</div>
                   </div>
                   <div class="item-subtitle">{{iname}}</div>
                   <div class="item-text">
-                    {{bprice}}
-                    {{modified}}
+                    Kategori: {{catid.name}} - Satuan: {{unitid.name}}
                   </div>
                 </div>
               </a>
@@ -169,7 +168,7 @@
 
           //   console.log(this);
           // },
-          height: app.theme === 'ios' ? 95 : 99,
+          height: app.theme === 'ios' ? 96 : 100,
           renderExternal: function(vl, vlData) {
             // console.log(this);
 
