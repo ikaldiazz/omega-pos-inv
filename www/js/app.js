@@ -143,114 +143,51 @@ $$('.convert-form-to-data').on('click', function(){
 });
 
 $$('.status-qr').on('click', function(){
-  var done = function(err){
-    if(err){
-      app.dialog.alert(JSON.stringify(err,null,2), 'Error QR');
-      console.error('ERROR on STATUS QR on CLICK',err._message);
-      var errQR = app.toast.create({text: 'QRScanner is Error. Status: \n'+JSON.stringify(err,null,2)+'.', position: 'bottom', closeTimeout: 5000,});
-      errQR.open();
-      QRScanner.destroy();
-
-    } 
-    QRScanner.getStatus(function(status){
-      statusQR = status;
-      app.dialog.alert(JSON.stringify(status,null,2), 'Status QR');
-
-      var statQR = app.toast.create({text: 'NO Error. \n'+JSON.stringify(status,null,2)+'.', position: 'bottom', closeButton: true});
-      statQR.open();
-      QRScanner.destroy();
-
-    });
-  };
-  QRScanner.prepare(done);
+ 
 });
 
 $$('.scan-qr').on('click', function(){
+  // console.log(cordova.plugins.barcodeScanner);
 
-  // QRScanner.prepare(onDone); // show the toast
-  // function onDone(err){
-  //   // console.error(err);
-  //   if (err) {
-  //   // here we can handle errors and clean up any loose ends.
-  //   // console.error(err._message);
-  //   errTEXT = err.code+' => '+err.name+' => '+err._message;
-  //   // console.error(errTEXT);
-  //   prepQRErr = app.toast.create({text: errTEXT, position: 'bottom', closeButton: true, closeButtonText: 'Tutup', closeButtonColor: 'red', });
-  //   prepQRErr.open();
-  //   QRScanner.cancelScan();
-
-  //   }
-  //   else{
-  //     QRScanner.getStatus(function(status){
-  //       // console.log(status);
-  //       var prepQRStat = app.toast.create({text: 'QRSCANNER.GETSTATUS. \n'+JSON.stringify(status,null,2)+'.',position: 'bottom', closeButton: true});
-  //       prepQRStat.open();
-
-  //     });
-  //   }
-  //     // console.error('NO ERROR');
-  // }
-
-   
-  // Make the webview transparent so the video preview is visible behind it. Be sure to make any opaque HTML elements transparent here to avoid covering the video.
-  
-  var callback = function(err, contents){
-    console.log('QRSCANNER SCANNING... on callback');
-    if(err){console.error(err._message);}
-    $$('#app').addClass('ketok');
-    $$('#my-popup').addClass('ketok');
-    $$('#my-login-screen').addClass('ketok');
-    app.dialog.alert('The QR Code contains: ' + contents);
-
-    QRScanner.hide(function(status){
-      QRScanner.cancelScan();
-      console.log('QRSCANNER HIDING...');
-      if($$('#app').hasClass('ra-ketok')||$$('#my-popup').hasClass('ra-ketok')||$$('#my-login-screen').hasClass('ra-ketok')){
-    	
-      $$('#app').removeClass('ra-ketok');
-      $$('#my-popup').removeClass('ra-ketok');
-      $$('#my-login-screen').removeClass('ra-ketok');
-    	}
-    	
-    });
-
-  };
-   
-  QRScanner.scan(callback);
-
-  
-  QRScanner.show(function(status){
-    console.log('QRSCANNER SHOWING...');
-    if($$('#app').hasClass('ketok')||$$('#my-popup').hasClass('ketok')||$$('#my-login-screen').hasClass('ketok')){
-    	$$('#app').removeClass('ketok');
-    	$$('#my-popup').removeClass('ketok');
-    	$$('#my-login-screen').removeClass('ketok');
-    }
-    // if($$('#app').hasClass('ketok')){$$('#app').removeClass('ketok');}
-    // if($$('#my-popup').hasClass('ketok')){$$('#my-popup').removeClass('ketok');}
-    // if($$('#my-login-screen').hasClass('ketok')){$$('#my-login-screen').removeClass('ketok');}
-    
-
-    $$('#app').addClass('ra-ketok');
-    $$('#my-popup').addClass('ra-ketok');
-    $$('#my-login-screen').addClass('ra-ketok');
-    console.log('QRSCANNER SCANNING...on SHOW METHOD');
-    QRScanner.scan(callback);
+  cordova.plugins.barcodeScanner.scan(
+      function (result) {
+          alert("We got a barcode\n" +
+                "Result: " + result.text + "\n" +
+                "Format: " + result.format + "\n" +
+                "Cancelled: " + result.cancelled);
+      },
+      function (error) {
+          alert("Scanning failed: " + error);
+      },
+      {
+          preferFrontCamera : true, // iOS and Android
+          showFlipCameraButton : true, // iOS and Android
+          showTorchButton : true, // iOS and Android
+          torchOn: true, // Android, launch with the torch switched on (if available)
+          saveHistory: true, // Android, save scan history (default false)
+          prompt : "Place a barcode inside the scan area", // Android
+          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations : true, // iOS
+          disableSuccessBeep: false // iOS and Android
+      }
+   );
 
 
-    console.log(status);
-  });
+      // cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", 
+      //   function(success) {
+      //     alert("encode success: " + success);
+      //   }, function(fail) {
+      //     alert("encoding failed: " + fail);
+      //   }
+      // );
 
 });
 
 
 $$('.show-qr').on('click', function(){
-  $$('#app').addClass('ra-ketok');
-  QRScanner.show(function(status){
-    console.log(status);
-    app.dialog.alert('SHOW QR: ' + status);
-    $$('#app').addClass('ketok');
-  });
+  // $$('#app').addClass('ra-ketok');
 });
 
 $$('.cordova-file').on('click', function(){
