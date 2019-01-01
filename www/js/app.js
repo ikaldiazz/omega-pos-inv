@@ -142,7 +142,49 @@ $$('.convert-form-to-data').on('click', function(){
   console.log('xxxxxxx');
 });
 
-$$('.status-qr').on('click', function(){
+$$('.enc-barcode').on('click', function(){
+  app.dialog.create({
+    title: 'Vertical Buttons',
+    text: 'Dialog with vertical buttons',
+    buttons: [
+      {
+        text: 'TEXT_TYPE', onClick: function () {
+          // app.dialog.alert('Button1 clicked')
+          cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
+              alert("encode success: " + success);
+            }, function(fail) {
+              alert("encoding failed: " + fail);
+            }
+          );
+        }
+      },
+      {
+        text: 'PHONE_TYPE', onClick: function () {
+          // app.dialog.alert('Button1 clicked')
+          cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.PHONE_TYPE, "085333669940", function(success) {
+              alert("encode success: " + success);
+            }, function(fail) {
+              alert("encoding failed: " + fail);
+            }
+          );
+        }
+      },
+      {
+        text: 'SMS_TYPE', onClick: function () {
+          // app.dialog.alert('Button1 clicked')
+          cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.SMS_TYPE, "085333669940", function(success) {
+              alert("encode success: " + success);
+            }, function(fail) {
+              alert("encoding failed: " + fail);
+            }
+          );
+        }
+      },
+    ],
+    verticalButtons: true,
+  }).open();
+
+  
  
 });
 
@@ -151,26 +193,31 @@ $$('.scan-qr').on('click', function(){
 
   cordova.plugins.barcodeScanner.scan(
       function (result) {
-          alert("We got a barcode\n" +
-                "Result: " + result.text + "\n" +
-                "Format: " + result.format + "\n" +
-                "Cancelled: " + result.cancelled);
+        setTimeout(function() {
+          resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
+          toastScan = app.toast.create({text: resultScan, position: 'top', closeButton: true,});
+          toastScan.open();
+        }, 0);
+        // alert("We got a barcode\n" +
+        //       "Result: " + result.text + "\n" +
+        //       "Format: " + result.format + "\n" +
+        //       "Cancelled: " + result.cancelled);
       },
       function (error) {
           alert("Scanning failed: " + error);
       },
       {
-          preferFrontCamera : true, // iOS and Android
+          preferFrontCamera : false, // iOS and Android
           showFlipCameraButton : true, // iOS and Android
           showTorchButton : true, // iOS and Android
-          torchOn: true, // Android, launch with the torch switched on (if available)
+          torchOn: false, // Android, launch with the torch switched on (if available)
           saveHistory: true, // Android, save scan history (default false)
-          prompt : "Place a barcode inside the scan area", // Android
-          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-          orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+          prompt : "Tempatkan barcode di dalam area", // Android
+          resultDisplayDuration: 1000, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
           disableAnimations : true, // iOS
-          disableSuccessBeep: false // iOS and Android
+          disableSuccessBeep: true // iOS and Android
       }
    );
 
@@ -221,7 +268,7 @@ document.addEventListener('deviceready', () => {
 
   if (window.cordova && window.cordova.plugins) {
     console.log('window.cordova.plugins is available');
-    cdvPlugin.open();
+    // cdvPlugin.open();
   } else {
     console.log('window.cordova.plugins NOT available');
     var noPlugin = app.toast.create({text: 'Plugins: No plugins', position: 'bottom', closeButton: true});
