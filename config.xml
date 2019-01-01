@@ -20,16 +20,15 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
     <preference name="android-build-tool" value="gradle" />
-    	<preference name="android-minSdkVersion" value="19" />
-    	<preference name="android-maxSdkVersion" value="27" /> 
-    	<preference name="android-targetSdkVersion" value="27" /> 
+    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-maxSdkVersion" value="27" /> 
+    <preference name="android-targetSdkVersion" value="27" /> 
+    <preference name="android-installLocation" value="auto" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="orientation" value="portrait" />
+    <preference name="LoadUrlTimeoutValue" value="10000" />
+    <preference name="LogLevel" value="VERBOSE" />
     <platform name="android">
-        <preference name="android-build-tool" value="gradle" />
-        <preference name="android-installLocation" value="auto" />
-        <preference name="DisallowOverscroll" value="true" />
-        <preference name="orientation" value="portrait" />
-        <preference name="LoadUrlTimeoutValue" value="10000" />
-        <preference name="LogLevel" value="VERBOSE" />
         <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
         <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
         <icon qualifier="hdpi" src="res/icons/android/drawable-hdpi-icon.png" />
