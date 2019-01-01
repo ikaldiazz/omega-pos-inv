@@ -143,48 +143,53 @@ $$('.convert-form-to-data').on('click', function(){
 });
 
 $$('.enc-barcode').on('click', function(){
-  app.dialog.create({
-    title: 'Vertical Buttons',
-    text: 'Dialog with vertical buttons',
-    buttons: [
-      {
-        text: 'TEXT_TYPE', onClick: function () {
-          // app.dialog.alert('Button1 clicked')
-          cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
-              alert("encode success: " + success);
-            }, function(fail) {
-              alert("encoding failed: " + fail);
-            }
-          );
-        }
-      },
-      {
-        text: 'PHONE_TYPE', onClick: function () {
-          // app.dialog.alert('Button1 clicked')
-          cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.PHONE_TYPE, "085333669940", function(success) {
-              alert("encode success: " + success);
-            }, function(fail) {
-              alert("encoding failed: " + fail);
-            }
-          );
-        }
-      },
-      {
-        text: 'SMS_TYPE', onClick: function () {
-          // app.dialog.alert('Button1 clicked')
-          cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.SMS_TYPE, "085333669940", function(success) {
-              alert("encode success: " + success);
-            }, function(fail) {
-              alert("encoding failed: " + fail);
-            }
-          );
-        }
-      },
-    ],
-    verticalButtons: true,
-  }).open();
+  // app.dialog.create({
+  //   title: 'Vertical Buttons',
+  //   text: 'Dialog with vertical buttons',
+  //   buttons: [
+  //     {
+  //       text: 'TEXT_TYPE', onClick: function () {
+  //         // app.dialog.alert('Button1 clicked')
+  //         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
+  //             alert("encode success: " + success);
+  //           }, function(fail) {
+  //             alert("encoding failed: " + fail);
+  //           }
+  //         );
+  //       }
+  //     },
+  //     {
+  //       text: 'PHONE_TYPE', onClick: function () {
+  //         // app.dialog.alert('Button1 clicked')
+  //         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.PHONE_TYPE, "085333669940", function(success) {
+  //             alert("encode success: " + success);
+  //           }, function(fail) {
+  //             alert("encoding failed: " + fail);
+  //           }
+  //         );
+  //       }
+  //     },
+  //     {
+  //       text: 'SMS_TYPE', onClick: function () {
+  //         // app.dialog.alert('Button1 clicked')
+  //         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.SMS_TYPE, "085333669940", function(success) {
+  //             alert("encode success: " + success);
+  //           }, function(fail) {
+  //             alert("encoding failed: " + fail);
+  //           }
+  //         );
+  //       }
+  //     },
+  //   ],
+  //   verticalButtons: true,
+  // }).open();
 
-  
+  cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
+              alert("encode success: " + success);
+            }, function(fail) {
+              alert("encoding failed: " + fail);
+            }
+          );
  
 });
 
