@@ -19,6 +19,7 @@
     <allow-intent href="market:*" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
+    <preference name="android-targetSdkVersion" value="27" />
     <platform name="android">
         <preference name="android-build-tool" value="gradle" />
         <preference name="android-installLocation" value="auto" />
