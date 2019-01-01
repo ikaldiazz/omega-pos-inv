@@ -21,9 +21,9 @@
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
     <platform name="android">
         <preference name="android-build-tool" value="gradle" />
-        <preference name="android-minSdkVersion" value="21" />
-        <preference name="android-maxSdkVersion" value="22" />
-        <preference name="android-targetSdkVersion" value="22" />
+        <preference name="android-minSdkVersion" value="27" />
+        <preference name="android-maxSdkVersion" value="27" />
+        <preference name="android-targetSdkVersion" value="27" />
         <preference name="android-installLocation" value="auto" />
         <preference name="DisallowOverscroll" value="true" />
         <preference name="orientation" value="portrait" />
