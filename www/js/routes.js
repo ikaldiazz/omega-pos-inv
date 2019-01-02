@@ -801,8 +801,8 @@ routes = [
       setTimeout(function () {
         // We got user data from request
         app.request({
-          // url: 'https://gardenexoteak.com/khojati/titip/api/v2/api.php/records/items?join=categories&join=units',
-          url: './json/items.json',
+          url: 'https://gardenexoteak.com/khojati/titip/api/v2/api.php/records/items?join=categories&join=units',
+          // url: './json/items.json',
           dataType: 'json',
           method: "GET",
           crossDomain: true,

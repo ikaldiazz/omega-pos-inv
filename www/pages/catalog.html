@@ -29,28 +29,12 @@
     </div>
     <div class="searchbar-backdrop"></div>
     <!-- FAB MORPH -->
-    <div class="fab fab-right-bottom popup-open" data-popup="#qr-popup">
+    <div class="fab fab-right-bottom scan-qr">
       <a href="#">
         <i class="icon f7-icons ios-only">sort_round_fill</i>
         <i class="icon material-icons md-only">camera_alt</i>
       </a>
     </div>
-<!--
-    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md fab-morph-target">
-      <div class="toolbar-inner">
-        <a @click="$root.scanProdukQR()" href="#" class="scan-qr tab-link"  data-popup="#my-popup">
-          <i class="f7-icons ios-only">card</i>
-          <i class="icon material-icons md-only">developer_board</i>
-          <span class="tabbar-label">Scan QR</span>
-        </a>
-        <a @click="$root.scanProdukQR()" class="fab-close">
-          <i class="icon icon-fill f7-icons ios-only">close_round_fill</i>
-          <i class="icon material-icons md-only">close</i>
-          <span class="tabbar-label">Batal</span>
-        </a>
-      </div>
-    </div>
-    end of FAB MORPH -->
 
     <div class="page-content ptr-content" @ptr:refresh="refreshPage">
       <div class ="ptr-preloader">
@@ -135,6 +119,41 @@
       pageInit: function() {
         var self = this;
         var app = self.$app;
+
+        $$('.scan-qr').on('click', function(){
+        // console.log(cordova.plugins.barcodeScanner);
+        // formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // IOS
+        // formats : "QR_CODE,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED"  //ANDROID
+        cordova.plugins.barcodeScanner.scan(
+              function (result) {
+                setTimeout(function() {
+                  resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
+                  toastScan = app.toast.create({text: resultScan, position: 'top', closeButton: true,});
+                  toastScan.open();
+                }, 0);
+              },
+              function (error) {
+                  alert("Scanning failed: " + error);
+              },
+              {
+                  preferFrontCamera : false, // iOS and Android
+                  showFlipCameraButton : true, // iOS and Android
+                  showTorchButton : true, // iOS and Android
+                  torchOn: false, // Android, launch with the torch switched on (if available)
+                  saveHistory: true, // Android, save scan history (default false)
+                  prompt : "Tempatkan barcode di dalam area", // Android
+                  resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                  formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                  //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
+                  disableAnimations : true, // iOS
+                  disableSuccessBeep: true // iOS and Android
+              }
+           );
+        });
+
+
+
+
         self.virtualList = self.$app.virtualList.create({
           // List Element
           el: self.$el.find('.virtual-list'),
@@ -149,7 +168,7 @@
             return found; //return array with mathced indexes
           },
           cache : false,
-          height: 100,
+          height: 115,
           // List item Template7 template
           itemTemplate:
           '<li key="{{iid}}" style="" class="swipeout">'+
@@ -159,7 +178,7 @@
                 '<div class="item-inner">'+
                   '<div class="item-title-row">'+
                     '<div class="item-title">{{iid}}</div>'+
-                    '<div class="item-after">{{formatRupiah bprice}}</div>'+
+                    '<div class="item-after">{{formatRupiah zsprice}}</div>'+
                   '</div>'+
                   '<div class="item-subtitle">{{iname}}</div>'+
                   '<div class="item-subtitle">{{icode}}</div>'+

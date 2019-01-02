@@ -80,6 +80,14 @@ $$('#view-home').on('tab:show', function () {
 // var qrView = app.views.create('#view-qr');
 
 
+// Option 2. Using live 'page:init' event handlers for each page
+$$(document).on('page:reinit', '.page[data-name="home"]', function (e) {
+// Do something here when page with data-name="about" attribute loaded and initialized
+var rSF = function(){ return Math.round(Math.random()*15)};
+    new Chartist.Line('.ct-chart', { labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], series: [ [rSF(), 9, 7, 8, 5, rSF()], [rSF(), 1, 3.5, 7, 3, rSF()], [rSF(), 3, 4, 5, 6, rSF()]  ]
+    }, {high: 15, low: 0, showArea: true, fullWidth: true, chartPadding: { right: 40 } });
+})
+
 
 // Login Screen Demo
 $$('#my-login-screen .login-button').on('click', function () {
@@ -143,97 +151,44 @@ $$('.convert-form-to-data').on('click', function(){
 });
 
 $$('.enc-barcode').on('click', function(){
-  // app.dialog.create({
-  //   title: 'Vertical Buttons',
-  //   text: 'Dialog with vertical buttons',
-  //   buttons: [
-  //     {
-  //       text: 'TEXT_TYPE', onClick: function () {
-  //         // app.dialog.alert('Button1 clicked')
-  //         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
-  //             alert("encode success: " + success);
-  //           }, function(fail) {
-  //             alert("encoding failed: " + fail);
-  //           }
-  //         );
-  //       }
-  //     },
-  //     {
-  //       text: 'PHONE_TYPE', onClick: function () {
-  //         // app.dialog.alert('Button1 clicked')
-  //         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.PHONE_TYPE, "085333669940", function(success) {
-  //             alert("encode success: " + success);
-  //           }, function(fail) {
-  //             alert("encoding failed: " + fail);
-  //           }
-  //         );
-  //       }
-  //     },
-  //     {
-  //       text: 'SMS_TYPE', onClick: function () {
-  //         // app.dialog.alert('Button1 clicked')
-  //         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.SMS_TYPE, "085333669940", function(success) {
-  //             alert("encode success: " + success);
-  //           }, function(fail) {
-  //             alert("encoding failed: " + fail);
-  //           }
-  //         );
-  //       }
-  //     },
-  //   ],
-  //   verticalButtons: true,
-  // }).open();
-
   cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
-              alert("encode success: " + success);
-            }, function(fail) {
-              alert("encoding failed: " + fail);
-            }
-          );
+      alert("encode success: " + success);
+    }, function(fail) {
+      alert("encoding failed: " + fail);
+    }
+  );
  
 });
 
 $$('.scan-qr').on('click', function(){
   // console.log(cordova.plugins.barcodeScanner);
-
-  cordova.plugins.barcodeScanner.scan(
-      function (result) {
-        setTimeout(function() {
-          resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
-          toastScan = app.toast.create({text: resultScan, position: 'top', closeButton: true,});
-          toastScan.open();
-        }, 0);
-        // alert("We got a barcode\n" +
-        //       "Result: " + result.text + "\n" +
-        //       "Format: " + result.format + "\n" +
-        //       "Cancelled: " + result.cancelled);
-      },
-      function (error) {
-          alert("Scanning failed: " + error);
-      },
-      {
-          preferFrontCamera : false, // iOS and Android
-          showFlipCameraButton : true, // iOS and Android
-          showTorchButton : true, // iOS and Android
-          torchOn: false, // Android, launch with the torch switched on (if available)
-          saveHistory: true, // Android, save scan history (default false)
-          prompt : "Tempatkan barcode di dalam area", // Android
-          resultDisplayDuration: 1000, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-          formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-          //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
-          disableAnimations : true, // iOS
-          disableSuccessBeep: true // iOS and Android
-      }
-   );
-
-
-      // cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", 
-      //   function(success) {
-      //     alert("encode success: " + success);
-      //   }, function(fail) {
-      //     alert("encoding failed: " + fail);
-      //   }
-      // );
+  // formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // IOS
+  // formats : "QR_CODE,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED"  //ANDROID
+  // cordova.plugins.barcodeScanner.scan(
+  //     function (result) {
+  //       setTimeout(function() {
+  //         resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
+  //         toastScan = app.toast.create({text: resultScan, position: 'top', closeButton: true,});
+  //         toastScan.open();
+  //       }, 0);
+  //     },
+  //     function (error) {
+  //         alert("Scanning failed: " + error);
+  //     },
+  //     {
+  //         preferFrontCamera : false, // iOS and Android
+  //         showFlipCameraButton : true, // iOS and Android
+  //         showTorchButton : true, // iOS and Android
+  //         torchOn: false, // Android, launch with the torch switched on (if available)
+  //         saveHistory: true, // Android, save scan history (default false)
+  //         prompt : "Tempatkan barcode di dalam area", // Android
+  //         resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+  //         formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+  //         //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
+  //         disableAnimations : true, // iOS
+  //         disableSuccessBeep: true // iOS and Android
+  //     }
+  //  );
 
 });
 

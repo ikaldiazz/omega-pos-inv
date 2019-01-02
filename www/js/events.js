@@ -35,6 +35,9 @@ events =
     // console.log($$('#app').hasClass('ketok'));
 
 
+
+
+
        $$('#user-context').html('Selamat Datang '+app.data.user.firstName);
     
 
