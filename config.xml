@@ -89,7 +89,6 @@
     <plugin name="phonegap-plugin-barcodescanner" spec="8.0.1" />
 
     <engine name="android" spec="^5.0.0" />
-    <engine name="ios" spec="^4.0.0" />
     
     <preference name="phonegap-version" value="cli-7.1.0" /> 
 
