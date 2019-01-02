@@ -18,10 +18,10 @@
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="orientation" value="portrait" />
-    <preference name="LoadUrlTimeoutValue" value="10000" />
-    <preference name="KeepRunning" value="true"/>
     <platform name="android">
+        <preference name="orientation" value="portrait" />
+        <preference name="LoadUrlTimeoutValue" value="10000" />
+        <preference name="KeepRunning" value="true"/>
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
         <preference name="android-build-tool" value="gradle" />
