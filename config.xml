@@ -8,7 +8,7 @@
         Mbutgae Developer
     </author>
     <content src="index.html" />
-    <content original-src="index.html" />
+    <!-- <content original-src="index.html" /> -->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -16,7 +16,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-intent href="market:*" />
+    <!-- <allow-intent href="market:*" /> -->
     <preference name="DisallowOverscroll" value="true" />
     <platform name="android">
         <preference name="orientation" value="portrait" />
