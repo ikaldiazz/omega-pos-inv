@@ -164,31 +164,31 @@ $$('.scan-qr').on('click', function(){
   // console.log(cordova.plugins.barcodeScanner);
   // formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // IOS
   // formats : "QR_CODE,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED"  //ANDROID
-  // cordova.plugins.barcodeScanner.scan(
-  //     function (result) {
-  //       setTimeout(function() {
-  //         resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
-  //         toastScan = app.toast.create({text: resultScan, position: 'top', closeButton: true,});
-  //         toastScan.open();
-  //       }, 0);
-  //     },
-  //     function (error) {
-  //         alert("Scanning failed: " + error);
-  //     },
-  //     {
-  //         preferFrontCamera : false, // iOS and Android
-  //         showFlipCameraButton : true, // iOS and Android
-  //         showTorchButton : true, // iOS and Android
-  //         torchOn: false, // Android, launch with the torch switched on (if available)
-  //         saveHistory: true, // Android, save scan history (default false)
-  //         prompt : "Tempatkan barcode di dalam area", // Android
-  //         resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-  //         formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-  //         //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
-  //         disableAnimations : true, // iOS
-  //         disableSuccessBeep: true // iOS and Android
-  //     }
-  //  );
+  cordova.plugins.barcodeScanner.scan(
+      function (result) {
+        setTimeout(function() {
+          resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
+          toastScan = app.toast.create({text: resultScan, position: 'bottom', closeButton: true,});
+          toastScan.open();
+        }, 0);
+      },
+      function (error) {
+          alert("Scanning failed: " + error);
+      },
+      {
+          preferFrontCamera : false, // iOS and Android
+          showFlipCameraButton : true, // iOS and Android
+          showTorchButton : true, // iOS and Android
+          torchOn: false, // Android, launch with the torch switched on (if available)
+          saveHistory: true, // Android, save scan history (default false)
+          prompt : "Tempatkan barcode di dalam area", // Android
+          resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations : true, // iOS
+          disableSuccessBeep: true // iOS and Android
+      }
+   );
 
 });
 

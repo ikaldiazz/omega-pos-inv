@@ -15,10 +15,10 @@
             <i class="icon material-icons md-only">search</i>
           </a>
         </div>
-        <form data-search-container=".virtual-list"  data-search-item="li" data-search-in=".swipeout-content" class="searchbar searchbar-expandable searchbar-demo searchbar-init">
+        <form id="search-product" data-search-container=".virtual-list"  data-search-item="li" data-search-in=".swipeout-content" class="searchbar searchbar-expandable searchbar-demo searchbar-init">
           <div class="searchbar-inner">
             <div class="searchbar-input-wrap">
-              <input type="search" placeholder="Search"/>
+              <input type="search" name="code" placeholder="Search"/>
               <i class="searchbar-icon"></i>
               <span class="input-clear-button"></span>
             </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="searchbar-backdrop"></div>
     <!-- FAB MORPH -->
-    <div class="fab fab-right-bottom scan-qr">
+    <div class="fab fab-right-bottom searchby-qr">
       <a href="#">
         <i class="icon f7-icons ios-only">sort_round_fill</i>
         <i class="icon material-icons md-only">camera_alt</i>
@@ -116,40 +116,18 @@
         var self = this;
         self.$app.virtualList.destroy();
       },
+      pageMounted: function() {
+        console.log('mounted');
+      },
       pageInit: function() {
         var self = this;
         var app = self.$app;
 
-        $$('.scan-qr').on('click', function(){
-        // console.log(cordova.plugins.barcodeScanner);
-        // formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // IOS
-        // formats : "QR_CODE,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED"  //ANDROID
-        cordova.plugins.barcodeScanner.scan(
-              function (result) {
-                setTimeout(function() {
-                  resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
-                  toastScan = app.toast.create({text: resultScan, position: 'top', closeButton: true,});
-                  toastScan.open();
-                }, 0);
-              },
-              function (error) {
-                  alert("Scanning failed: " + error);
-              },
-              {
-                  preferFrontCamera : false, // iOS and Android
-                  showFlipCameraButton : true, // iOS and Android
-                  showTorchButton : true, // iOS and Android
-                  torchOn: false, // Android, launch with the torch switched on (if available)
-                  saveHistory: true, // Android, save scan history (default false)
-                  prompt : "Tempatkan barcode di dalam area", // Android
-                  resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                  formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-                  //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
-                  disableAnimations : true, // iOS
-                  disableSuccessBeep: true // iOS and Android
-              }
-           );
+        document.addEventListener('keydown', function(event) {
+          console.log('Code : '+event.code);
+          console.log(event.keyCode);
         });
+
 
 
 
@@ -163,12 +141,12 @@
           searchAll: function (query, items) {
             var found = [];
             for (var i = 0; i < items.length; i++) {
-              if (items[i].iid.toString().toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].iname.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].icode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+              if (items[i].iid.toString().toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].iname.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].icode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].barcode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
             }
             return found; //return array with mathced indexes
           },
           cache : false,
-          height: 115,
+          height: 120,
           // List item Template7 template
           itemTemplate:
           '<li key="{{iid}}" style="" class="swipeout">'+
@@ -199,6 +177,40 @@
 
         // console.log(items);
         // console.log(self.item);
+        $$('.searchby-qr').on('click', function(){
+          $$('.searchbar-enable').click();
+
+        // console.log(cordova.plugins.barcodeScanner);
+        // formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // IOS
+        // formats : "QR_CODE,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED"  //ANDROID
+        cordova.plugins.barcodeScanner.scan(
+              function (result) {
+                $$('#search-product [name="code"]').click();
+                setTimeout(function() {
+                  resultScan = 'Result: ' + result.text + '\n' +'Format: ' + result.format + '\n' +'Cancelled: ' + result.cancelled;
+                  $$('#search-product [name="code"]').val(result.text);
+                  toastScan = app.toast.create({text: resultScan, position: 'bottom', closeButton: true,});
+                  toastScan.open();
+                }, 500);
+              },
+              function (error) {
+                  alert("Scanning failed: " + error);
+              },
+              {
+                  preferFrontCamera : false, // iOS and Android
+                  showFlipCameraButton : true, // iOS and Android
+                  showTorchButton : true, // iOS and Android
+                  torchOn: false, // Android, launch with the torch switched on (if available)
+                  saveHistory: true, // Android, save scan history (default false)
+                  prompt : "Tempatkan barcode di dalam area", // Android
+                  resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                  formats : "QR_CODE,DATA_MATRIX,,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,ITF,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                  //orientation : "", // Android only (portrait|landscape), default unset so it rotates with the device
+                  disableAnimations : true, // iOS
+                  disableSuccessBeep: true // iOS and Android
+              }
+           );
+        });
 
 
       }
